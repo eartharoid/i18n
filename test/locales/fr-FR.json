@@ -1,0 +1,10 @@
+{
+	"hello": "Bonjour!",
+	"hello_name": "Bonjour %s!",
+	"other": {
+		"age": [
+			"1 an",
+			"%d ans"
+		]
+	}
+}

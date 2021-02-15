@@ -1,0 +1,31 @@
+{
+	"name": "@eartharoid/i18n",
+	"version": "0.0.1",
+	"description": "Lightweight localisation",
+	"main": "lib/index.js",
+	"directories": {
+		"lib": "lib"
+	},
+	"files": [
+		"lib/"
+	],
+	"scripts": {
+		"test": "test/index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/eartharoid/i18n.git"
+	},
+	"keywords": [
+		"i18n"
+	],
+	"author": "eartharoid",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/eartharoid/i18n/issues"
+	},
+	"homepage": "https://github.com/eartharoid/i18n#readme",
+	"devDependencies": {
+		"eslint": "^7.20.0"
+	}
+}
