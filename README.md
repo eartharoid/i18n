@@ -1,10 +1,10 @@
 # i18n
 
-Lightweight localisation.
+Lightweight message localisation for NodeJS.
 
 ## Installation
 
-- `pnpm i @eartharoid/i18n` or
+- `pnpm add @eartharoid/i18n` or
 - `yarn add @eartharoid/i18n` or
 - `npm i @eartharoid/i18n`
 
@@ -33,7 +33,7 @@ See [test/index.js](https://github.com/eartharoid/i18n/blob/main/test/index.js).
 
 ```js
 const I18n = require('@eartharoid/i18n'); // require module
-const i18n = new I18n('src/locales', 'en-GB'); // create new instance, first value is the locales directory relative to where the process was started, second value is the default locale
+const i18n = new I18n('src/locales', 'en-GB'); // create new instance - first value is the locales directory, second value is the default locale
 
 const en = i18n.get(); // get default locale
 const fr = i18n.get('fr-FR'); // get specified locale

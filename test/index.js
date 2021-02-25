@@ -11,6 +11,7 @@ console.log('en', en('hello_name', 'Isaac'));
 console.log('fr', fr('hello_name', 'Isaac'));
 
 console.log('en', en('other.age', 1));
-console.log('en', en('other.age', 21));
 console.log('fr', fr('other.age', 1));
+
+console.log('en', en('other.age', 21));
 console.log('fr', fr('other.age', 21));

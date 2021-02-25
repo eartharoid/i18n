@@ -10,7 +10,7 @@
 		"lib/"
 	],
 	"scripts": {
-		"test": "test/index.js"
+		"test": "node test/index.js"
 	},
 	"repository": {
 		"type": "git",
