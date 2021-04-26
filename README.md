@@ -33,7 +33,7 @@ console.log(i18n.getMessage('russian', 'example'));
 
 i18n supports both positional and named placeholders.
 
-```json
+```js
 { // a locale object
 	"positional": {
 		"strings": "I like %s", 
@@ -87,7 +87,7 @@ or
 ]
 ```
 
-```json
+```js
 { // a locale object
 	"example1": [
 		"You only have one %s",
