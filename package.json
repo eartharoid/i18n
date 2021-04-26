@@ -1,22 +1,27 @@
 {
 	"name": "@eartharoid/i18n",
-	"version": "0.0.1",
-	"description": "Lightweight localisation",
-	"main": "lib/index.js",
-	"directories": {
-		"lib": "lib"
-	},
+	"version": "1.0.0",
+	"description": "Simple and lightweight message localisation",
+	"main": "dist/index.js",
+	"types": "types.d.ts",
 	"files": [
-		"lib/"
+		"dist/",
+		"types.d.ts"
 	],
 	"scripts": {
-		"test": "node test/index.js"
+		"build": "tsc",
+		"build-and-test": "npm run build && npm run test",
+		"lint": "eslint src --ext .ts",
+		"lint-and-fix": "eslint src --ext .ts --fix",
+		"test": "ava",
+		"watch:test": "ava --watch"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/eartharoid/i18n.git"
 	},
 	"keywords": [
+		"internationalisation",
 		"i18n"
 	],
 	"author": "eartharoid",
@@ -26,6 +31,10 @@
 	},
 	"homepage": "https://github.com/eartharoid/i18n#readme",
 	"devDependencies": {
-		"eslint": "^7.20.0"
+		"@types/node": "^14.14.41",
+		"@typescript-eslint/eslint-plugin": "^4.22.0",
+		"@typescript-eslint/parser": "^4.22.0",
+		"ava": "^3.15.0",
+		"eslint": "^7.25.0"
 	}
 }

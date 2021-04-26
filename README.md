@@ -1,6 +1,6 @@
 # i18n
 
-Lightweight message localisation for NodeJS.
+Simple and lightweight message localisation for JavaScript projects.
 
 ## Installation
 
@@ -10,46 +10,137 @@ Lightweight message localisation for NodeJS.
 
 ## Usage
 
-### Localisation files
+```js
+const I18n = require('@eartharoid/i18n');
+const i18n = new I18n('english', {
+	english: {
+		example: 'Hello, world'
+	},
+	russian: {
+		example: 'https://www.youtube.com/watch?v=bwnksI2ZoJI'
+	}
+});
 
-`en-GB.json`:
+// note: you should check if the locale exists in i18n.locales first
+const __ = i18n.getLocale('russian'); // get the locale
+console.log(__('example')); // -> https://www.youtube.com/watch?v=bwnksI2ZoJI
+
+// this code does exactly the same
+console.log(i18n.getMessage('russian', 'example'));
+```
+
+### Placeholders
+
+i18n supports both positional and named placeholders.
 
 ```json
-{
-	"hello": "Hello!",
-	"hello_name": "Hello, %s!",
-	"other": {
-		"age": [
-			"1 year old",
-			"%d years old"
-		]
+{ // a locale object
+	"positional": {
+		"strings": "I like %s", 
+		"numbers": "%d %s %d = %s"
+	},
+	"named": {
+		"example1": "Hi, I'm {name} and I am from {location}",
+		"example2": "Hi, I'm {person.name} and I am from {person.location}"
 	}
 }
 ```
 
-### Your code
-
-See [test/index.js](https://github.com/eartharoid/i18n/blob/main/test/index.js).
+> Also note that messages and named placeholders can be nested
 
 ```js
-const I18n = require('@eartharoid/i18n'); // require module
-const i18n = new I18n('src/locales', 'en-GB'); // create new instance - first value is the locales directory, second value is the default locale
+__('positional.strings', 'chocolate'); // I like chocolate
 
-const en = i18n.get(); // get default locale
-const fr = i18n.get('fr-FR'); // get specified locale
+__('positional.numbers', 5, 5, 10); // 5 + 5 = 10
 
-console.log('en', en('hello')); // get english translation of 'hello' key
-console.log('fr', fr('hello')); // get french translation of 'hello' key
+__('named.example1', {
+	name: 'Someone',
+	location: 'Somewhere'
+}); // Hi, I'm Someone and I am from Somewhere
 
-console.log('en', en('hello_name', 'Isaac')); // english with placeholder
-console.log('fr', fr('hello_name', 'Isaac')); // french with placeholder
-
-// keys can be nested
-console.log('en', en('other.age', 1)); // age[0] if first argument is 1
-console.log('en', en('other.age', 21)); // age[1] if first argument is not 1
-console.log('fr', fr('other.age', 1));
-console.log('fr', fr('other.age', 21));
+__('named.example2', {
+	person: {
+		name: 'Someone',
+		location: 'Somewhere'
+	}
+}); // Hi, I'm Someone and I am from Somewhere
 ```
+
+### Pluralisation
+
+i18n supports basic pluralisation. If the message is an array, **the first placeholder value will be eaten** and the correct message will be returned.
+
+```js
+[
+	"1",
+	"anything else"
+]
+```
+
+or
+
+```js
+[
+	"0",
+	"1",
+	"anything else"
+]
+```
+
+```json
+{ // a locale object
+	"example1": [
+		"You only have one %s",
+		"You have %d %ss"
+	],
+	"example2": [
+		"You don't have any {item}s",
+		"You only have one {item}",
+		"You have {number} {item}s"
+	]
+}
+```
+
+```js
+__('example1', 1, 1, 'item')
+__('example2', 0, {
+	number: 0,
+	item: 'car'
+})
+```
+
+### API
+
+#### `new I18n(default_locale, locales)`
+
+> Create a new I18n instance
+
+- `default_locale` - the name of the default locale
+- `locales` - an object of localised messages
+
+#### `I18n#default_locale`
+
+> The name of the default locale
+
+#### `I18n#locales`
+
+> An array of the names of the locales you created
+
+#### `I18n#getLocale(locale)`
+
+> Get a locale
+
+- `locale` - locale name
+
+Returns a function which calls [`I18n#getMessage`](#i18ngetmessagelocale-message-args) using the given locale name (or the default).
+
+#### `I18n#getMessage(locale, message, ..args)`
+
+> Get a message from a specifc
+
+- `locale` - locale name
+- `message` - dot notation string for the message
+- `...args` - placeholders/pluralisation
 
 ## Support
 
@@ -58,3 +149,9 @@ console.log('fr', fr('other.age', 21));
 ## Donate
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/eartharoid)
+
+## License
+
+[MIT license](https://github.com/eartharoid/i18n/blob/master/LICENSE).
+
+© 2021 Isaac Saunders
