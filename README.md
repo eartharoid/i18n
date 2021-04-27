@@ -37,7 +37,7 @@ i18n supports both positional and named placeholders.
 { // a locale object
 	"positional": {
 		"strings": "I like %s", 
-		"numbers": "%d %s %d = %s"
+		"numbers": "%d %s %d = %d"
 	},
 	"named": {
 		"example1": "Hi, I'm {name} and I am from {location}",
@@ -51,7 +51,7 @@ i18n supports both positional and named placeholders.
 ```js
 __('positional.strings', 'chocolate'); // I like chocolate
 
-__('positional.numbers', 5, 5, 10); // 5 + 5 = 10
+__('positional.numbers', 5, '+', 5, 10); // 5 + 5 = 10
 
 __('named.example1', {
 	name: 'Someone',
