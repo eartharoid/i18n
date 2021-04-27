@@ -1,7 +1,7 @@
 {
 	"simple": "This is as simple as it gets",
 	"positional_placeholders": {
-		"1": "This is an %s using positional placeholders",
+		"1": "This is an %s using positional placeholders (\\%s)",
 		"2": "This is an %s using %d positional placeholders"
 	},
 	"named_placeholders": {

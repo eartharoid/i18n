@@ -126,7 +126,7 @@ module.exports = class I18n {
 					return value === undefined ? $ : value;
 				});
 		} else {
-			const regex = /%(d|s)/gi;
+			const regex = /(?<!\\)%(d|s)/gi;
 			let i = 0;
 			return text
 				.replace(regex, () => args[i++]);
