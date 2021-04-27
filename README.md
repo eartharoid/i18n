@@ -134,7 +134,7 @@ __('example2', 0, {
 
 Returns a function which calls [`I18n#getMessage`](#i18ngetmessagelocale-message-args) using the given locale name (or the default).
 
-#### `I18n#getMessage(locale, message, ..args)`
+#### `I18n#getMessage(locale, message, ...args)`
 
 > Get a message from a specifc
 
