@@ -16,6 +16,20 @@ const I18n = require('../dist');
 const i18n = new I18n('original', locales);
 
 const test = require('ava');
+const isEqual = require('lodash.isequal');
+
+test('default_locale', t => {
+	const expected = 'original';
+	const actual = i18n.default_locale;
+	t.is(actual, expected);
+});
+
+test('locales', t => {
+	const expected = ['original', 'translated'];
+	const actual = i18n.locales;
+	if (isEqual(actual, expected)) t.pass();
+	else t.fail();
+});
 
 test('getLocale', t => {
 	let locale = i18n.getLocale();
