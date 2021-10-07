@@ -86,20 +86,14 @@ module.exports = class I18n {
 		message: string,
 		...args: MessageArgs
 	): string | undefined {
-		if (!this.locales.includes(locale))
-			throw new Error(`A locale with the name of "${locale}" does not exist`);
+		if (!this.locales.includes(locale)) throw new Error(`A locale with the name of "${locale}" does not exist`);
 
-		let text;
-
-		try {
-			text = this.resolve(this.messages[locale], message);
-		} catch (e) {
-			throw new Error(`"${message}" does not exist in the "${locale}" locale`);
-		}
+		let text = this.resolve(this.messages[locale], message) ?? this.resolve(this.messages[this.default_locale], message);
 
 		if (!text) return undefined;
 
-		if (!args) return text;
+		if (!args && typeof text === 'string') return text;
+		else if (!args) throw new Error(`"${message}" is an array and a number was not provided.`);
 
 		if (text instanceof Array) {
 			const number = args.shift();
@@ -119,17 +113,16 @@ module.exports = class I18n {
 
 		if (typeof args[0] === 'object') {
 			const regex = /(?<!\\){{1,2}\s?([A-Za-z0-9\-._:]+)\s?(?<!\\)}{1,2}/gi;
-			const data: NamedArgs = args[0]; 
-			return text
-				.replace(regex, ($, $1) => {
-					const value = this.resolve(data, $1);
-					return value === undefined ? $ : value;
-				});
+			const data: NamedArgs = args[0];
+			return text.replace(regex, ($: string, $1: string): string | undefined => {
+				const value = <string>this.resolve(data, $1);
+				return value === undefined ? $ : value;
+			});
 		} else {
 			const regex = /(?<!\\)%(d|s)/gi;
 			let i = 0;
 			return text
-				.replace(regex, () => args[i++]);
+				.replace(regex, () => <string>args[i++]);
 		}
 	}
 

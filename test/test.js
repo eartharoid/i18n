@@ -127,3 +127,9 @@ test('plural vehicles 3', t => {
 	});
 	t.is(actual, expected);
 });
+
+test('missing translation', t => {
+	const expected = 'Hello';
+	const actual = i18n.getMessage('translated', 'english_only');
+	t.is(actual, expected);
+});

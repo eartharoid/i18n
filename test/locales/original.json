@@ -18,5 +18,6 @@
 			"You own a single {vehicles.type}",
 			"You own {vehicles.count} {vehicles.type}s"
 		]
-	}
+	},
+	"english_only": "Hello"
 }
