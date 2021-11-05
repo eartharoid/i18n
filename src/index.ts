@@ -88,7 +88,8 @@ module.exports = class I18n {
 	): string | undefined {
 		if (!this.locales.includes(locale)) throw new Error(`A locale with the name of "${locale}" does not exist`);
 
-		let text = this.resolve(this.messages[locale], message) ?? this.resolve(this.messages[this.default_locale], message);
+		// || instead of ?? as empty strings should fallback
+		let text = this.resolve(this.messages[locale], message) || this.resolve(this.messages[this.default_locale], message);
 
 		if (!text) return undefined;
 
