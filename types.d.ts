@@ -17,13 +17,18 @@ declare module '@eartharoid/i18n' {
 	}
 
 	class I18n {
+		constructor(
+			default_locale: string,
+			locales: Locales
+		);
+
 		public default_locale: string;
 		public readonly locales: string[];
 		private readonly messages: Locales;
 
 		public getLocale: (
 			locale: string | undefined
-		) => Messages;
+		) => (message: string, ...args: MessageArgs) => string | undefined;
 
 		public getMessage: (
 			locale: string | undefined,
