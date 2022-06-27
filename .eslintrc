@@ -21,7 +21,7 @@
 	"rules": {
 		"@typescript-eslint/no-var-requires": ["off"],
 		"indent": ["warn", "tab"],
-		"linebreak-style": ["warn", "windows"],
+		"linebreak-style": ["warn", "unix"],
 		"no-console": ["error"],
 		"quotes": ["error", "single"],
 		"semi": ["error", "always"]

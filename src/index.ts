@@ -67,11 +67,12 @@ module.exports = class I18n {
 
 	/**
 	 * Get a locale
-	 * @param {string} [locale] - The locale to get  
+	 * @param {string} [locale] - The locale to get
+	 * @returns {(message: string, ...args: MessageArgs) => string | undefined}
 	 */
 	public getLocale(
 		locale: string | undefined = this.default_locale
-	) {
+	): (message: string, ...args: MessageArgs) => string | undefined {
 		return (message: string, ...args: MessageArgs) => this.getMessage(locale, message, ...args);
 	}
 
@@ -80,6 +81,7 @@ module.exports = class I18n {
 	 * @param {string} [locale] - The locale to get the message from
 	 * @param {string} message - The message to get
 	 * @param {MessageArgs} args - Placeholder values
+	 * @returns {string|undefined}
 	 */
 	public getMessage(
 		locale: string | undefined = this.default_locale,
@@ -128,19 +130,18 @@ module.exports = class I18n {
 	}
 
 	/**
- 	 * Resolve a value from an object using a dot notation string
- 	 * @param {Messages|MessageArgs} obj - The object containing the value
- 	 * @param {string} key - The dot notation string
- 	 * @returns {string|string[]|undefined}
- 	 */
+	 * Resolve a value from an object using a dot notation string
+	 * @param {Messages|MessageArgs} obj - The object containing the value
+	 * @param {string} key - The dot notation string
+	 * @returns {string|string[]|undefined}
+	 */
 	private resolve(
 		obj: Messages | MessageArgs | NamedArgs,
 		key: string
-	): string | string[] | undefined  {
+	): string | string[] | undefined {
 		const item: string | string[] | undefined = key
 			.split(/\./g)
 			.reduce((acc, part) => acc && acc[part], obj);
 		return item;
 	}
-
 };
