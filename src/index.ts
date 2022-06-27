@@ -88,6 +88,9 @@ module.exports = class I18n {
 		message: string,
 		...args: MessageArgs
 	): string | undefined {
+		// fallback to default locale if provided one is an empty string
+		locale ||= this.default_locale;
+
 		if (!this.locales.includes(locale)) throw new Error(`A locale with the name of "${locale}" does not exist`);
 
 		// || instead of ?? as empty strings should fallback
