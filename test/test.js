@@ -58,7 +58,7 @@ test('getMessage translated', t => {
 });
 
 test('positional placeholders 1', t => {
-	const expected = 'This is an example using positional placeholders (\\%s)';
+	const expected = 'This is an example using positional placeholders (%s)';
 	const actual = i18n.getMessage('original', 'positional_placeholders.1', 'example');
 	t.is(actual, expected);
 });
@@ -70,7 +70,7 @@ test('positional placeholders 2', t => {
 });
 
 test('named placeholders example', t => {
-	const expected = 'This is an example using \\{named\\} placeholders';
+	const expected = 'This is an example using {named} placeholders';
 	const actual = i18n.getMessage('original', 'named_placeholders.example', {
 		word: 'example'
 	});

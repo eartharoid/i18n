@@ -22,8 +22,8 @@ const i18n = new I18n('english', {
 });
 
 // note: you should check if the locale exists in i18n.locales first
-const __ = i18n.getLocale('russian'); // get the locale
-console.log(__('example')); // -> https://www.youtube.com/watch?v=bwnksI2ZoJI
+const messages = i18n.getLocale('russian'); // get the locale
+console.log(messages('example')); // -> https://www.youtube.com/watch?v=bwnksI2ZoJI
 
 // this code does exactly the same
 console.log(i18n.getMessage('russian', 'example'));
@@ -49,16 +49,16 @@ i18n supports both positional and named placeholders.
 > Also note that messages and named placeholders can be nested
 
 ```js
-__('positional.strings', 'chocolate'); // I like chocolate
+messages('positional.strings', 'chocolate'); // I like chocolate
 
-__('positional.numbers', 5, '+', 5, 10); // 5 + 5 = 10
+messages('positional.numbers', 5, '+', 5, 10); // 5 + 5 = 10
 
-__('named.example1', {
+messages('named.example1', {
 	name: 'Someone',
 	location: 'Somewhere'
 }); // Hi, I'm Someone and I am from Somewhere
 
-__('named.example2', {
+messages('named.example2', {
 	person: {
 		name: 'Someone',
 		location: 'Somewhere'
@@ -68,7 +68,7 @@ __('named.example2', {
 
 ### Pluralisation
 
-i18n supports basic pluralisation. If the message is an array, **the first placeholder value will be eaten** and the correct message will be returned.
+i18n supports basic pluralisation. If the message is an array, **the first placeholder value will be "eaten" (consumed)** and the correct message will be returned.
 
 ```js
 [
@@ -102,8 +102,8 @@ or
 ```
 
 ```js
-__('example1', 1, 1, 'item')
-__('example2', 0, {
+messages('example1', 1, 1, 'item')
+messages('example2', 0, {
 	number: 0,
 	item: 'car'
 })
@@ -154,4 +154,4 @@ Returns a function which calls [`I18n#getMessage`](#i18ngetmessagelocale-message
 
 [MIT license](https://github.com/eartharoid/i18n/blob/master/LICENSE).
 
-© 2021 Isaac Saunders
+© 2022 Isaac Saunders

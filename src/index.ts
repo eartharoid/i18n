@@ -118,17 +118,20 @@ module.exports = class I18n {
 		}
 
 		if (typeof args[0] === 'object') {
-			const regex = /(?<!\\){{1,2}\s?([A-Za-z0-9\-._:]+)\s?(?<!\\)}{1,2}/gi;
+			const regex = /\\?{{1,2}\s?([A-Za-z0-9\-._:]+)\s?}{1,2}/gi;
 			const data: NamedArgs = args[0];
 			return text.replace(regex, ($: string, $1: string): string | undefined => {
+				if ($.startsWith('\\')) return $.slice(1);
 				const value = <string>this.resolve(data, $1);
 				return value === undefined ? $ : value;
 			});
 		} else {
-			const regex = /(?<!\\)%(d|s)/gi;
+			const regex = /(\\?%(d|s))/gi;
 			let i = 0;
-			return text
-				.replace(regex, () => <string>args[i++]);
+			return text.replace(regex, ($: string) => {
+				if ($.startsWith('\\')) return $.slice(1);
+				else return <string>args[i++];
+			});
 		}
 	}
 

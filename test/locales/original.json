@@ -5,7 +5,7 @@
 		"2": "This is an %s using %d positional placeholders"
 	},
 	"named_placeholders": {
-		"example": "This is an {word} using \\{named\\} placeholders",
+		"example": "This is an {word} using \\{named} placeholders",
 		"hello": "Hello, {name}!"
 	},
 	"plural": {

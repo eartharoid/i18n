@@ -19,11 +19,27 @@
 		"ecmaVersion": 2021
 	},
 	"rules": {
-		"@typescript-eslint/no-var-requires": ["off"],
-		"indent": ["warn", "tab"],
-		"linebreak-style": ["warn", "unix"],
-		"no-console": ["error"],
-		"quotes": ["error", "single"],
-		"semi": ["error", "always"]
+		"@typescript-eslint/no-var-requires": [
+			"off"
+		],
+		"indent": [
+			"warn",
+			"tab"
+		],
+		"linebreak-style": [
+			"off",
+			"unix"
+		],
+		"no-console": [
+			"error"
+		],
+		"quotes": [
+			"error",
+			"single"
+		],
+		"semi": [
+			"error",
+			"always"
+		]
 	}
 }

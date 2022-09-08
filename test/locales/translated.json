@@ -5,7 +5,7 @@
 		"2": "Dette er et %s som bruker %d posisjonelle plassholdere"
 	},
 	"named_placeholders": {
-		"example": "Dette er ett {word} som bruker \\{named\\} plassholdere",
+		"example": "Dette er ett {word} som bruker \\{named} plassholdere",
 		"hello": "Hallo, {name}!"
 	},
 	"plural": {
