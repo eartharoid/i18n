@@ -156,7 +156,7 @@ Returns a function which calls [`I18n#getMessage`](#i18ngetmessagelocale-message
 - `locales` - array of locale names
 - `message` - dot notation string for the message
 - `...args` - placeholders/pluralisation
-- 
+
 ## Support
 
 [![Discord support server](https://discordapp.com/api/guilds/451745464480432129/widget.png?style=banner4)](https://lnk.earth/discord)
