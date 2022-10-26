@@ -126,6 +126,13 @@ messages('example2', 0, {
 
 > An array of the names of the locales you created
 
+#### `I18n#getAllMessages(message, ...args)`
+
+> Get a message in all locales
+
+- `message` - dot notation string for the message
+- `...args` - placeholders/pluralisation
+
 #### `I18n#getLocale(locale)`
 
 > Get a locale
@@ -136,12 +143,20 @@ Returns a function which calls [`I18n#getMessage`](#i18ngetmessagelocale-message
 
 #### `I18n#getMessage(locale, message, ...args)`
 
-> Get a message from a specifc
+> Get a message from a specific locale
 
 - `locale` - locale name
 - `message` - dot notation string for the message
 - `...args` - placeholders/pluralisation
 
+#### `I18n#getMessage(locales, message, ...args)`
+
+> Get a message from multiple locales
+
+- `locales` - array of locale names
+- `message` - dot notation string for the message
+- `...args` - placeholders/pluralisation
+- 
 ## Support
 
 [![Discord support server](https://discordapp.com/api/guilds/451745464480432129/widget.png?style=banner4)](https://lnk.earth/discord)

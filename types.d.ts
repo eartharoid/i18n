@@ -26,6 +26,11 @@ declare module '@eartharoid/i18n' {
 		public readonly locales: string[];
 		private readonly messages: Locales;
 
+		public getAllMessages: (
+			message: string,
+			...args: MessageArgs
+		) => Messages;
+
 		public getLocale: (
 			locale: string | undefined
 		) => (message: string, ...args: MessageArgs) => string | undefined;
@@ -35,6 +40,12 @@ declare module '@eartharoid/i18n' {
 			message: string,
 			...args: MessageArgs
 		) => string | undefined;
+
+		public getMessages: (
+			locales: string[],
+			message: string,
+			...args: MessageArgs
+		) => Messages;
 
 		private resolve: (
 			obj: Messages | MessageArgs | NamedArgs,

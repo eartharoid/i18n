@@ -133,3 +133,21 @@ test('missing translation', t => {
 	const actual = i18n.getMessage('translated', 'english_only');
 	t.is(actual, expected);
 });
+
+test('getMessages', t => {
+	const expected = {
+		original: 'This is as simple as it gets',
+		translated: 'Dette er så enkelt som det blir',
+	};
+	const actual = i18n.getMessages(['original', 'translated'], 'simple');
+	t.deepEqual(actual, expected);
+});
+
+test('getAllMessages', t => {
+	const expected = {
+		original: 'This is as simple as it gets',
+		translated: 'Dette er så enkelt som det blir',
+	};
+	const actual = i18n.getAllMessages('simple');
+	t.deepEqual(actual, expected);
+});

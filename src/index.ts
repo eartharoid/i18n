@@ -66,6 +66,19 @@ module.exports = class I18n {
 	}
 
 	/**
+	 * Get a message in all locales
+	 * @param {string} message - The message to get
+	 * @param {MessageArgs} args - Placeholder values
+	 * @returns {Messages}
+	 */
+	public getAllMessages(
+		message: string,
+		...args: MessageArgs
+	): Messages {
+		return this.getMessages(this.locales, message, ...args);
+	}
+
+	/**
 	 * Get a locale
 	 * @param {string} [locale] - The locale to get
 	 * @returns {(message: string, ...args: MessageArgs) => string | undefined}
@@ -133,6 +146,23 @@ module.exports = class I18n {
 				else return <string>args[i++];
 			});
 		}
+	}
+
+	/**
+	 * Get a message from multiple locales
+	 * @param {string[]} [locales] - The locales to get the message from
+	 * @param {string} message - The message to get
+	 * @param {MessageArgs} args - Placeholder values
+	 * @returns {Messages}
+	 */
+	public getMessages(
+		locales: string[],
+		message: string,
+		...args: MessageArgs
+	): Messages {
+		const messages = {};
+		locales.forEach(locale => messages[locale] = this.getMessage(locale, message, ...args));
+		return messages;
 	}
 
 	/**
