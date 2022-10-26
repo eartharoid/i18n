@@ -149,7 +149,7 @@ Returns a function which calls [`I18n#getMessage`](#i18ngetmessagelocale-message
 - `message` - dot notation string for the message
 - `...args` - placeholders/pluralisation
 
-#### `I18n#getMessage(locales, message, ...args)`
+#### `I18n#getMessages(locales, message, ...args)`
 
 > Get a message from multiple locales
 
