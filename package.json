@@ -1,6 +1,6 @@
 {
 	"name": "@eartharoid/i18n",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "Simple and lightweight message localisation",
 	"main": "dist/index.js",
 	"types": "types.d.ts",

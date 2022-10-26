@@ -32,11 +32,11 @@ declare module '@eartharoid/i18n' {
 		) => Messages;
 
 		public getLocale: (
-			locale: string | undefined
+			locale?: string
 		) => (message: string, ...args: MessageArgs) => string | undefined;
 
 		public getMessage: (
-			locale: string | undefined,
+			locale: string | null | undefined,
 			message: string,
 			...args: MessageArgs
 		) => string | undefined;

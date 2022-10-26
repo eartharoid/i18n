@@ -84,7 +84,7 @@ module.exports = class I18n {
 	 * @returns {(message: string, ...args: MessageArgs) => string | undefined}
 	 */
 	public getLocale(
-		locale: string | undefined = this.default_locale
+		locale: string = this.default_locale
 	): (message: string, ...args: MessageArgs) => string | undefined {
 		return (message: string, ...args: MessageArgs) => this.getMessage(locale, message, ...args);
 	}
@@ -97,7 +97,7 @@ module.exports = class I18n {
 	 * @returns {string|undefined}
 	 */
 	public getMessage(
-		locale: string | undefined = this.default_locale,
+		locale: string = this.default_locale,
 		message: string,
 		...args: MessageArgs
 	): string | undefined {
