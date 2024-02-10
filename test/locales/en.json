@@ -1,0 +1,44 @@
+{
+	"$meta": {
+		"locale": "en-GB-gregory-u-hc-h23",
+		"ordinals": {
+			"one": "%dst",
+			"two": "%dnd",
+			"few": "%drd",
+			"other": "%dth"
+		}
+	},
+	"simple": "This is as simple as it gets",
+	"positional_placeholders": {
+		"1": "This is an %s using positional placeholders (\\%s)",
+		"2": "This is an %s using %d positional placeholders"
+	},
+	"named_placeholders": {
+		"example": "This is an {word} using \\{named} placeholders",
+		"hello": "Hello, {name}!"
+	},
+	"plural": {
+		"age": {
+			"zero": "You were born recently (you'll never see this message)",
+			"one": "You were born a year ago",
+			"other": "You were born %d years ago"
+		},
+		"vehicles": {
+			"one": "You own a single {vehicles.type}",
+			"other": "You own {vehicles.count} {vehicles.type}s"
+		}
+	},
+	"ordinal": {
+		"position": {
+			"one": "You are %dst in the queue",
+			"two": "You are %dnd in the queue",
+			"few": "You are %drd in the queue",
+			"other": "You are %dth in the queue"
+		}
+	},
+	"english_only": {
+		"nested": {
+			"deeply": "Hello"
+		}
+	}
+}

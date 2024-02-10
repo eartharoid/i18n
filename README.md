@@ -1,6 +1,6 @@
 # i18n
 
-Simple and lightweight message localisation for JavaScript projects.
+*Simple, small, and fast localisation.*
 
 ## Installation
 

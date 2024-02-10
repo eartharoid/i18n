@@ -1,8 +1,10 @@
 {
 	"compilerOptions": {
-		"target": "es2015",
-		"module": "es2015",
-		"outDir": "dist"
+		"removeComments": true,
+		"target": "es2020",
+		"module": "es2020",
+		"outDir": "dist",
+		"moduleResolution": "node",
 	},
 	"include": ["src/**/*"]
 }

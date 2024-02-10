@@ -1,4 +1,7 @@
 {
+	"$meta": {
+		"locale": "no-gregory-u-hc-h23"
+	},
 	"simple": "Dette er så enkelt som det blir",
 	"positional_placeholders": {
 		"1": "Dette er et %s som bruker posisjonelle plassholdere",
@@ -9,14 +12,15 @@
 		"hello": "Hallo, {name}!"
 	},
 	"plural": {
-		"age": [
-			"Du ble født nylig",
-			"Du ble født for ett år siden",
-			"Du ble født %d år siden"
-		],
-		"vehicles": [
-			"Du eier en enkelt {vehicle.type}",
-			"Du eier {vehicle.count} {vehicles.type}er"
-		]
-	}
+		"age": {
+			"zero": "Du ble født nylig",
+			"one": "Du ble født for ett år siden",
+			"other": "Du ble født %d år siden"
+		},
+		"vehicles": {
+			"one": "Du eier en enkelt {vehicle.type}",
+			"other": "Du eier {vehicle.count} {vehicles.type}er"
+		}
+	},
+	"en": ""
 }

@@ -1,57 +1,82 @@
 declare module '@eartharoid/i18n' {
 
+	interface I18nLiteOptions {
+		default_locale: string,
+		named_placeholder_regex: RegExp,
+		positional_placeholder_regex: RegExp,
+	}
+
+	interface I18nOptions extends I18nLiteOptions {
+		defer_parsing: boolean,
+	}
+
+	type JSONMessage = string;
+
+	interface JSONMessages {
+		[key: string]: JSONMessages | JSONMessage
+	}
+
+	type Locales = Map<string, Locale>;
+
+	type MessageArgs = (string | number | number[] | NamedArgs)[]
+
 	interface NamedArgs {
-		[name: string]: string | number
+		[name: string]: string | number | NamedArgs
 	}
 
-	type MessageArgs = (string | number | NamedArgs)[]
-
-	type Message = string[] | string;
-
-	interface Messages {
-		[message: string]: Messages | Message
+	interface ParsedMessage {
+		o?: string,
+		t?: string,
+		p?: Record<number | string, number>
 	}
 
-	interface Locales {
-		[locale: string]: Messages
+	type ParsedMessages = Array<[string, ParsedMessage]>;
+
+	class Locale extends Map<string, ParsedMessage> {
+		public readonly i18n: I18nLite;
+		public readonly locale: string;
+
+		constructor(i18n: I18nLite, locale: string, messages: ParsedMessages)
+
+		public t(
+			key: string,
+			...args: MessageArgs
+		): string
 	}
 
-	class I18n {
-		constructor(
-			default_locale: string,
-			locales: Locales
-		);
-
+	class I18nLite {
+		public defer_parsing: boolean;
 		public default_locale: string;
-		public readonly locales: string[];
-		private readonly messages: Locales;
+		public locales: Locales;
 
-		public getAllMessages: (
-			message: string,
-			...args: MessageArgs
-		) => Messages;
+		constructor(options: Partial<I18nLiteOptions>);
 
-		public getLocale: (
-			locale?: string
-		) => (message: string, ...args: MessageArgs) => string | undefined;
+		public loadParsed(locale: string, messages: ParsedMessages): void
 
-		public getMessage: (
-			locale: string | null | undefined,
-			message: string,
-			...args: MessageArgs
-		) => string | undefined;
-
-		public getMessages: (
-			locales: string[],
-			message: string,
-			...args: MessageArgs
-		) => Messages;
-
-		private resolve: (
-			obj: Messages | MessageArgs | NamedArgs,
+		private resolve(
+			obj: NamedArgs,
 			key: string
-		) => string | string[] | undefined;
+		): string | number | undefined
+
+		public t(
+			locale: string,
+			key: string,
+			...args: MessageArgs
+		): string
 	}
 
-	export default I18n;
+	class I18n extends I18nLite {
+		public readonly named_placeholder_regex: RegExp;
+		public readonly positional_placeholder_regex: RegExp;
+
+		constructor(options?: Partial<I18nOptions>)
+
+		public extract(message: string): ParsedMessage
+
+		private flatten(messages: JSONMessage | JSONMessages): Record<string, JSONMessage>
+
+		public load(locale: string, messages: JSONMessages): void
+
+		public parse(messages: JSONMessages): ParsedMessages
+	}
 }
