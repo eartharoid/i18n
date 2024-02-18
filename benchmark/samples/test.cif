@@ -1,4 +1,4 @@
-#version=3
+#version=1
 ::buttons.accept_close_request
 emoji
 ✅
@@ -66,7 +66,7 @@ The message has been pinned.
 title
 ✅ Pinned message
 ::commands.slash.add
-added added 3 by 22
+added 3 added 22 by
 ➡️  has been added by .
 description
 Add a member to a ticket
@@ -88,7 +88,7 @@ The ticket to add the member to
 name
 ticket
 ::commands.slash.add.success
-description member 0 ticket 19
+description 0 member 19 ticket
  has been added to .
 title
 ✅ Added
@@ -106,7 +106,7 @@ title
 description
 Request a ticket to be closed
 ::commands.slash.close.invalid_time
-description input 1
+description 1 input
 `` is not a valid time format.
 title
 ❌ Invalid
@@ -124,7 +124,7 @@ The channel will be deleted in a few seconds.
 title
 ✅ Ticket closed
 ::commands.slash.force-close.confirm_multiple
-description count 25 time 75 tickets 78
+description 25 count 75 time 78 tickets
 You are about to close **** tickets that have been inactive for more than ``:\n\n
 title
 ❓ Are you sure?
@@ -137,7 +137,7 @@ Forcibly close a ticket
 name
 force-close
 ::commands.slash.force-close.no_tickets
-description time 65
+description 65 time
 There are no open tickets that have been inactive for more than ``.
 title
 ❌ No tickets
@@ -174,7 +174,7 @@ help
 ::commands.slash.help.response
 commands
 Commands
-description command 6
+description 6 command
 **Use  to create a ticket and get support.**
 ::commands.slash.help.response.links
 commands
@@ -196,7 +196,7 @@ Help
 ::commands.slash.move
 description
 Move a ticket to another category
-moved by 4 from 34 to 42
+moved 4 by 34 from 42 to
 🗃️  has moved this ticket from **** to ****.
 name
 move
@@ -243,7 +243,7 @@ The priority of the ticket
 name
 priority
 ::commands.slash.priority.success
-description priority 40
+description 40 priority
 This ticket's priority has been set to ``.
 title
 ✅ Priority set
@@ -273,10 +273,10 @@ The ticket to remove the member from
 name
 ticket
 ::commands.slash.remove
-removed removed 3 by 24
+removed 3 removed 24 by
 ⬅️  has been removed by .
 ::commands.slash.remove.success
-description member 0 ticket 23
+description 0 member 23 ticket
  has been removed from .
 title
 ✅ Removed
@@ -311,21 +311,21 @@ The member to list the tickets of
 name
 member
 ::commands.slash.tickets.response
-description transcript 4
+description 4 transcript
 Use  to download the transcript of a ticket.
 ::commands.slash.tickets.response.fields.closed
 name
 Closed tickets
 ::commands.slash.tickets.response.fields.closed.none
-other user 0
+other 0 user
  hasn't made any tickets.
-own new 34
+own 34 new
 You haven't made any tickets.\nUse  to open a ticket.\n
 ::commands.slash.tickets.response.fields.open
 name
 Open tickets
 ::commands.slash.tickets.response.title
-other displayName 0
+other 0 displayName
 's tickets
 own
 Your tickets
@@ -365,9 +365,9 @@ The member to transfer ownership to
 name
 member
 ::commands.slash.transfer
-transferred user 3 to 35
+transferred 3 user 35 to
 📨  has transferred this ticket to .
-transferred_from user 3 from 37 to 41
+transferred_from 3 user 37 from 41 to
 📨  has transferred this ticket from  to .
 ::commands.user.create
 name
@@ -383,17 +383,17 @@ Click the button below to create a ticket.
 title
 Please create a ticket
 ::commands.user.create.sent
-description user 0 category 42
+description 0 user 42 category
  has been invited to create a ticket in ****.
 title
 ✅ Prompt sent
 ::dm.closed
-archived guild 35
+archived 35 guild
 Use the `/transcript` command in **** to view the archived messages.
 ::dm.closed.fields.closed
 name
 Closed at
-value timestamp 0 duration 8
+value 0 timestamp 8 duration
  (after )
 ::dm.closed.fields
 closed_by
@@ -420,7 +420,7 @@ Do you want to open a ticket with the following topic?
 changes
 Changes
 ::log.admin.description
-joined user 0 verb 1 targetType 2
+joined 0 user 1 verb 2 targetType
   
 ::log.admin.description.target
 category
@@ -434,7 +434,7 @@ the settings
 tag
 a tag
 ::log.admin.title
-joined targetType 0 verb 1
+joined 0 targetType 1 verb
  
 ::log.admin.title.target
 category
@@ -455,11 +455,11 @@ deleted
 update
 updated
 ::log.message
-description user 0 verb 1
+description 0 user 1 verb
   a message
 message
 Message
-title verb 8
+title 8 verb
 Message 
 ::log.message.verb
 delete
@@ -469,13 +469,13 @@ updated
 ::log.ticket
 added
 Added members
-description user 0 verb 1
+description 0 user 1 verb
   a ticket
 removed
 Removed members
 ticket
 Ticket
-title verb 7
+title 7 verb
 Ticket 
 ::log.ticket.verb
 claim
@@ -505,7 +505,7 @@ The category has reached its maximum capacity.\nPlease try again later.\n
 title
 ❌ Category full
 ::misc.cooldown
-description time 12
+description 12 time
 Please wait  before creating another ticket in this category.
 title
 ❌ Please wait
@@ -526,7 +526,7 @@ You didn't respond in time. Please try again.
 title
 ⏰ Expired
 ::misc
-expires_in time 11
+expires_in 11 time
 Expires in 
 ::misc.invalid_ticket
 description
@@ -559,7 +559,7 @@ Please try a different category.
 title
 ❌ That ticket category doesn't exist
 ::misc.update
-description version 9 github 22 changelog 38 guide 57
+description 9 version 22 github 38 changelog 57 guide
 > [View `` on GitHub]()\n> [Changelog]()\n> [Update guide]()\n
 title
 An update is available
@@ -585,7 +585,7 @@ What is this ticket about?
 no_value
 *No response*
 ::ticket
-claimed user 3
+claimed 3 user
 🙌  has claimed this ticket.
 ::ticket.close.closed
 description
@@ -598,17 +598,17 @@ You don't have permission to close this ticket.
 title
 ❌ Error
 ::ticket.close
-rejected user 2
+rejected 2 user
 ✋  rejected a request to close this ticket.
 ::ticket.close.staff_request
 archived
 \nThe messages in this channel will be archived for future reference.\n
-description requestedBy 0
+description 0 requestedBy
  wants to close this ticket.\nClick "Accept" to close it now, or "Reject" if you still need help.\n
 title
 ❓ Can this ticket be closed?
 ::ticket.close.user_request
-title requestedBy 2
+title 2 requestedBy
 ❓  wants to close this ticket
 ::ticket.close
 wait_for_staff
@@ -616,12 +616,12 @@ wait_for_staff
 wait_for_user
 ✋ Please wait for the user to respond.
 ::ticket.closing_soon
-description timestamp 48
+description 48 timestamp
 This ticket will be closed due to inactivity <t::R>.\nSend a message to cancel this automation.\n
 title
 ⌛ This ticket will be closed soon
 ::ticket.created
-description channel 38
+description 38 channel
 Your ticket channel has been created: .
 title
 ✅ Ticket created
@@ -634,7 +634,7 @@ title
 feedback
 Thank you for your feedback.
 ::ticket.inactive
-description timestamp 56 close 97
+description 56 timestamp 97 close
 There hasn't been any activity in this channel since <t::R>.\nPlease continue the conversation or  the ticket.\n
 title
 ⏰ This ticket is inactive
@@ -644,13 +644,13 @@ There aren't any staff members available at the moment, so it may take longer th
 title
 😴 We're not online
 ::ticket.opening_message
-content staff 0 creator 1
+content 0 staff 1 creator
 \n has created a new ticket\n
 ::ticket.opening_message.fields
 topic
 Topic
 ::ticket.references_message
-description url 23 timestamp 30 author 34
+description 23 url 30 timestamp 34 author
 References [a message]() sent  by .
 title
 ℹ️ Reference
@@ -668,15 +668,15 @@ Topic
 title
 ℹ️ Reference
 ::ticket
-released user 3
+released 3 user
 ♻️  has released this ticket.
 ::ticket.working_hours.next
-description timestamp 28
+description 20 timestamp 28 timestamp
 We'll be back at <t::F> (<t::R>), although you may receive a response before then.
 title
 🕗 We're not working at the moment
 ::ticket.working_hours.today
-description timestamp 85
+description 71 timestamp 85 timestamp
 You may receive a response before, but we don't start working until <t::t> today (<t::R>).
 title
 🕗 We're not working at the moment

@@ -40,5 +40,6 @@
 		"nested": {
 			"deeply": "Hello"
 		}
-	}
+	},
+	"repeated": "{word} {word} {word} is repeated"
 }

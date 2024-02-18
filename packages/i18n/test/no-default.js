@@ -13,7 +13,9 @@ fs.readdirSync('test/locales')
 		locales[name] = JSON.parse(data);
 	});
 
-const i18n = new I18n();
+const i18n = new I18n({
+	defer_parsing: false,
+});
 for (const [k, v] of Object.entries(locales)) i18n.load(k, v);
 
 

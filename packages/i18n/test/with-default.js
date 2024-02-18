@@ -15,6 +15,7 @@ fs.readdirSync('test/locales')
 
 const i18n = new I18n({
 	default_locale_id: 'en',
+	defer_parsing: false,
 });
 for (const [k, v] of Object.entries(locales)) i18n.load(k, v);
 // i18n.locales.forEach((v, k) => fs.writeFileSync(`test/compiled/${k}.i18n.json`, JSON.stringify(Object.fromEntries(v), null, 2)));
@@ -161,5 +162,11 @@ test('ordinal 4 (.?o)', t => {
 test('missing translation', t => {
 	const expected = 'Hello';
 	const actual = i18n.t('no', 'english_only.nested.deeply');
+	t.is(actual, expected);
+});
+
+test('repeated', t => {
+	const expected = 'hello hello hello is repeated';
+	const actual = i18n.t('en', 'repeated', { word: 'hello' });
 	t.is(actual, expected);
 });

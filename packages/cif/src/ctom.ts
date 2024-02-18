@@ -6,13 +6,13 @@ import type {
 export default function ctom(cif: string): ParsedMessages {
 	const unmap = [];
 	const lines = cif.split(/\r?\n/);
-	let version = 3;
+	let version = 1;
 	if (lines[0].startsWith('#')) {
 		const comment = lines.shift().replace(/#\s*/, ''); // ! this mutates lines
 		const meta = new URLSearchParams(comment);
 		if (meta.has('version')) version = Number(meta.get('version'));
 	}
-	if (version === 3) {
+	if (version === 1) {
 		let prefix = '';
 		let op = 1;
 		for (const line of lines) {
@@ -25,10 +25,10 @@ export default function ctom(cif: string): ParsedMessages {
 				const key = prefix + parts[0];
 				const m: ParsedMessage = { t: '' };
 				if (parts.length > 1) {
-					m.p = {};
+					m.p = [];
 				}
 				for (let i = 1; i < parts.length; i += 2) {
-					m.p[parts[i]] = Number(parts[i + 1]);
+					m.p.push([Number(parts[i]), parts[i + 1]]);
 				}
 				unmap[unmap.length] = [key, m]; // supposed to be faster than push
 				op = 2;

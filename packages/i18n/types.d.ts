@@ -27,7 +27,7 @@ declare module '@eartharoid/i18n' {
 	interface ParsedMessage {
 		o?: string,
 		t?: string,
-		p?: Record<number | string, number>
+		p?: Array<[number, number | string]>
 	}
 
 	type ParsedMessages = Array<[string, ParsedMessage]>;

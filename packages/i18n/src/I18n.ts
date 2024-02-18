@@ -14,7 +14,7 @@ export default class I18n extends I18nLite {
 
 	constructor(options?: Partial<I18nOptions>) {
 		super(options);
-		this.defer_parsing = options?.defer_parsing ?? false;
+		this.defer_parsing = options?.defer_parsing ?? true;
 		/**
 		 * ? Negative lookbehind is now supported in Safari so could be used,
 		 * ? but we want to match escaped placeholders so we can unescape them 
@@ -43,8 +43,8 @@ export default class I18n extends I18nLite {
 			}
 			extracted.t = extracted.t.substring(0, match.index) + extracted.t.substring(match.index + match[0].length);
 			this.named_placeholder_regex.lastIndex -= match[0].length;
-			if (extracted.p === undefined) extracted.p = {};
-			extracted.p[count++] = match.index;
+			if (extracted.p === undefined) extracted.p = [];
+			extracted.p.push([match.index, count++]);
 		}
 
 		// if there are no positional placeholders, extract named placeholders
@@ -56,8 +56,8 @@ export default class I18n extends I18nLite {
 				}
 				extracted.t = extracted.t.substring(0, match.index) + extracted.t.substring(match.index + match[0].length);
 				this.named_placeholder_regex.lastIndex -= match[0].length;
-				if (extracted.p === undefined) extracted.p = {};
-				extracted.p[match.groups.name] = match.index;
+				if (extracted.p === undefined) extracted.p = [];
+				extracted.p.push([match.index, match.groups.name]);
 			}
 		}
 

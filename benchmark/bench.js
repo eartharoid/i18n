@@ -28,7 +28,7 @@ const benchmark = new Benchmarkify(
 benchmark.createSuite('Parsing & loading', { time: 10e3, description: 'How long does it take to parse the file and load the messages?' })
 
 	.setup(async () => {
-		i18n = new I18n();
+		i18n = new I18n({ defer_parsing: false });
 		i18n_deferred = new I18n({ defer_parsing: true });
 		i18next = await import('i18next');
 	})
@@ -68,7 +68,7 @@ benchmark.createSuite('Parsing & loading', { time: 10e3, description: 'How long 
 
 benchmark.createSuite('Translating', { description: 'Getting messages & interpolating placeholders' })
 	.setup(async () => {
-		i18n = new I18n();
+		i18n = new I18n({ defer_parsing: false });
 		i18n.load('test', parsed.json);
 		i18n_deferred = new I18n({ defer_parsing: true });
 		i18n_deferred.load('test', parsed.json);

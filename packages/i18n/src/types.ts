@@ -27,7 +27,7 @@ export interface NamedArgs {
 export interface ParsedMessage {
 	o?: string,
 	t?: string,
-	p?: Record<number | string, number>
+	p?: Array<[number, number | string]>
 }
 
 // export type ParsedMessages = Map<string, ParsedMessage | ParsedMessage[]>;

@@ -159,10 +159,16 @@
     "commands.slash.add.added",
     {
       "t": "➡️  has been added by .",
-      "p": {
-        "added": 3,
-        "by": 22
-      }
+      "p": [
+        [
+          3,
+          "added"
+        ],
+        [
+          22,
+          "by"
+        ]
+      ]
     }
   ],
   [
@@ -217,10 +223,16 @@
     "commands.slash.add.success.description",
     {
       "t": " has been added to .",
-      "p": {
-        "member": 0,
-        "ticket": 19
-      }
+      "p": [
+        [
+          0,
+          "member"
+        ],
+        [
+          19,
+          "ticket"
+        ]
+      ]
     }
   ],
   [
@@ -263,9 +275,12 @@
     "commands.slash.close.invalid_time.description",
     {
       "t": "`` is not a valid time format.",
-      "p": {
-        "input": 1
-      }
+      "p": [
+        [
+          1,
+          "input"
+        ]
+      ]
     }
   ],
   [
@@ -308,11 +323,20 @@
     "commands.slash.force-close.confirm_multiple.description",
     {
       "t": "You are about to close **** tickets that have been inactive for more than ``:\n\n",
-      "p": {
-        "count": 25,
-        "time": 75,
-        "tickets": 78
-      }
+      "p": [
+        [
+          25,
+          "count"
+        ],
+        [
+          75,
+          "time"
+        ],
+        [
+          78,
+          "tickets"
+        ]
+      ]
     }
   ],
   [
@@ -343,9 +367,12 @@
     "commands.slash.force-close.no_tickets.description",
     {
       "t": "There are no open tickets that have been inactive for more than ``.",
-      "p": {
-        "time": 65
-      }
+      "p": [
+        [
+          65,
+          "time"
+        ]
+      ]
     }
   ],
   [
@@ -436,9 +463,12 @@
     "commands.slash.help.response.description",
     {
       "t": "**Use  to create a ticket and get support.**",
-      "p": {
-        "command": 6
-      }
+      "p": [
+        [
+          6,
+          "command"
+        ]
+      ]
     }
   ],
   [
@@ -493,11 +523,20 @@
     "commands.slash.move.moved",
     {
       "t": "🗃️  has moved this ticket from **** to ****.",
-      "p": {
-        "by": 4,
-        "from": 34,
-        "to": 42
-      }
+      "p": [
+        [
+          4,
+          "by"
+        ],
+        [
+          34,
+          "from"
+        ],
+        [
+          42,
+          "to"
+        ]
+      ]
     }
   ],
   [
@@ -612,9 +651,12 @@
     "commands.slash.priority.success.description",
     {
       "t": "This ticket's priority has been set to ``.",
-      "p": {
-        "priority": 40
-      }
+      "p": [
+        [
+          40,
+          "priority"
+        ]
+      ]
     }
   ],
   [
@@ -687,20 +729,32 @@
     "commands.slash.remove.removed",
     {
       "t": "⬅️  has been removed by .",
-      "p": {
-        "removed": 3,
-        "by": 24
-      }
+      "p": [
+        [
+          3,
+          "removed"
+        ],
+        [
+          24,
+          "by"
+        ]
+      ]
     }
   ],
   [
     "commands.slash.remove.success.description",
     {
       "t": " has been removed from .",
-      "p": {
-        "member": 0,
-        "ticket": 23
-      }
+      "p": [
+        [
+          0,
+          "member"
+        ],
+        [
+          23,
+          "ticket"
+        ]
+      ]
     }
   ],
   [
@@ -785,9 +839,12 @@
     "commands.slash.tickets.response.description",
     {
       "t": "Use  to download the transcript of a ticket.",
-      "p": {
-        "transcript": 4
-      }
+      "p": [
+        [
+          4,
+          "transcript"
+        ]
+      ]
     }
   ],
   [
@@ -800,18 +857,24 @@
     "commands.slash.tickets.response.fields.closed.none.other",
     {
       "t": " hasn't made any tickets.",
-      "p": {
-        "user": 0
-      }
+      "p": [
+        [
+          0,
+          "user"
+        ]
+      ]
     }
   ],
   [
     "commands.slash.tickets.response.fields.closed.none.own",
     {
       "t": "You haven't made any tickets.\nUse  to open a ticket.\n",
-      "p": {
-        "new": 34
-      }
+      "p": [
+        [
+          34,
+          "new"
+        ]
+      ]
     }
   ],
   [
@@ -824,9 +887,12 @@
     "commands.slash.tickets.response.title.other",
     {
       "t": "'s tickets",
-      "p": {
-        "displayName": 0
-      }
+      "p": [
+        [
+          0,
+          "displayName"
+        ]
+      ]
     }
   ],
   [
@@ -923,21 +989,36 @@
     "commands.slash.transfer.transferred",
     {
       "t": "📨  has transferred this ticket to .",
-      "p": {
-        "user": 3,
-        "to": 35
-      }
+      "p": [
+        [
+          3,
+          "user"
+        ],
+        [
+          35,
+          "to"
+        ]
+      ]
     }
   ],
   [
     "commands.slash.transfer.transferred_from",
     {
       "t": "📨  has transferred this ticket from  to .",
-      "p": {
-        "user": 3,
-        "from": 37,
-        "to": 41
-      }
+      "p": [
+        [
+          3,
+          "user"
+        ],
+        [
+          37,
+          "from"
+        ],
+        [
+          41,
+          "to"
+        ]
+      ]
     }
   ],
   [
@@ -974,10 +1055,16 @@
     "commands.user.create.sent.description",
     {
       "t": " has been invited to create a ticket in ****.",
-      "p": {
-        "user": 0,
-        "category": 42
-      }
+      "p": [
+        [
+          0,
+          "user"
+        ],
+        [
+          42,
+          "category"
+        ]
+      ]
     }
   ],
   [
@@ -990,9 +1077,12 @@
     "dm.closed.archived",
     {
       "t": "Use the `/transcript` command in **** to view the archived messages.",
-      "p": {
-        "guild": 35
-      }
+      "p": [
+        [
+          35,
+          "guild"
+        ]
+      ]
     }
   ],
   [
@@ -1005,10 +1095,16 @@
     "dm.closed.fields.closed.value",
     {
       "t": " (after )",
-      "p": {
-        "timestamp": 0,
-        "duration": 8
-      }
+      "p": [
+        [
+          0,
+          "timestamp"
+        ],
+        [
+          8,
+          "duration"
+        ]
+      ]
     }
   ],
   [
@@ -1075,11 +1171,20 @@
     "log.admin.description.joined",
     {
       "t": "  ",
-      "p": {
-        "user": 0,
-        "verb": 1,
-        "targetType": 2
-      }
+      "p": [
+        [
+          0,
+          "user"
+        ],
+        [
+          1,
+          "verb"
+        ],
+        [
+          2,
+          "targetType"
+        ]
+      ]
     }
   ],
   [
@@ -1116,10 +1221,16 @@
     "log.admin.title.joined",
     {
       "t": " ",
-      "p": {
-        "targetType": 0,
-        "verb": 1
-      }
+      "p": [
+        [
+          0,
+          "targetType"
+        ],
+        [
+          1,
+          "verb"
+        ]
+      ]
     }
   ],
   [
@@ -1174,10 +1285,16 @@
     "log.message.description",
     {
       "t": "  a message",
-      "p": {
-        "user": 0,
-        "verb": 1
-      }
+      "p": [
+        [
+          0,
+          "user"
+        ],
+        [
+          1,
+          "verb"
+        ]
+      ]
     }
   ],
   [
@@ -1190,9 +1307,12 @@
     "log.message.title",
     {
       "t": "Message ",
-      "p": {
-        "verb": 8
-      }
+      "p": [
+        [
+          8,
+          "verb"
+        ]
+      ]
     }
   ],
   [
@@ -1217,10 +1337,16 @@
     "log.ticket.description",
     {
       "t": "  a ticket",
-      "p": {
-        "user": 0,
-        "verb": 1
-      }
+      "p": [
+        [
+          0,
+          "user"
+        ],
+        [
+          1,
+          "verb"
+        ]
+      ]
     }
   ],
   [
@@ -1239,9 +1365,12 @@
     "log.ticket.title",
     {
       "t": "Ticket ",
-      "p": {
-        "verb": 7
-      }
+      "p": [
+        [
+          7,
+          "verb"
+        ]
+      ]
     }
   ],
   [
@@ -1314,9 +1443,12 @@
     "misc.cooldown.description",
     {
       "t": "Please wait  before creating another ticket in this category.",
-      "p": {
-        "time": 12
-      }
+      "p": [
+        [
+          12,
+          "time"
+        ]
+      ]
     }
   ],
   [
@@ -1365,9 +1497,12 @@
     "misc.expires_in",
     {
       "t": "Expires in ",
-      "p": {
-        "time": 11
-      }
+      "p": [
+        [
+          11,
+          "time"
+        ]
+      ]
     }
   ],
   [
@@ -1446,12 +1581,24 @@
     "misc.update.description",
     {
       "t": "> [View `` on GitHub]()\n> [Changelog]()\n> [Update guide]()\n",
-      "p": {
-        "version": 9,
-        "github": 22,
-        "changelog": 38,
-        "guide": 57
-      }
+      "p": [
+        [
+          9,
+          "version"
+        ],
+        [
+          22,
+          "github"
+        ],
+        [
+          38,
+          "changelog"
+        ],
+        [
+          57,
+          "guide"
+        ]
+      ]
     }
   ],
   [
@@ -1512,9 +1659,12 @@
     "ticket.claimed",
     {
       "t": "🙌  has claimed this ticket.",
-      "p": {
-        "user": 3
-      }
+      "p": [
+        [
+          3,
+          "user"
+        ]
+      ]
     }
   ],
   [
@@ -1545,9 +1695,12 @@
     "ticket.close.rejected",
     {
       "t": "✋  rejected a request to close this ticket.",
-      "p": {
-        "user": 2
-      }
+      "p": [
+        [
+          2,
+          "user"
+        ]
+      ]
     }
   ],
   [
@@ -1560,9 +1713,12 @@
     "ticket.close.staff_request.description",
     {
       "t": " wants to close this ticket.\nClick \"Accept\" to close it now, or \"Reject\" if you still need help.\n",
-      "p": {
-        "requestedBy": 0
-      }
+      "p": [
+        [
+          0,
+          "requestedBy"
+        ]
+      ]
     }
   ],
   [
@@ -1575,9 +1731,12 @@
     "ticket.close.user_request.title",
     {
       "t": "❓  wants to close this ticket",
-      "p": {
-        "requestedBy": 2
-      }
+      "p": [
+        [
+          2,
+          "requestedBy"
+        ]
+      ]
     }
   ],
   [
@@ -1596,9 +1755,12 @@
     "ticket.closing_soon.description",
     {
       "t": "This ticket will be closed due to inactivity <t::R>.\nSend a message to cancel this automation.\n",
-      "p": {
-        "timestamp": 48
-      }
+      "p": [
+        [
+          48,
+          "timestamp"
+        ]
+      ]
     }
   ],
   [
@@ -1611,9 +1773,12 @@
     "ticket.created.description",
     {
       "t": "Your ticket channel has been created: .",
-      "p": {
-        "channel": 38
-      }
+      "p": [
+        [
+          38,
+          "channel"
+        ]
+      ]
     }
   ],
   [
@@ -1644,10 +1809,16 @@
     "ticket.inactive.description",
     {
       "t": "There hasn't been any activity in this channel since <t::R>.\nPlease continue the conversation or  the ticket.\n",
-      "p": {
-        "timestamp": 56,
-        "close": 97
-      }
+      "p": [
+        [
+          56,
+          "timestamp"
+        ],
+        [
+          97,
+          "close"
+        ]
+      ]
     }
   ],
   [
@@ -1672,10 +1843,16 @@
     "ticket.opening_message.content",
     {
       "t": "\n has created a new ticket\n",
-      "p": {
-        "staff": 0,
-        "creator": 1
-      }
+      "p": [
+        [
+          0,
+          "staff"
+        ],
+        [
+          1,
+          "creator"
+        ]
+      ]
     }
   ],
   [
@@ -1688,11 +1865,20 @@
     "ticket.references_message.description",
     {
       "t": "References [a message]() sent  by .",
-      "p": {
-        "url": 23,
-        "timestamp": 30,
-        "author": 34
-      }
+      "p": [
+        [
+          23,
+          "url"
+        ],
+        [
+          30,
+          "timestamp"
+        ],
+        [
+          34,
+          "author"
+        ]
+      ]
     }
   ],
   [
@@ -1735,18 +1921,28 @@
     "ticket.released",
     {
       "t": "♻️  has released this ticket.",
-      "p": {
-        "user": 3
-      }
+      "p": [
+        [
+          3,
+          "user"
+        ]
+      ]
     }
   ],
   [
     "ticket.working_hours.next.description",
     {
       "t": "We'll be back at <t::F> (<t::R>), although you may receive a response before then.",
-      "p": {
-        "timestamp": 28
-      }
+      "p": [
+        [
+          20,
+          "timestamp"
+        ],
+        [
+          28,
+          "timestamp"
+        ]
+      ]
     }
   ],
   [
@@ -1759,9 +1955,16 @@
     "ticket.working_hours.today.description",
     {
       "t": "You may receive a response before, but we don't start working until <t::t> today (<t::R>).",
-      "p": {
-        "timestamp": 85
-      }
+      "p": [
+        [
+          71,
+          "timestamp"
+        ],
+        [
+          85,
+          "timestamp"
+        ]
+      ]
     }
   ],
   [

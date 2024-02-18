@@ -1,7 +1,7 @@
 import type { ParsedMessages } from '@eartharoid/i18n';
 
 export default function mtoc(messages: ParsedMessages): string {
-	let cif = '#version=3\n';
+	let cif = '#version=1\n';
 	let prefix = '';
 	for (const [key, value] of messages) {
 		const parts = key.split('.');
@@ -14,8 +14,8 @@ export default function mtoc(messages: ParsedMessages): string {
 		}
 		cif += key.slice(prefix.length + 1);
 		if (value.p) {
-			Object.entries(value.p).forEach(([name, pos]) => {
-				cif += ' ' + name + ' ' + pos;
+			value.p.forEach(([pos, name]) => {
+				cif += ' ' + pos + ' ' + name;
 			});
 		}
 		cif += '\n' + value.t.replace(/\n/g, '\\n') + '\n';

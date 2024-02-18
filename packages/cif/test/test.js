@@ -9,7 +9,9 @@ let json = JSON.parse(
 	})
 );
 
-const i18n = new I18n();
+const i18n = new I18n({
+	defer_parsing: false,
+});
 const parsed = i18n.parse(json);
 fs.writeFileSync('test/test.i18n.json', JSON.stringify(parsed, null, 2));
 let cif;

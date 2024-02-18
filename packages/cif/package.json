@@ -33,11 +33,11 @@
 	"homepage": "https://github.com/eartharoid/i18n#readme",
 	"devDependencies": {
 		"@eartharoid/i18n": "workspace:^",
-		"@types/node": "^20.8.6",
-		"@typescript-eslint/eslint-plugin": "^4.22.0",
-		"@typescript-eslint/parser": "^4.22.0",
+		"@types/node": "^20.11.19",
+		"@typescript-eslint/eslint-plugin": "^4.33.0",
+		"@typescript-eslint/parser": "^4.33.0",
 		"ava": "^5.3.1",
-		"eslint": "^7.25.0",
-		"typescript": "^4.7.4"
+		"eslint": "^7.32.0",
+		"typescript": "^4.9.5"
 	}
 }

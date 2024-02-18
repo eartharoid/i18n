@@ -136,13 +136,13 @@ export default class I18nLite {
 
 		let offset = 0;
 		let filled = message.t;
-		if (!message.p) return filled;
-		for (const [name, position] of Object.entries(message.p)) {
-			if (Array.isArray(args[0])) {
+		if (message.p === undefined) return filled;
+		for (const [position, name] of message.p) {
+			if (args[0] instanceof Array) {
 				throw new Error('Arrays are for pluralisation and cannot be used for interpolation.');
 			}
 			const corrected = position + offset;
-			const value = (typeof args[0] === 'object' ? this.resolve(args[0], name) : args[Number(name)])?.toString();
+			const value = (typeof args[0] === 'object' ? this.resolve(args[0], String(name)) : args[Number(name)])?.toString();
 			if (value === undefined) throw new Error(`A value for the "${name}" placeholder is required`);
 			filled = filled.slice(0, corrected) + value + filled.slice(corrected);
 			offset += value.length;
