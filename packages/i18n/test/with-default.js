@@ -1,4 +1,4 @@
-import I18n from '../dist/index.js';
+import { I18n } from '../dist/index.js';
 import fs from 'fs';
 import test from 'ava';
 
@@ -13,16 +13,16 @@ fs.readdirSync('test/locales')
 		locales[name] = JSON.parse(data);
 	});
 
-const i18n = new I18n.I18n({
-	default_locale: 'en',
+const i18n = new I18n({
+	default_locale_id: 'en',
 });
 for (const [k, v] of Object.entries(locales)) i18n.load(k, v);
 // i18n.locales.forEach((v, k) => fs.writeFileSync(`test/compiled/${k}.i18n.json`, JSON.stringify(Object.fromEntries(v), null, 2)));
 
 
-test('default_locale', t => {
+test('default_locale_id', t => {
 	const expected = 'en';
-	const actual = i18n.default_locale;
+	const actual = i18n.default_locale_id;
 	t.is(actual, expected);
 });
 

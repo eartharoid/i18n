@@ -1,0 +1,682 @@
+#version=3
+::buttons.accept_close_request
+emoji
+✅
+text
+Accept
+::buttons.cancel
+emoji
+➖
+text
+Cancel
+::buttons.claim
+emoji
+🙌
+text
+Claim
+::buttons.close
+emoji
+✖️
+text
+Close
+::buttons.confirm_open
+emoji
+✅
+text
+Create ticket
+::buttons.create
+emoji
+🎫
+text
+Create a ticket
+::buttons.edit
+emoji
+✏️
+text
+Edit
+::buttons.reject_close_request
+emoji
+✖️
+text
+Reject
+::buttons.unclaim
+emoji
+♻️
+text
+Release
+::commands.message.create
+name
+Create ticket from message
+::commands.message.pin
+name
+Pin message
+::commands.message.pin.not_pinnable
+description
+This message can't be pinned.\nPlease ask an administrator to check the bot's permissions.\n
+title
+❌ Error
+::commands.message.pin.not_ticket
+description
+You can only pin messages in tickets.
+title
+❌ This isn't a ticket channel
+::commands.message.pin.pinned
+description
+The message has been pinned.
+title
+✅ Pinned message
+::commands.slash.add
+added added 3 by 22
+➡️  has been added by .
+description
+Add a member to a ticket
+name
+add
+::commands.slash.add.not_staff
+description
+Only staff members can add members to others' tickets.
+title
+❌ Error
+::commands.slash.add.options.member
+description
+The member to add to the ticket
+name
+member
+::commands.slash.add.options.ticket
+description
+The ticket to add the member to
+name
+ticket
+::commands.slash.add.success
+description member 0 ticket 19
+ has been added to .
+title
+✅ Added
+::commands.slash.claim
+description
+Claim a ticket
+name
+claim
+::commands.slash.claim.not_staff
+description
+Only staff members can claim tickets.
+title
+❌ Error
+::commands.slash.close
+description
+Request a ticket to be closed
+::commands.slash.close.invalid_time
+description input 1
+`` is not a valid time format.
+title
+❌ Invalid
+::commands.slash.close
+name
+close
+::commands.slash.close.options.reason
+description
+The reason for closing the ticket
+name
+reason
+::commands.slash.force-close.closed_one
+description
+The channel will be deleted in a few seconds.
+title
+✅ Ticket closed
+::commands.slash.force-close.confirm_multiple
+description count 25 time 75 tickets 78
+You are about to close **** tickets that have been inactive for more than ``:\n\n
+title
+❓ Are you sure?
+::commands.slash.force-close.confirmed_multiple
+description
+The channels will be deleted in a few seconds.
+::commands.slash.force-close
+description
+Forcibly close a ticket
+name
+force-close
+::commands.slash.force-close.no_tickets
+description time 65
+There are no open tickets that have been inactive for more than ``.
+title
+❌ No tickets
+::commands.slash.force-close.not_staff
+description
+Only staff members can force-close tickets.
+title
+❌ Error
+::commands.slash.force-close.options.category
+description
+Close all tickets in the specified category (must be used with `time`)
+name
+category
+::commands.slash.force-close.options.reason
+description
+The reason for closing the ticket(s)
+name
+reason
+::commands.slash.force-close.options.ticket
+description
+The ticket to close
+name
+ticket
+::commands.slash.force-close.options.time
+description
+Close all tickets that have been inactive for the specified time
+name
+time
+::commands.slash.help
+description
+Show the help menu
+name
+help
+::commands.slash.help.response
+commands
+Commands
+description command 6
+**Use  to create a ticket and get support.**
+::commands.slash.help.response.links
+commands
+Full command list
+docs
+Documentation
+feedback
+Feedback
+links
+Useful links
+support
+Support
+::commands.slash.help.response
+settings
+Bot settings
+::commands.slash.help
+title
+Help
+::commands.slash.move
+description
+Move a ticket to another category
+moved by 4 from 34 to 42
+🗃️  has moved this ticket from **** to ****.
+name
+move
+::commands.slash.move.not_staff
+description
+Only staff members can move tickets.
+title
+❌ Error
+::commands.slash.move.options.category
+description
+The category to move the ticket to
+name
+category
+::commands.slash.new
+description
+Create a new ticket
+name
+new
+::commands.slash.new.options.references
+description
+The number of a related ticket
+name
+references
+::commands.slash.priority
+description
+Set the priority of a ticket
+name
+priority
+::commands.slash.priority.not_staff
+description
+Only staff members can change the priority of tickets.
+title
+❌ Error
+::commands.slash.priority.options.priority.choices
+HIGH
+🔴 High
+LOW
+🟢 Low
+MEDIUM
+🟠 Medium
+::commands.slash.priority.options.priority
+description
+The priority of the ticket
+name
+priority
+::commands.slash.priority.success
+description priority 40
+This ticket's priority has been set to ``.
+title
+✅ Priority set
+::commands.slash.release
+description
+Release (unclaim) a ticket
+name
+release
+::commands.slash.remove
+description
+Remove a member from a ticket
+name
+remove
+::commands.slash.remove.not_staff
+description
+Only staff members can remove members from others' tickets.
+title
+❌ Error
+::commands.slash.remove.options.member
+description
+The member to remove from the ticket
+name
+member
+::commands.slash.remove.options.ticket
+description
+The ticket to remove the member from
+name
+ticket
+::commands.slash.remove
+removed removed 3 by 24
+⬅️  has been removed by .
+::commands.slash.remove.success
+description member 0 ticket 23
+ has been removed from .
+title
+✅ Removed
+::commands.slash.tag
+description
+Use a tag
+name
+tag
+::commands.slash.tag.options.for
+description
+The user to target the tag to
+name
+for
+::commands.slash.tag.options.tag
+description
+The name of the tag to use
+name
+tag
+::commands.slash.tickets
+description
+List your own or someone else's tickets
+name
+tickets
+::commands.slash.tickets.not_staff
+description
+Only staff members can view others' tickets.
+title
+❌ Error
+::commands.slash.tickets.options.member
+description
+The member to list the tickets of
+name
+member
+::commands.slash.tickets.response
+description transcript 4
+Use  to download the transcript of a ticket.
+::commands.slash.tickets.response.fields.closed
+name
+Closed tickets
+::commands.slash.tickets.response.fields.closed.none
+other user 0
+ hasn't made any tickets.
+own new 34
+You haven't made any tickets.\nUse  to open a ticket.\n
+::commands.slash.tickets.response.fields.open
+name
+Open tickets
+::commands.slash.tickets.response.title
+other displayName 0
+'s tickets
+own
+Your tickets
+::commands.slash.topic
+description
+Change the topic of a ticket
+name
+topic
+::commands.slash.transcript
+description
+Get the transcript of a ticket
+name
+transcript
+::commands.slash.transcript.not_staff
+description
+Only staff members can read the transcripts of others' tickets.
+title
+❌ Error
+::commands.slash.transcript.options.member
+description
+The member to search for tickets of
+name
+member
+::commands.slash.transcript.options.ticket
+description
+The ticket to get the transcript of
+name
+ticket
+::commands.slash.transfer
+description
+Transfer ownership of a ticket to another member
+name
+transfer
+::commands.slash.transfer.options.member
+description
+The member to transfer ownership to
+name
+member
+::commands.slash.transfer
+transferred user 3 to 35
+📨  has transferred this ticket to .
+transferred_from user 3 from 37 to 41
+📨  has transferred this ticket from  to .
+::commands.user.create
+name
+Create ticket for user
+::commands.user.create.not_staff
+description
+Only staff members can open tickets for other members.
+title
+❌ Error
+::commands.user.create.prompt
+description
+Click the button below to create a ticket.
+title
+Please create a ticket
+::commands.user.create.sent
+description user 0 category 42
+ has been invited to create a ticket in ****.
+title
+✅ Prompt sent
+::dm.closed
+archived guild 35
+Use the `/transcript` command in **** to view the archived messages.
+::dm.closed.fields.closed
+name
+Closed at
+value timestamp 0 duration 8
+ (after )
+::dm.closed.fields
+closed_by
+Closed by
+created
+Created at
+feedback
+Your feedback
+reason
+Closed because
+response
+Response time
+ticket
+Ticket
+topic
+Topic
+::dm.closed
+title
+Your ticket has been closed
+::dm.confirm_open
+title
+Do you want to open a ticket with the following topic?
+::log.admin
+changes
+Changes
+::log.admin.description
+joined user 0 verb 1 targetType 2
+  
+::log.admin.description.target
+category
+a category
+panel
+a panel
+question
+a question
+settings
+the settings
+tag
+a tag
+::log.admin.title
+joined targetType 0 verb 1
+ 
+::log.admin.title.target
+category
+Category
+panel
+Panel
+question
+Question
+settings
+Settings
+tag
+Tag
+::log.admin.verb
+create
+created
+delete
+deleted
+update
+updated
+::log.message
+description user 0 verb 1
+  a message
+message
+Message
+title verb 8
+Message 
+::log.message.verb
+delete
+deleted
+update
+updated
+::log.ticket
+added
+Added members
+description user 0 verb 1
+  a ticket
+removed
+Removed members
+ticket
+Ticket
+title verb 7
+Ticket 
+::log.ticket.verb
+claim
+claimed
+close
+closed
+create
+created
+unclaim
+released
+update
+updated
+::menus.category
+placeholder
+Select a ticket category
+::menus.guild
+placeholder
+Select a server
+::misc.blocked
+description
+You are not allowed to create tickets.
+title
+❌ Blocked
+::misc.category_full
+description
+The category has reached its maximum capacity.\nPlease try again later.\n
+title
+❌ Category full
+::misc.cooldown
+description time 12
+Please wait  before creating another ticket in this category.
+title
+❌ Please wait
+::misc.error
+description
+Sorry, an unexpected error occurred.\nPlease give this information to an administrator.\n
+::misc.error.fields
+code
+Error code
+identifier
+Identifier
+::misc.error
+title
+⚠️ Something went wrong
+::misc.expired
+description
+You didn't respond in time. Please try again.
+title
+⏰ Expired
+::misc
+expires_in time 11
+Expires in 
+::misc.invalid_ticket
+description
+Please specify a valid ticket.
+title
+❌ Invalid ticket
+::misc.missing_roles
+description
+You do not have the roles required to be able to create a ticket in this category.
+title
+❌ Insufficient roles
+::misc.no_categories
+description
+No ticket categories have been configured.
+title
+❌ There are no ticket categories
+::misc.not_ticket
+description
+You can only use this command in tickets.
+title
+❌ This isn't a ticket channel
+::misc.ratelimited
+description
+Try again in a few seconds.
+title
+🐢 Please slow down
+::misc.unknown_category
+description
+Please try a different category.
+title
+❌ That ticket category doesn't exist
+::misc.update
+description version 9 github 22 changelog 38 guide 57
+> [View `` on GitHub]()\n> [Changelog]()\n> [Update guide]()\n
+title
+An update is available
+::modals.feedback.comment
+label
+Comment
+placeholder
+Do you have any additional feedback?
+::modals.feedback.rating
+label
+Rating
+placeholder
+1-5
+::modals.feedback
+title
+How did we do?
+::modals.topic
+label
+Topic
+placeholder
+What is this ticket about?
+::ticket.answers
+no_value
+*No response*
+::ticket
+claimed user 3
+🙌  has claimed this ticket.
+::ticket.close.closed
+description
+This channel will be deleted in a few seconds…
+title
+✅ Ticket closed
+::ticket.close.forbidden
+description
+You don't have permission to close this ticket.
+title
+❌ Error
+::ticket.close
+rejected user 2
+✋  rejected a request to close this ticket.
+::ticket.close.staff_request
+archived
+\nThe messages in this channel will be archived for future reference.\n
+description requestedBy 0
+ wants to close this ticket.\nClick "Accept" to close it now, or "Reject" if you still need help.\n
+title
+❓ Can this ticket be closed?
+::ticket.close.user_request
+title requestedBy 2
+❓  wants to close this ticket
+::ticket.close
+wait_for_staff
+✋ Please wait for staff to close this ticket.
+wait_for_user
+✋ Please wait for the user to respond.
+::ticket.closing_soon
+description timestamp 48
+This ticket will be closed due to inactivity <t::R>.\nSend a message to cancel this automation.\n
+title
+⌛ This ticket will be closed soon
+::ticket.created
+description channel 38
+Your ticket channel has been created: .
+title
+✅ Ticket created
+::ticket.edited
+description
+Your changes have been saved.
+title
+✅ Ticket updated
+::ticket
+feedback
+Thank you for your feedback.
+::ticket.inactive
+description timestamp 56 close 97
+There hasn't been any activity in this channel since <t::R>.\nPlease continue the conversation or  the ticket.\n
+title
+⏰ This ticket is inactive
+::ticket.offline
+description
+There aren't any staff members available at the moment, so it may take longer than usual to get a response.
+title
+😴 We're not online
+::ticket.opening_message
+content staff 0 creator 1
+\n has created a new ticket\n
+::ticket.opening_message.fields
+topic
+Topic
+::ticket.references_message
+description url 23 timestamp 30 author 34
+References [a message]() sent  by .
+title
+ℹ️ Reference
+::ticket.references_ticket
+description
+This ticket is related to a previous ticket:
+::ticket.references_ticket.fields
+date
+Created at
+number
+Number
+topic
+Topic
+::ticket.references_ticket
+title
+ℹ️ Reference
+::ticket
+released user 3
+♻️  has released this ticket.
+::ticket.working_hours.next
+description timestamp 28
+We'll be back at <t::F> (<t::R>), although you may receive a response before then.
+title
+🕗 We're not working at the moment
+::ticket.working_hours.today
+description timestamp 85
+You may receive a response before, but we don't start working until <t::t> today (<t::R>).
+title
+🕗 We're not working at the moment

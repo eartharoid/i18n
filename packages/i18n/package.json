@@ -1,0 +1,42 @@
+{
+	"name": "@eartharoid/i18n",
+	"version": "2.0.0",
+	"description": "Simple and lightweight message localisation",
+	"main": "dist/index.js",
+	"type": "module",
+	"types": "types.d.ts",
+	"files": [
+		"dist/",
+		"types.d.ts"
+	],
+	"scripts": {
+		"build": "tsc",
+		"build-and-test": "npm run build && npm run test",
+		"lint": "eslint src --ext .ts",
+		"lint-and-fix": "eslint src --ext .ts --fix",
+		"test": "ava",
+		"watch:test": "ava --watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/eartharoid/i18n.git"
+	},
+	"keywords": [
+		"internationalisation",
+		"i18n"
+	],
+	"author": "eartharoid",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/eartharoid/i18n/issues"
+	},
+	"homepage": "https://github.com/eartharoid/i18n#readme",
+	"devDependencies": {
+		"@types/node": "^20.8.6",
+		"@typescript-eslint/eslint-plugin": "^4.22.0",
+		"@typescript-eslint/parser": "^4.22.0",
+		"ava": "^5.3.1",
+		"eslint": "^7.25.0",
+		"typescript": "^4.7.4"
+	}
+}

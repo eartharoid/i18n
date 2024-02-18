@@ -1,7 +1,7 @@
 declare module '@eartharoid/i18n' {
 
 	interface I18nLiteOptions {
-		default_locale: string,
+		default_locale_id: string,
 		named_placeholder_regex: RegExp,
 		positional_placeholder_regex: RegExp,
 	}
@@ -46,12 +46,12 @@ declare module '@eartharoid/i18n' {
 
 	class I18nLite {
 		public defer_parsing: boolean;
-		public default_locale: string;
+		public default_locale_id: string;
 		public locales: Locales;
 
 		constructor(options: Partial<I18nLiteOptions>);
 
-		public loadParsed(locale: string, messages: ParsedMessages): void
+		public loadParsed(locale: string, messages: ParsedMessages): Locale
 
 		private resolve(
 			obj: NamedArgs,
@@ -75,7 +75,7 @@ declare module '@eartharoid/i18n' {
 
 		private flatten(messages: JSONMessage | JSONMessages): Record<string, JSONMessage>
 
-		public load(locale: string, messages: JSONMessages): void
+		public load(locale: string, messages: JSONMessages): Locale
 
 		public parse(messages: JSONMessages): ParsedMessages
 	}

@@ -5,6 +5,7 @@ import type {
 	ParsedMessage,
 	ParsedMessages,
 } from './types.js';
+import type Locale from './Locale.js';
 import I18nLite from './I18nLite.js';
 
 export default class I18n extends I18nLite {
@@ -84,8 +85,8 @@ export default class I18n extends I18nLite {
 	 * @param {string} locale 
 	 * @param {JSONMessages} messages 
 	 */
-	public load(locale: string, messages: JSONMessages): void {
-		this.loadParsed(locale, this.parse(messages));
+	public load(locale: string, messages: JSONMessages): Locale {
+		return this.loadParsed(locale, this.parse(messages));
 	}
 
 	public parse(messages: JSONMessages): ParsedMessages {

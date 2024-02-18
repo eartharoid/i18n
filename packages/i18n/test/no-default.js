@@ -1,4 +1,4 @@
-import I18n from '../dist/index.js';
+import { I18n } from '../dist/index.js';
 import fs from 'fs';
 import test from 'ava';
 
@@ -13,7 +13,7 @@ fs.readdirSync('test/locales')
 		locales[name] = JSON.parse(data);
 	});
 
-const i18n = new I18n.I18n();
+const i18n = new I18n();
 for (const [k, v] of Object.entries(locales)) i18n.load(k, v);
 
 

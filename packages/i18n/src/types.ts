@@ -1,7 +1,7 @@
 import type Locale from './Locale.js';
 
 export interface I18nLiteOptions {
-	default_locale: string,
+	default_locale_id: string,
 	named_placeholder_regex: RegExp,
 	positional_placeholder_regex: RegExp,
 }

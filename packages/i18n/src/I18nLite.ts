@@ -10,22 +10,23 @@ import Locale from './Locale.js';
 
 export default class I18nLite {
 	public defer_parsing: boolean;
-	public default_locale: string;
+	public default_locale_id: string;
 	public locales: Locales;
-	
 
 	constructor(options?: Partial<I18nLiteOptions>) {
-		this.default_locale = options?.default_locale;
+		this.default_locale_id = options?.default_locale_id;
 		this.locales = new Map();
 	}
 
 	/**
 	 * Load parsed messages
-	 * @param {string} locale 
+	 * @param {string} locale_id 
 	 * @param {ParsedMessages} messages 
 	 */
-	public loadParsed(locale: string, messages: ParsedMessages): void {
-		this.locales.set(locale, new Locale(this, locale, messages));
+	public loadParsed(locale_id: string, messages: ParsedMessages): Locale {
+		const locale = new Locale(this, locale_id, messages);
+		this.locales.set(locale_id, locale);
+		return locale;
 	}
 
 	private resolve(
@@ -40,46 +41,47 @@ export default class I18nLite {
 
 	/**
 	 * Get a message from a locale
-	 * @param {string} [locale] - The locale to get the message from
+	 * @param {string} [locale_id] - The locale to get the message from
 	 * @param {string} key - The message to get
 	 * @param {MessageArgs} args - Placeholder values
 	 * @returns {string}
 	 */
 	public t(
-		locale: string = this.default_locale,
+		locale_id: string = this.default_locale_id,
 		key: string,
 		...args: MessageArgs
 	): string {
 		// fallback to default locale if provided one is an empty string
-		locale ||= this.default_locale;
+		locale_id ||= this.default_locale_id;
 
 		// locale does not exist
-		if (!this.locales.has(locale)) {
-			throw new Error(`A locale with the name of "${locale}" does not exist`);
+		if (!this.locales.has(locale_id)) {
+			throw new Error(`A locale with the name of "${locale_id}" does not exist`);
 		}
 
 		// must come before the next check
 		const plural_type = (/\.\?(c(ardinal)?)?$/.test(key) && 'cardinal') || (/\.\?(o(rdinal)?)?$/.test(key) && 'ordinal');
+		// temporary to check it exists
 		if (plural_type) key = key.split('.').slice(0, -1).join('.') + '.other';
 
 		// locales exists but key does not, no default locale
-		if (!this.locales.get(locale).has(key) && this.default_locale === undefined) {
-			throw new Error(`The "${locale}" locale does not contain a message with the key "${key}" and no default locale was provided`);
+		if (!this.locales.get(locale_id).has(key) && this.default_locale_id === undefined) {
+			throw new Error(`The "${locale_id}" locale does not contain a message with the key "${key}" and no default locale was provided`);
 		}
 
 		// locales exists but key does not, default locale does not exist
-		if (!this.locales.get(locale).has(key) && !this.locales.has(this.default_locale)) {
-			throw new Error(`The "${locale}" locale does not contain a message with the key "${key}" and the default locale does not exist`);
+		if (!this.locales.get(locale_id).has(key) && !this.locales.has(this.default_locale_id)) {
+			throw new Error(`The "${locale_id}" locale does not contain a message with the key "${key}" and the default locale does not exist`);
 		}
 
 		// locale and default locale exist but key exists in neither
-		if (!this.locales.get(locale).has(key) && !this.locales.get(this.default_locale).has(key)) {
-			throw new Error(`A message with the key "${key}" does not exist in the "${locale}" locale or the default locale ("${this.default_locale}")`);
+		if (!this.locales.get(locale_id).has(key) && !this.locales.get(this.default_locale_id).has(key)) {
+			throw new Error(`A message with the key "${key}" does not exist in the "${locale_id}" locale or the default locale ("${this.default_locale_id}")`);
 		}
 		
 		// the key exists in either the current or default locale, 
 		// fallback to the default locale if the key doesn't exist in the current locale
-		if (!this.locales.get(locale).has(key)) locale = this.default_locale;
+		if (!this.locales.get(locale_id).has(key)) locale_id = this.default_locale_id;
 
 		// pluralisation
 		if (plural_type) {
@@ -101,34 +103,34 @@ export default class I18nLite {
 			
 			// fallback to `o` because JIT parsing hasn't happened yet
 			// const pr = new Intl.PluralRules(identifier.t || identifier.o, { type: plural_type });
-			const pr = new Intl.PluralRules(locale, { type: plural_type });
+			const pr = new Intl.PluralRules(locale_id, { type: plural_type });
 			// @ts-ignore yes it does
 			const rule: Intl.LDMLPluralRule = Array.isArray(number) ? pr.selectRange(...<number[]>number) : pr.select(<number>number);
 			// remove the temporary ".other" and add the correct rule
 			key = key.slice(0, -6) + '.' + rule;
 
 			// the previous checks only ensures `.other` exists
-			if (!this.locales.get(locale).has(key)) { // key does not exist in the selected locale
-				if (locale === this.default_locale) {
-					throw new Error(`Pluralisation failed: the "${locale}" locale is missing the "${key}" key.`);
-				} else if (!this.locales.get(this.default_locale).has(key)) { // also doesn't exist in the default locale
-					throw new Error(`Pluralisation failed: "${key}" does not exist in the "${locale}" locale or the default locale ("${this.default_locale}")`);
+			if (!this.locales.get(locale_id).has(key)) { // key does not exist in the selected locale
+				if (locale_id === this.default_locale_id) {
+					throw new Error(`Pluralisation failed: the "${locale_id}" locale is missing the "${key}" key.`);
+				} else if (!this.locales.get(this.default_locale_id).has(key)) { // also doesn't exist in the default locale
+					throw new Error(`Pluralisation failed: "${key}" does not exist in the "${locale_id}" locale or the default locale ("${this.default_locale_id}")`);
 				} else { // exists in the default locale
-					locale = this.default_locale;
+					locale_id = this.default_locale_id;
 				}
 			}
 		}
 
-		let message = this.locales.get(locale).get(key);
+		let message = this.locales.get(locale_id).get(key);
 
 		if (message.o && this instanceof I18n) {
 			// `extract` exists on I18n, and if `o` exists, I18nLite is being used through I18n
 			// (<I18n><unknown>this)
 			const parsed = this.extract(message.o);
-			// const map = this.locales.get(locale).has(key) ? this.locales.get(locale) : this.locales.get(this.default_locale);
-			let tmp = this.locales.get(locale).get(key);
+			// const map = this.locales.get(locale).has(key) ? this.locales.get(locale) : this.locales.get(this.default_locale_id);
+			let tmp = this.locales.get(locale_id).get(key);
 			tmp = parsed;
-			this.locales.get(locale).set(key, tmp);
+			this.locales.get(locale_id).set(key, tmp);
 			message = parsed;
 		}
 
