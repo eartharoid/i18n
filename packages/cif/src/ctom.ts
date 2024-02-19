@@ -2,40 +2,39 @@ import type {
 	ParsedMessage,
 	ParsedMessages
 } from '@eartharoid/i18n';
+import control from './control.js';
 
 export default function ctom(cif: string): ParsedMessages {
 	const unmap = [];
-	const lines = cif.split(/\r?\n/);
+	const records = cif.split(control.RS);
 	let version = 1;
-	if (lines[0].startsWith('#')) {
-		const comment = lines.shift().replace(/#\s*/, ''); // ! this mutates lines
-		const meta = new URLSearchParams(comment);
-		if (meta.has('version')) version = Number(meta.get('version'));
+	const meta = new URLSearchParams(records[0]);
+	// const meta = new URLSearchParams(records.shift());
+	if (meta.has('version')) {
+		version = Number(meta.get('version'));
 	}
 	if (version === 1) {
 		let prefix = '';
-		let op = 1;
-		for (const line of lines) {
-			if (op === 1) {
-				if (line.substring(0, 2) === '::') {
-					prefix = line.substring(2) + '.';
-					continue;
-				}
-				const parts = line.split(' ');
-				const key = prefix + parts[0];
-				const m: ParsedMessage = { t: '' };
-				if (parts.length > 1) {
-					m.p = [];
-				}
+		// start on the second record
+		for (let i = 1; i < records.length; i++) {
+			const record = records[i];
+			// for (const record of records) {
+			if (record[0] === control.GS) {
+				prefix = record.substring(1) + '.';
+				continue;
+			}
+			const dp = record.indexOf(control.US); // much faster than split, there's only per record
+			const fields = [record.substring(0, dp), record.substring(dp + 1)]; // slightly faster than slice?
+			const parts = fields[0].split('\t');
+			const key = prefix + parts[0];
+			const m: ParsedMessage = { t: fields[1] };
+			if (parts.length > 1) {
+				m.p = [];
 				for (let i = 1; i < parts.length; i += 2) {
 					m.p.push([Number(parts[i]), parts[i + 1]]);
 				}
-				unmap[unmap.length] = [key, m]; // supposed to be faster than push
-				op = 2;
-			} else {
-				unmap[unmap.length - 1][1].t = line.replace(/\\n/g, '\n');
-				op = 1;
 			}
+			unmap[unmap.length] = [key, m]; // supposed to be faster than push?
 		}
 		return unmap;
 	} else {
