@@ -7,7 +7,7 @@ declare module '@eartharoid/i18n' {
 	}
 
 	interface I18nOptions extends I18nLiteOptions {
-		defer_parsing: boolean,
+		defer_extraction: boolean,
 	}
 
 	type JSONMessage = string;
@@ -45,7 +45,7 @@ declare module '@eartharoid/i18n' {
 	}
 
 	class I18nLite {
-		public defer_parsing: boolean;
+		public defer_extraction: boolean;
 		public default_locale_id: string;
 		public locales: Locales;
 

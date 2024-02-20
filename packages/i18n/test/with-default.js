@@ -15,7 +15,7 @@ fs.readdirSync('test/locales')
 
 const i18n = new I18n({
 	default_locale_id: 'en',
-	defer_parsing: false,
+	defer_extraction: false,
 });
 for (const [k, v] of Object.entries(locales)) i18n.load(k, v);
 // i18n.locales.forEach((v, k) => fs.writeFileSync(`test/compiled/${k}.i18n.json`, JSON.stringify(Object.fromEntries(v), null, 2)));

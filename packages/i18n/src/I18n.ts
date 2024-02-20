@@ -14,7 +14,7 @@ export default class I18n extends I18nLite {
 
 	constructor(options?: Partial<I18nOptions>) {
 		super(options);
-		this.defer_parsing = options?.defer_parsing ?? true;
+		this.defer_extraction = options?.defer_extraction ?? true;
 		/**
 		 * ? Negative lookbehind is now supported in Safari so could be used,
 		 * ? but we want to match escaped placeholders so we can unescape them 
@@ -95,7 +95,7 @@ export default class I18n extends I18nLite {
 		for (const [k, v] of Object.entries(flattened)) {
 			parsed.push([
 				k,
-				this.defer_parsing ? { o: v } : this.extract(v)
+				this.defer_extraction ? { o: v } : this.extract(v)
 			]);
 		}
 		return parsed;

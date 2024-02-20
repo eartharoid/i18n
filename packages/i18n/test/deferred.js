@@ -14,7 +14,7 @@ fs.readdirSync('test/locales')
 	});
 
 const i18n = new I18n({
-	defer_parsing: true,
+	defer_extraction: true,
 });
 for (const [k, v] of Object.entries(locales)) i18n.load(k, v);
 

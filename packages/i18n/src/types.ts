@@ -7,7 +7,7 @@ export interface I18nLiteOptions {
 }
 
 export interface I18nOptions extends I18nLiteOptions {
-	defer_parsing: boolean,
+	defer_extraction: boolean,
 }
 
 export type JSONMessage = string;

@@ -9,7 +9,7 @@ import I18n from './I18n.js';
 import Locale from './Locale.js';
 
 export default class I18nLite {
-	public defer_parsing: boolean;
+	public defer_extraction: boolean;
 	public default_locale_id: string;
 	public locales: Locales;
 
