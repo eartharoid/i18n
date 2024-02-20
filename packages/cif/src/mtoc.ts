@@ -13,7 +13,7 @@ export default function mtoc(messages: ParsedMessages): string {
 				cif += control.GS + c_prefix + control.RS;
 			}
 		}
-		cif += key.slice(prefix.length + 1);
+		cif += prefix.length > 0 ? key.slice(prefix.length + 1) : key;
 		if (value.p) {
 			value.p.forEach(([pos, name]) => {
 				cif += '\t' + pos + '\t' + name;

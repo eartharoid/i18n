@@ -5,12 +5,13 @@ import test from 'ava';
 
 let json = JSON.parse(
 	fs.readFileSync('test/test.json', {
+	// fs.readFileSync('test/single.json', {
 		encoding: 'utf8'
 	})
 );
 
 const i18n = new I18n({
-	defer_parsing: false,
+	defer_extraction: false,
 });
 const parsed = i18n.parse(json);
 fs.writeFileSync('test/test.i18n.json', JSON.stringify(parsed, null, 2));

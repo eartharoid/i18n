@@ -1,5 +1,11 @@
 [
   [
+    "_top_level",
+    {
+      "t": "Do non-nested keys work?"
+    }
+  ],
+  [
     "buttons.accept_close_request.emoji",
     {
       "t": "✅"
