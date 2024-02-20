@@ -7,7 +7,10 @@
 
 'use strict';
 
-import {
-	createFilter,
-	normalizePath
-} from 'vite';
+import I18n from './I18n.js';
+import I18nPlugin from './I18nPlugin.js';
+
+export {
+	I18n,
+	I18nPlugin
+};

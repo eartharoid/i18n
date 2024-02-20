@@ -31,14 +31,17 @@
 		"url": "https://github.com/eartharoid/i18n/issues"
 	},
 	"homepage": "https://github.com/eartharoid/i18n#readme",
-	"devDependencies": {
+	"dependencies": {
+		"@eartharoid/cif": "workspace:^",
 		"@eartharoid/i18n": "workspace:^",
-		"@types/node": "^20.8.6",
-		"@typescript-eslint/eslint-plugin": "^4.22.0",
-		"@typescript-eslint/parser": "^4.22.0",
-		"eslint": "^7.25.0",
-		"typescript": "^4.7.4",
-		"vite": "^5.1.3",
+		"vite": "^5.1.3"
+	},
+	"devDependencies": {
+		"@types/node": "^20.11.19",
+		"@typescript-eslint/eslint-plugin": "^7.0.2",
+		"@typescript-eslint/parser": "^7.0.2",
+		"eslint": "^8.56.0",
+		"typescript": "^5.3.3",
 		"vite-plugin-inspect": "^0.8.3"
 	}
 }

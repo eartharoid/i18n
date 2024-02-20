@@ -1,9 +1,29 @@
-import type { ParsedMessages } from '@eartharoid/i18n';
+import type { Locale, I18nLiteOptions } from '@eartharoid/i18n/types.d.ts';
+declare module '@eartharoid/vite-plugin-i18n' {
 
-declare module '@eartharoid/cif' {
+	interface CIFModule {
+		cif: string,
+		locale_id: string,
+	}
 
-	export function ctom(cif: string): ParsedMessages;
+	interface I18nPluginOptions {
+		exclude?: string | RegExp | Array<string | RegExp>,
+		id_regex?: RegExp,
+		include: string | RegExp | Array<string | RegExp>,
+		parser?(src: string): string,
+	}
 
-	export function mtoc(messages: ParsedMessages): string;
+	interface I18nPlugin {
+		enforce: string,
+		name: string,
+		transform(code: string, id: string): unknown,
+	}
+
+	export class I18n {
+		constructor(options: Partial<I18nLiteOptions>);
+		public load(module: CIFModule): Locale
+	}
+
+	export function I18nPlugin(options: I18nPluginOptions): I18nPlugin;
 
 }
