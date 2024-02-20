@@ -66,7 +66,7 @@ benchmark.createSuite('Parsing & loading', { time: 10e3, description: 'How long 
 		});
 	});
 
-benchmark.createSuite('Translating', { description: 'Getting messages & interpolating placeholders' })
+benchmark.createSuite('Translating', { description: 'Getting a message and filling its placeholders' })
 	.setup(async () => {
 		i18n = new I18n({ defer_extraction: false });
 		i18n.load('test', parsed.json);

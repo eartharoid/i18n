@@ -8,7 +8,6 @@ import {
 	normalizePath
 } from 'vite';
 
-
 function encode(messages: JSONMessages): string {
 	const i18n = new I18n({ defer_extraction: false });
 	const parsed = i18n.parse(messages);
@@ -17,7 +16,7 @@ function encode(messages: JSONMessages): string {
 
 export default function I18nPlugin(options: I18nPluginOptions): I18nPlugin {
 	return {
-		enforce: 'pre',
+		enforce: 'pre', // must run before vite:json
 		name: 'i18n',
 		transform(src, id) {
 			const filter = createFilter(options.include, options.exclude);
@@ -26,9 +25,8 @@ export default function I18nPlugin(options: I18nPluginOptions): I18nPlugin {
 				const locale_id = id_regex.exec(normalizePath(id))?.groups?.id;
 				const cif = encode(options.parser ? options.parser(src) : JSON.parse(src));
 				return {
-					// code: `{cif:"${cif}",locale_id:"${locale_id}"}`,
-					code: JSON.stringify({ cif, locale_id }), // control characters must be escaped...
-					map: null, // { mappings: '' }
+					code: JSON.stringify({ cif, locale_id }),
+					map: { mappings: '' }, // TODO: generate a sourcemap
 				};
 			}
 		},
