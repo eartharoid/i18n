@@ -67,14 +67,27 @@ export default class I18n extends I18nLite {
 		return extracted;
 	}
 
-	private flatten(messages: JSONMessage | JSONMessages) {
-		const flattened: Record<string, JSONMessage> = {};
-		for (const k in messages as JSONMessages) {
-			if (typeof messages[k] === 'object') {
-				const sub = this.flatten(messages[k]);
-				for (const j in sub) flattened[k + '.' + j] = sub[j];
-			} else {
-				flattened[k] = messages[k];
+	private flatten(messages: JSONMessages) {
+		// const flattened: Record<string, JSONMessage> = {};
+		// for (const k in messages as JSONMessages) {
+		// 	if (typeof messages[k] === 'object') {
+		// 		const sub = this.flatten(messages[k]);
+		// 		for (const j in sub) flattened[k + '.' + j] = sub[j];
+		// 	} else {
+		// 		flattened[k] = messages[k];
+		// 	}
+		// }
+		// return flattened;
+		// if (typeof messages === 'string') return [];
+		const flattened: Array<[string, string]> = [];
+		for (const [k, v] of Object.entries(messages)) {
+			if (typeof v === 'string') {
+				flattened.push([k, v]);
+			} else if (typeof v === 'object') {
+				const nested = this.flatten(v);
+				for (const [nested_k, nested_v] of nested) {
+					flattened.push([k + '.' + nested_k, nested_v]);
+				}
 			}
 		}
 		return flattened;
@@ -82,22 +95,30 @@ export default class I18n extends I18nLite {
 
 	/**
 	 * Parse then load messages
-	 * @param {string} locale 
+	 * @param {string} locale_id 
 	 * @param {JSONMessages} messages 
 	 */
-	public load(locale: string, messages: JSONMessages): Locale {
-		return this.loadParsed(locale, this.parse(messages));
+	public load(locale_id: string, messages: JSONMessages): Locale {
+		return this.loadParsed(locale_id, this.parse(messages));
 	}
 
 	public parse(messages: JSONMessages): ParsedMessages {
-		const parsed: ParsedMessages = [];
 		const flattened = this.flatten(messages);
-		for (const [k, v] of Object.entries(flattened)) {
+		const parsed: ParsedMessages = [];
+		for (const [k, v] of flattened) {
 			parsed.push([
 				k,
 				this.defer_extraction ? { o: v } : this.extract(v)
 			]);
 		}
+		// surprisingly this isn't faster
+		// const flattened = this.flatten(messages);
+		// const parsed: ParsedMessages = new Array(flattened.length);
+		// for (const i in flattened) {
+		// 	const [k, v] = flattened[i];
+		// 	parsed[i] = [k, this.defer_extraction ? { o: v } : this.extract(v)];
+		// }
+
 		return parsed;
 	}
 }
