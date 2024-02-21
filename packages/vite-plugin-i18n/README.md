@@ -1,8 +1,21 @@
 # I18n Vite Plugin
 
-This plugin converts your raw message JSON files into a new JSON object containing `cif` data and the `locale_id`.
-It relies on the built-in `vite:json` plugin to finish the process of converting the JSON into an ESM module
-(because I don't know how to stop `vite:json` from processing the transformed code so I just let it).
+This plugin converts your raw message JSON files into a new JSON object containing `cif` data and the `locale_id`,
+which then gets turned into an ESM module by the internal `vite:json` plugin. 
+
+The advantages of CIF are that it is smaller and slightly faster than JSON, however whilst making this:
+
+- I realised vite converts JSON files into ESM modules, so there's no `JSON.parse()` needed at runtime.
+- I found that after applying gzip/brotli compression, the size difference becomes insignificant.
+- I made major optimisations to message loading/parsing to the point that even converting to I18n JSON rather than CIF offers minor benefits, over just importing a JSON file.
+
+> [!TIP]
+> **Should I use this?**
+> 
+> - Where you want to minimise the build size (such as for browser extensions), yes.
+> - For websites served by a CDN that supports zip/brotli compression,
+> ensuring that imported JSON files are converted to ESM modules and keeping deferred extraction enabled
+> (both are defaults) is probably the most optimal.
 
 ## Installation
 
