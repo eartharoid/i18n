@@ -4,7 +4,7 @@
 
 ### [`@eartharoid/cif`](https://github.com/eartharoid/i18n/tree/main/packages/cif#readme)
 
-Compact Interpolation Format - an efficient (in size and decode speed) file format for storing translation messages.
+Compact Interpolation Format - an efficient file format for storing translation messages.
 
 
 ### [`@eartharoid/i18n`](https://github.com/eartharoid/i18n/tree/main/packages/i18n#readme)

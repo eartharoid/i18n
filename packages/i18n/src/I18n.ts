@@ -68,17 +68,6 @@ export default class I18n extends I18nLite {
 	}
 
 	private flatten(messages: JSONMessages) {
-		// const flattened: Record<string, JSONMessage> = {};
-		// for (const k in messages as JSONMessages) {
-		// 	if (typeof messages[k] === 'object') {
-		// 		const sub = this.flatten(messages[k]);
-		// 		for (const j in sub) flattened[k + '.' + j] = sub[j];
-		// 	} else {
-		// 		flattened[k] = messages[k];
-		// 	}
-		// }
-		// return flattened;
-		// if (typeof messages === 'string') return [];
 		const flattened: Array<[string, string]> = [];
 		for (const [k, v] of Object.entries(messages)) {
 			if (typeof v === 'string') {
