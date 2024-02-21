@@ -7,12 +7,20 @@ import type I18nLite from './I18nLite.js';
 
 export default class Locale extends Map<string, ParsedMessage> {
 	public readonly i18n: I18nLite;
-	public readonly locale: string;
+	public readonly locale_id: string;
 
-	constructor(i18n: I18nLite, locale: string,  messages: ParsedMessages) {
+	constructor(i18n: I18nLite, locale_id: string,  messages: ParsedMessages) {
 		super(messages);
 		this.i18n = i18n;
-		this.locale = locale;
+		this.locale_id = locale_id;
+	}
+
+	/**
+	 * Create a shortcut function for translating to this locale
+	 * @param {string} [locale_id] - The locale to create a shortcut for
+	 */
+	public createTranslator() {
+		return (key: string, ...args: MessageArgs): string => this.i18n.t(this.locale_id, key, ...args);
 	}
 
 	/**
@@ -25,6 +33,6 @@ export default class Locale extends Map<string, ParsedMessage> {
 		key: string,
 		...args: MessageArgs
 	): string {
-		return this.i18n.t(this.locale, key, ...args);
+		return this.i18n.t(this.locale_id, key, ...args);
 	}
 }

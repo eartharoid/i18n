@@ -27,7 +27,19 @@ test('default_locale_id', t => {
 	t.is(actual, expected);
 });
 
-test('getLocale', t => {
+test('getMessage en', t => {
+	const expected = 'This is as simple as it gets';
+	const actual = i18n.t('en', 'simple');
+	t.is(actual, expected);
+});
+
+test('getMessage no', t => {
+	const expected = 'Dette er så enkelt som det blir';
+	const actual = i18n.t('no', 'simple');
+	t.is(actual, expected);
+});
+
+test('getLocale en', t => {
 	let locale = i18n.locales.get('en');
 	const expected = 'This is as simple as it gets';
 	const actual = locale.t('simple');
@@ -41,15 +53,25 @@ test('getLocale no', t => {
 	t.is(actual, expected);
 });
 
-test('getMessage en', t => {
+// this doesn't work (`this` is undefined) which is why Locale#createTranslator exists
+// test('getLocale w/ destructuring', t => {
+// 	let { t: translate } = i18n.locales.get('en');
+// 	const expected = 'This is as simple as it gets';
+// 	const actual = translate('simple');
+// 	t.is(actual, expected);
+// });
+
+test('I18nLite#createTranslator', t => {
+	const translate = i18n.createTranslator('en');
 	const expected = 'This is as simple as it gets';
-	const actual = i18n.t('en', 'simple');
+	const actual = translate('simple');
 	t.is(actual, expected);
 });
 
-test('getMessage no', t => {
-	const expected = 'Dette er så enkelt som det blir';
-	const actual = i18n.t('no', 'simple');
+test('Locale#createTranslator', t => {
+	const translate = i18n.locales.get('en').createTranslator();
+	const expected = 'This is as simple as it gets';
+	const actual = translate('simple');
 	t.is(actual, expected);
 });
 

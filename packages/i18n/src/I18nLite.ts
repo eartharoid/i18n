@@ -19,6 +19,14 @@ export default class I18nLite {
 	}
 
 	/**
+	 * Create a shortcut function for translating to a specific locale
+	 * @param {string} [locale_id] - The locale to create a shortcut for
+	 */
+	public createTranslator(locale_id: string) {
+		return (key: string, ...args: MessageArgs): string => this.t(locale_id, key, ...args);
+	}
+
+	/**
 	 * Load parsed messages
 	 * @param {string} locale_id 
 	 * @param {ParsedMessages} messages 

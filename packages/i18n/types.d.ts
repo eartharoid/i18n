@@ -34,9 +34,11 @@ declare module '@eartharoid/i18n' {
 
 	class Locale extends Map<string, ParsedMessage> {
 		public readonly i18n: I18nLite;
-		public readonly locale: string;
+		public readonly locale_id: string;
 
-		constructor(i18n: I18nLite, locale: string, messages: ParsedMessages)
+		constructor(i18n: I18nLite, locale_id: string, messages: ParsedMessages)
+
+		public createTranslator(): (key: string, ...args: MessageArgs) => string 
 
 		public t(
 			key: string,
@@ -51,7 +53,9 @@ declare module '@eartharoid/i18n' {
 
 		constructor(options: Partial<I18nLiteOptions>);
 
-		public loadParsed(locale: string, messages: ParsedMessages): Locale
+		public createTranslator(locale_id: string): (key: string, ...args: MessageArgs) => string 
+
+		public loadParsed(locale_id: string, messages: ParsedMessages): Locale
 
 		private resolve(
 			obj: NamedArgs,
@@ -59,7 +63,7 @@ declare module '@eartharoid/i18n' {
 		): string | number | undefined
 
 		public t(
-			locale: string,
+			locale_id: string,
 			key: string,
 			...args: MessageArgs
 		): string
@@ -75,7 +79,7 @@ declare module '@eartharoid/i18n' {
 
 		private flatten(messages: JSONMessage | JSONMessages): Record<string, JSONMessage>
 
-		public load(locale: string, messages: JSONMessages): Locale
+		public load(locale_id: string, messages: JSONMessages): Locale
 
 		public parse(messages: JSONMessages): ParsedMessages
 	}
