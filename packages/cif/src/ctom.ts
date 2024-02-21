@@ -19,7 +19,7 @@ export default function ctom(cif: string): ParsedMessages {
 		for (let i = 1; i < records.length; i++) {
 			const record = records[i];
 			// for (const record of records) {
-			if (record[0] === control.GS && record[0].length > 1) {
+			if (record[0] === control.GS && record.length > 1) {
 				prefix = record.substring(1) + '.';
 				continue;
 			}
