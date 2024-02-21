@@ -19,13 +19,13 @@ export default function ctom(cif: string): ParsedMessages {
 		for (let i = 1; i < records.length; i++) {
 			const record = records[i];
 			// for (const record of records) {
-			if (record[0] === control.GS) {
+			if (record[0] === control.GS && record[0].length > 1) {
 				prefix = record.substring(1) + '.';
 				continue;
 			}
-			const dp = record.indexOf(control.US); // much faster than split, there's only per record
+			const dp = record.indexOf(control.US); // much faster than split, there's only one per record
 			const fields = [record.substring(0, dp), record.substring(dp + 1)]; // slightly faster than slice?
-			const parts = fields[0].split('\t');
+			const parts = fields[0].split('\t'); // [key, ...placeholders]
 			const key = prefix + parts[0];
 			const m: ParsedMessage = { t: fields[1] };
 			if (parts.length > 1) {

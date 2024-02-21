@@ -18,7 +18,8 @@ A Vite plugin to optimise translation files using CIF.
 
 ## Benchmarks
 
-You can run the tests yourself in the `benchmark` directory. 
+The results displayed below are from tests on Node.js with an AMD Ryzen 7 5700G CPU.
+You can run the tests yourself in the `benchmark` directory.
 
 
 ### Parsing & loading
@@ -28,23 +29,32 @@ You can run the tests yourself in the `benchmark` directory.
 The ops/s and time figures are irrelevant in this test because they depend on the input file,
 but the percentage difference is still useful.
 
+#### Notes
+
+1. Deferred placeholder extraction is enabled by default.
+2. I18n JSON and CIF require a build step to pre-flatten messages and extract placeholders.
+
+> [!TIP]
+> Although the speed advantage of CIF over I18n JSON is minor (because `JSON.parse()` has the huge advantage of being implemented in C++),
+> CIF files are ideal for client-side use as [they are smaller](https://github.com/eartharoid/i18n/tree/main/packages/cif#readme).
+
 ```
-   JSON (#)                  0%      (2,433 ops/sec)   (avg: 411μs)
-   JSON, deferred       +13.05%      (2,750 ops/sec)   (avg: 363μs)
-   I18n JSON           +200.62%      (7,313 ops/sec)   (avg: 136μs)
-   I18n CIF            +212.87%      (7,611 ops/sec)   (avg: 131μs)
-   i18next              +49.09%      (3,627 ops/sec)   (avg: 275μs)
+   JSON (#)                  0%      (4,896 ops/sec)   (avg: 204μs)
+   JSON, deferred       +22.71%      (6,008 ops/sec)   (avg: 166μs)
+   I18n JSON            +50.94%      (7,390 ops/sec)   (avg: 135μs)
+   I18n CIF             +54.97%      (7,587 ops/sec)   (avg: 131μs)
+   i18next               -29.3%      (3,461 ops/sec)   (avg: 288μs)
 
 ┌────────────────┬────────────────────────────────────────────────────┐
-│ JSON           │ ████████████████                                   │
+│ JSON           │ ████████████████████████████████                   │
 ├────────────────┼────────────────────────────────────────────────────┤
-│ JSON, deferred │ ██████████████████                                 │
+│ JSON, deferred │ ████████████████████████████████████████           │
 ├────────────────┼────────────────────────────────────────────────────┤
-│ I18n JSON      │ ████████████████████████████████████████████████   │
+│ I18n JSON      │ █████████████████████████████████████████████████  │
 ├────────────────┼────────────────────────────────────────────────────┤
 │ I18n CIF       │ ██████████████████████████████████████████████████ │
 ├────────────────┼────────────────────────────────────────────────────┤
-│ i18next        │ ████████████████████████                           │
+│ i18next        │ ███████████████████████                            │
 └────────────────┴────────────────────────────────────────────────────┘
 ```
 
