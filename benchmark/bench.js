@@ -43,6 +43,14 @@ benchmark.createSuite('Parsing & loading', { time: 10e3, description: 'How long 
 		i18n_deferred.load('test', json);
 	})
 
+	.add('ESM', () => {
+		i18n.load('test', parsed.json);
+	})
+
+	.add('ESM, deferred', () => {
+		i18n_deferred.load('test', parsed.json);
+	})
+
 	.add('I18n JSON', () => {
 		const json = JSON.parse(txt.i18n_json);
 		i18n.loadParsed('test', Object.entries(json));
@@ -51,8 +59,7 @@ benchmark.createSuite('Parsing & loading', { time: 10e3, description: 'How long 
 	.add('I18n CIF', () => {
 		const json = ctom(txt.cif);
 		i18n.loadParsed('test', json);
-	})
-
+	})	
 
 	.add('i18next', () => {
 		const json = JSON.parse(txt.json);
