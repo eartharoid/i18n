@@ -17,7 +17,6 @@ export default class Locale extends Map<string, ParsedMessage> {
 
 	/**
 	 * Create a shortcut function for translating to this locale
-	 * @param {string} [locale_id] - The locale to create a shortcut for
 	 */
 	public createTranslator() {
 		return (key: string, ...args: MessageArgs): string => this.i18n.t(this.locale_id, key, ...args);

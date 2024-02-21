@@ -68,6 +68,13 @@ test('I18nLite#createTranslator', t => {
 	t.is(actual, expected);
 });
 
+test('I18nLite#createTranslator (default)', t => {
+	const translate = i18n.createTranslator();
+	const expected = 'This is as simple as it gets';
+	const actual = translate('simple');
+	t.is(actual, expected);
+});
+
 test('Locale#createTranslator', t => {
 	const translate = i18n.locales.get('en').createTranslator();
 	const expected = 'This is as simple as it gets';

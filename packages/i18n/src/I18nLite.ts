@@ -22,7 +22,7 @@ export default class I18nLite {
 	 * Create a shortcut function for translating to a specific locale
 	 * @param {string} [locale_id] - The locale to create a shortcut for
 	 */
-	public createTranslator(locale_id: string) {
+	public createTranslator(locale_id: string = this.default_locale_id) {
 		return (key: string, ...args: MessageArgs): string => this.t(locale_id, key, ...args);
 	}
 
