@@ -111,13 +111,6 @@ export default class I18n extends I18nLite {
 				this.defer_extraction ? { o: v } : this.extract(v)
 			]);
 		}
-		// surprisingly this isn't faster
-		// const flattened = this.flatten(messages);
-		// const parsed: ParsedMessages = new Array(flattened.length);
-		// for (const i in flattened) {
-		// 	const [k, v] = flattened[i];
-		// 	parsed[i] = [k, this.defer_extraction ? { o: v } : this.extract(v)];
-		// }
 		return parsed;
 	}
 }

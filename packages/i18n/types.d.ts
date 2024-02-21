@@ -77,7 +77,7 @@ declare module '@eartharoid/i18n' {
 
 		public extract(message: string): ParsedMessage
 
-		private flatten(messages: JSONMessage | JSONMessages): Record<string, JSONMessage>
+		private flatten(messages: JSONMessage | JSONMessages): Array<[string, string]>
 
 		public load(locale_id: string, messages: JSONMessages): Locale
 
