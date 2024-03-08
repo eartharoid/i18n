@@ -12,10 +12,14 @@ The advantages of CIF are that it is smaller and slightly faster than JSON, howe
 > [!TIP]
 > **Should I use this?**
 > 
-> - Where you want to minimise the build size (such as for browser extensions), yes.
-> - For websites served by a CDN that supports zip/brotli compression,
+> - Where you want to minimise the build size (such as for browser extensions) or most of your messages are used immediately, yes.
+> - For websites served by a CDN that supports zip/brotli compression where most messages are not used immediately upon page load,
 > ensuring that imported JSON files are converted to ESM modules and keeping deferred extraction enabled
-> (both are defaults) is probably the most optimal.
+> (both are defaults) is the most optimal.
+>
+> Refer to these comparisons for more information:
+> - [File size comparisons](https://github.com/eartharoid/i18n/tree/main/packages/cif#file-sizes)
+> - [Load speed comparisons](https://github.com/eartharoid/i18n/blob/main/README.md#benchmarks)
 
 ## Installation
 

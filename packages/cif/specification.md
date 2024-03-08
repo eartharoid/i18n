@@ -27,7 +27,7 @@ All other records are messages and contain two fields, separated by a [`US`](htt
 
 The first field begins with the last chunk (split at `.`) of the message key.
 If the message contains placeholders, the key is followed by a `HT` (tab) character and then key-value pairs,
-where the key is the placeholder's starting position and the value is the placeholder's name.
+where the key is the placeholder's starting position and the value is either the placeholder's name or minified JSON.
 Keys, values, and each pair should be separated by `HT`.
 
 The second field is the message value and may contain any character, including unescaped new lines, besides `RS`.

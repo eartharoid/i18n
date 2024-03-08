@@ -33,27 +33,35 @@ benchmark.createSuite('Parsing & loading', { time: 10e3, description: 'How long 
 		i18next = await import('i18next');
 	})
 
-	.ref('JSON', () => {
+	.ref('Raw JSON', () => {
 		const json = JSON.parse(txt.json);
 		i18n.load('test', json);
 	})
 
-	.add('JSON, deferred', () => {
+	.add('Raw JSON, deferred', () => {
 		const json = JSON.parse(txt.json);
 		i18n_deferred.load('test', json);
 	})
 
-	.add('ESM', () => {
-		i18n.load('test', parsed.json);
+	.add('Raw ESM', async () => {
+		const { json } = await import('./samples/test.js');
+		i18n.load('test', json);
 	})
 
-	.add('ESM, deferred', () => {
-		i18n_deferred.load('test', parsed.json);
+	.add('Raw ESM, deferred', async () => {
+		const { json } = await import('./samples/test.js')
+		i18n_deferred.load('test', json);
 	})
+
+	// it's too good...
+	// .add('I18n ESM', async () => {
+	// 	const { json } = await import('./samples/test.i18n.js')
+	// 	i18n.loadParsed('test', json);
+	// })
 
 	.add('I18n JSON', () => {
 		const json = JSON.parse(txt.i18n_json);
-		i18n.loadParsed('test', Object.entries(json));
+		i18n.loadParsed('test', json);
 	})
 
 	.add('I18n CIF', () => {
@@ -61,7 +69,7 @@ benchmark.createSuite('Parsing & loading', { time: 10e3, description: 'How long 
 		i18n.loadParsed('test', json);
 	})	
 
-	.add('i18next', () => {
+	.add('i18next JSON', () => {
 		const json = JSON.parse(txt.json);
 		i18next.init({
 			lng: 'en',

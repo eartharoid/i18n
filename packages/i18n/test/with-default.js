@@ -82,21 +82,9 @@ test('Locale#createTranslator', t => {
 	t.is(actual, expected);
 });
 
-test('positional placeholders 1', t => {
-	const expected = 'This is an example using positional placeholders (%s)';
-	const actual = i18n.t('en', 'positional_placeholders.1', 'example');
-	t.is(actual, expected);
-});
-
-test('positional placeholders 2', t => {
-	const expected = 'This is an example using 2 positional placeholders';
-	const actual = i18n.t('en', 'positional_placeholders.2', 'example', 2);
-	t.is(actual, expected);
-});
-
 test('named placeholders example', t => {
 	const expected = 'This is an example using {named} placeholders';
-	const actual = i18n.t('en', 'named_placeholders.example', {
+	const actual = i18n.t('en', 'placeholder_variables.example', {
 		word: 'example'
 	});
 	t.is(actual, expected);
@@ -106,33 +94,27 @@ test('plural age 0', t => {
 	// const expected = 'You were born recently';
 	// ? You might expect `0` to select `zero`, but most languages don't have a `zero` plural form:
 	// ? https://www.unicode.org/cldr/charts/43/supplemental/language_plural_rules.html#en
-	t.throws(
-		() => i18n.t('en', 'plural.age.?', 0),
-		{ message: /placeholder is required/ }
-	);
-});
-
-test('plural age 1 (.?)', t => {
-	const expected = 'You were born a year ago';
-	const actual = i18n.t('en', 'plural.age.?', 1);
+	const expected = 'You were born 0 years ago';
+	const actual = i18n.t('en', 'plural.age', { age: 0 });
 	t.is(actual, expected);
 });
 
-test('plural age 1 (.?c)', t => {
+test('plural age 1', t => {
 	const expected = 'You were born a year ago';
-	const actual = i18n.t('en', 'plural.age.?c', 1);
+	const actual = i18n.t('en', 'plural.age', { age: 1 });
 	t.is(actual, expected);
 });
+
 
 test('plural age 17', t => {
 	const expected = 'You were born 17 years ago';
-	const actual = i18n.t('en', 'plural.age.?', 17, 17);
+	const actual = i18n.t('en', 'plural.age', { age: 17 });
 	t.is(actual, expected);
 });
 
 test('plural vehicles 0', t => {
 	const expected = 'You own 0 cars';
-	const actual = i18n.t('en', 'plural.vehicles.?', 0, {
+	const actual = i18n.t('en', 'plural.vehicles', {
 		vehicles: {
 			count: 0,
 			type: 'car'
@@ -143,7 +125,7 @@ test('plural vehicles 0', t => {
 
 test('plural vehicles 1', t => {
 	const expected = 'You own a single car';
-	const actual = i18n.t('en', 'plural.vehicles.?', 1, {
+	const actual = i18n.t('en', 'plural.vehicles', {
 		vehicles: {
 			count: 1,
 			type: 'car'
@@ -154,7 +136,7 @@ test('plural vehicles 1', t => {
 
 test('plural vehicles 3', t => {
 	const expected = 'You own 3 cars';
-	const actual = i18n.t('en', 'plural.vehicles.?', 3, {
+	const actual = i18n.t('en', 'plural.vehicles', {
 		vehicles: {
 			count: 3,
 			type: 'car'
@@ -164,28 +146,35 @@ test('plural vehicles 3', t => {
 });
 
 
-test('ordinal 1 (.?o)', t => {
+test('ordinal 1', t => {
 	const expected = 'You are 1st in the queue';
-	const actual = i18n.t('en', 'ordinal.position.?o', 1, 1);
+	const actual = i18n.t('en', 'ordinal.position', { number: 1 });
 	t.is(actual, expected);
 });
 
-test('ordinal 2 (.?o)', t => {
+test('ordinal 2', t => {
 	const expected = 'You are 2nd in the queue';
-	const actual = i18n.t('en', 'ordinal.position.?o', 2, 2);
+	const actual = i18n.t('en', 'ordinal.position', { number: 2 });
 	t.is(actual, expected);
 });
 
-test('ordinal 3 (.?o)', t => {
+test('ordinal 3', t => {
 	const expected = 'You are 3rd in the queue';
-	const actual = i18n.t('en', 'ordinal.position.?o', 3, 3);
+	const actual = i18n.t('en', 'ordinal.position', { number: 3 });
 	t.is(actual, expected);
 });
 
-test('ordinal 4 (.?o)', t => {
+test('ordinal 4', t => {
 	const expected = 'You are 4th in the queue';
-	const actual = i18n.t('en', 'ordinal.position.?o', 4, 4);
+	const actual = i18n.t('en', 'ordinal.position', { number: 4 });
 	t.is(actual, expected);
+});
+
+test('wrong/missing variable', t => {
+	t.throws(
+		() => i18n.t('en', 'ordinal.position', { test: 69 }),
+		{ message: /number\/array is required/ }
+	);
 });
 
 test('missing translation', t => {
@@ -197,5 +186,20 @@ test('missing translation', t => {
 test('repeated', t => {
 	const expected = 'hello hello hello is repeated';
 	const actual = i18n.t('en', 'repeated', { word: 'hello' });
+	t.is(actual, expected);
+});
+
+test('nesting', t => {
+	const expected = 'There are 17 boys and 12 girls';
+	const actual = i18n.t('en', 'placeholder_getters.together', {
+		boys: 17,
+		girls: 12
+	});
+	t.is(actual, expected);
+});
+
+test('nesting passthrough', t => {
+	const expected = 'There are 2 classrooms';
+	const actual = i18n.t('en', 'placeholder_getters.passthrough', { classrooms: 2 });
 	t.is(actual, expected);
 });
