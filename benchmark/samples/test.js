@@ -1,4 +1,4 @@
-export const json = {
+module.exports = {
 	"buttons": {
 		"accept_close_request": {
 			"emoji": "✅",

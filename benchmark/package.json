@@ -1,6 +1,6 @@
 {
   "main": "bench.js",
-  "type": "module",
+  "type": "commonjs",
   "devDependencies": {
     "@eartharoid/cif": "workspace:^",
     "@eartharoid/i18n": "workspace:^",

@@ -20,7 +20,7 @@ Helper functions for using [Intl](https://developer.mozilla.org/en-US/docs/Web/J
 
 ### [`@eartharoid/vite-plugin-i18n`](https://github.com/eartharoid/i18n/tree/main/packages/vite-plugin-i18n#readme)
 
-A Vite plugin to optimise translation files using CIF.
+A Vite plugin to optimise translation files.
 
 ## Benchmarks
 
@@ -39,34 +39,34 @@ but the percentage difference is still useful.
 
 1. Deferred placeholder extraction is enabled by default.
 2. Non-raw formats require a build step to pre-flatten messages and extract placeholders.
-3. *I18n ESM* is omitted from the graph because it ruins the scale, but it is by far the fastest:
-   - 16x than *Raw JSON*
-   - 8x faster than *I18n CIF*, the next fastest.
+3. *I18n JS* (data in ESM/CJS) is omitted from the graph because it ruins the scale, but it is by far the fastest:
+   - 19x than *Raw JSON*
+   - 10x faster than *I18n CIF*, the next fastest.
 
 > [!TIP]
-> Although the speed advantage of CIF over I18n JSON is minor (because `JSON.parse()` has the huge advantage of being implemented in C++),
-> CIF files are ideal for client-side use as [they are smaller](https://github.com/eartharoid/i18n/tree/main/packages/cif#readme).
+> CIF files are ideal for client-side when CDN compression is not an option
+> as [they are much smaller](https://github.com/eartharoid/i18n/tree/main/packages/cif#readme) than JSON.
 
 ```
-   Raw JSON (#)                  0%      (4,002 ops/sec)   (avg: 249μs)
-   Raw JSON, deferred       +15.05%      (4,604 ops/sec)   (avg: 217μs)
-   Raw ESM                   +32.6%      (5,306 ops/sec)   (avg: 188μs)
-   Raw ESM, deferred        +61.23%      (6,452 ops/sec)   (avg: 154μs)
-   I18n ESM               +1,531.5%     (65,168 ops/sec)    (avg: 15μs)
-   I18n JSON                +70.84%      (6,836 ops/sec)   (avg: 146μs)
-   I18n CIF                 +94.33%      (7,776 ops/sec)   (avg: 128μs)
-   i18next JSON               -8.5%      (3,661 ops/sec)   (avg: 273μs)
+   Raw JSON (#)                  0%      (3,893 ops/sec)   (avg: 256μs)
+   Raw JSON, deferred       +15.03%      (4,479 ops/sec)   (avg: 223μs)
+   Raw JS                   +42.81%      (5,560 ops/sec)   (avg: 179μs)
+   Raw JS, deferred         +69.64%      (6,605 ops/sec)   (avg: 151μs)
+   I18n JS               +1,892.56%     (77,569 ops/sec)    (avg: 12μs)
+   I18n JSON                +73.48%      (6,754 ops/sec)   (avg: 148μs)
+   I18n CIF                  +94.2%      (7,561 ops/sec)   (avg: 132μs)
+   i18next JSON              -6.43%      (3,643 ops/sec)   (avg: 274μs)
 
 ┌────────────────────┬────────────────────────────────────────────────────┐
 │ Raw JSON           │ ██████████████████████████                         │
 ├────────────────────┼────────────────────────────────────────────────────┤
 │ Raw JSON, deferred │ ██████████████████████████████                     │
 ├────────────────────┼────────────────────────────────────────────────────┤
-│ Raw ESM            │ ██████████████████████████████████                 │
+│ Raw JS             │ █████████████████████████████████████              │
 ├────────────────────┼────────────────────────────────────────────────────┤
-│ Raw ESM, deferred  │ █████████████████████████████████████████          │
+│ Raw JS, deferred   │ ████████████████████████████████████████████       │
 ├────────────────────┼────────────────────────────────────────────────────┤
-│ I18n JSON          │ ████████████████████████████████████████████       │
+│ I18n JSON          │ █████████████████████████████████████████████      │
 ├────────────────────┼────────────────────────────────────────────────────┤
 │ I18n CIF           │ ██████████████████████████████████████████████████ │
 ├────────────────────┼────────────────────────────────────────────────────┤
