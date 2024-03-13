@@ -16,6 +16,7 @@ export default class I18nLite {
 	public default_locale_id: string;
 	public getters: Getters;
 	public locales: Locales;
+	public nested_limit: number;
 
 	constructor(options?: Partial<I18nLiteOptions>) {
 		this.default_locale_id = options?.default_locale_id;
@@ -24,6 +25,7 @@ export default class I18nLite {
 			...options?.getters,
 		};
 		this.locales = new Map();
+		this.nested_limit = options?.nested_limit ?? 3;
 	}
 
 	/**
@@ -71,22 +73,27 @@ export default class I18nLite {
 	public t(
 		locale_id: string = this.default_locale_id,
 		key: string,
-		args?: NamedArgs
+		args: NamedArgs = {},
+		nested = 0
 	): string {
 		// fallback to default locale if provided one is an empty string
 		locale_id ||= this.default_locale_id;
+
+		if (nested > this.nested_limit) {
+			throw new Error(`Potential circular translation, "${key}" exceeded nesting limit (${this.nested_limit})`);
+		}
 
 		// locale does not exist
 		if (!this.locales.has(locale_id)) {
 			throw new Error(`A locale with the name of "${locale_id}" does not exist`);
 		}
 
-		// locales exists but key does not, no default locale
+		// locale exists but key does not, no default locale
 		if (!this.locales.get(locale_id).has(key) && this.default_locale_id === undefined) {
 			throw new Error(`The "${locale_id}" locale does not contain a message with the key "${key}" and no default locale was provided`);
 		}
 
-		// locales exists but key does not, default locale does not exist
+		// locale exists but key does not, default locale does not exist
 		if (!this.locales.get(locale_id).has(key) && !this.locales.has(this.default_locale_id)) {
 			throw new Error(`The "${locale_id}" locale does not contain a message with the key "${key}" and the default locale does not exist`);
 		}
@@ -106,9 +113,8 @@ export default class I18nLite {
 		if ('q' in message) {		
 			const plural_type = (message.q.cardinal && 'cardinal') || (message.q.ordinal && 'ordinal') || null;
 			if (plural_type) {
-				if (typeof args !== 'object') throw new Error('An argument object is required.');
 				const input = this.resolve(args, message.q[plural_type]);
-				if (isNaN(Number(input)) && !Array.isArray(input)) throw new Error(`"${message.q[plural_type]}" number/array is required.`);
+				if (isNaN(Number(input)) && !Array.isArray(input)) throw new Error(`"${message.q[plural_type]}" number/array is required`);
 				const idm = this.locales.get(locale_id).get('$meta.locale_id');
 				const cldr_id = (<ExtractedMessageObject>idm)?.t || (<MessageObject>idm)?.o || locale_id;
 				const pr = new Intl.PluralRules(cldr_id, { type: plural_type });
@@ -116,8 +122,8 @@ export default class I18nLite {
 				const rule: Intl.LDMLPluralRule = Array.isArray(input) ? pr.selectRange(...input) : pr.select(input);
 				key = key + '.' + rule;
 				if (!this.locales.get(locale_id).has(key)) { // key does not exist in the selected locale
-					if (locale_id === this.default_locale_id) {
-						throw new Error(`Pluralisation failed: the "${locale_id}" locale is missing the "${key}" key.`);
+					if (!this.default_locale_id || locale_id === this.default_locale_id) {
+						throw new Error(`Pluralisation failed: the "${locale_id}" locale is missing the "${key}" key`);
 					} else if (!this.locales.get(this.default_locale_id).has(key)) { // also doesn't exist in the default locale
 						throw new Error(`Pluralisation failed: "${key}" does not exist in the "${locale_id}" locale or the default locale ("${this.default_locale_id}")`);
 					} else { // exists in the default locale
@@ -145,7 +151,6 @@ export default class I18nLite {
 		let filled = extracted.t;
 		if (extracted.p === undefined) return filled;
 		for (const [position, placeholder] of extracted.p) {
-			if (args[0] instanceof Array) throw new Error('Arrays are for pluralisation and cannot be used for interpolation.');
 			const corrected = position + offset;
 			let value: string | undefined;
 			let name: string;
@@ -156,7 +161,7 @@ export default class I18nLite {
 				name = placeholder.g;
 				value = this.getters[placeholder.g].get(
 					this.locales.get(locale_id),
-					[locale_id, key, args],
+					[locale_id, key, args, nested],
 					placeholder.d
 				);
 			}

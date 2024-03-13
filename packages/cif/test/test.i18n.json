@@ -1,18 +1,18 @@
 [
   [
-    "$meta.locale_id",
+    "ns:$meta.locale_id",
     {
       "t": "en-GB-gregory-u-hc-h23"
     }
   ],
   [
-    "simple",
+    "ns:simple",
     {
       "t": "This is as simple as it gets"
     }
   ],
   [
-    "placeholder_variables.example",
+    "ns:placeholder_variables.example",
     {
       "t": "This is an  using {named} placeholders",
       "p": [
@@ -26,7 +26,7 @@
     }
   ],
   [
-    "placeholder_variables.hello",
+    "ns:placeholder_variables.hello",
     {
       "t": "Hello, !",
       "p": [
@@ -40,7 +40,7 @@
     }
   ],
   [
-    "plural.age",
+    "ns:plural.age",
     {
       "q": {
         "cardinal": "age"
@@ -48,19 +48,19 @@
     }
   ],
   [
-    "plural.age.zero",
+    "ns:plural.age.zero",
     {
       "t": "You were born recently (you'll never see this message)"
     }
   ],
   [
-    "plural.age.one",
+    "ns:plural.age.one",
     {
       "t": "You were born a year ago"
     }
   ],
   [
-    "plural.age.other",
+    "ns:plural.age.other",
     {
       "t": "You were born  years ago",
       "p": [
@@ -74,7 +74,7 @@
     }
   ],
   [
-    "plural.vehicles",
+    "ns:plural.vehicles",
     {
       "q": {
         "cardinal": "vehicles.count"
@@ -82,7 +82,7 @@
     }
   ],
   [
-    "plural.vehicles.one",
+    "ns:plural.vehicles.one",
     {
       "t": "You own a single ",
       "p": [
@@ -96,7 +96,7 @@
     }
   ],
   [
-    "plural.vehicles.other",
+    "ns:plural.vehicles.other",
     {
       "t": "You own  s",
       "p": [
@@ -116,7 +116,7 @@
     }
   ],
   [
-    "ordinal.position",
+    "ns:ordinal.position",
     {
       "q": {
         "ordinal": "number"
@@ -124,7 +124,7 @@
     }
   ],
   [
-    "ordinal.position.one",
+    "ns:ordinal.position.one",
     {
       "t": "You are st in the queue",
       "p": [
@@ -138,7 +138,7 @@
     }
   ],
   [
-    "ordinal.position.two",
+    "ns:ordinal.position.two",
     {
       "t": "You are nd in the queue",
       "p": [
@@ -152,7 +152,7 @@
     }
   ],
   [
-    "ordinal.position.few",
+    "ns:ordinal.position.few",
     {
       "t": "You are rd in the queue",
       "p": [
@@ -166,7 +166,7 @@
     }
   ],
   [
-    "ordinal.position.other",
+    "ns:ordinal.position.other",
     {
       "t": "You are th in the queue",
       "p": [
@@ -180,13 +180,13 @@
     }
   ],
   [
-    "english_only.nested.deeply",
+    "ns:english_only.nested.deeply",
     {
       "t": "Hello"
     }
   ],
   [
-    "repeated",
+    "ns:repeated",
     {
       "t": "   is repeated",
       "p": [
@@ -212,7 +212,7 @@
     }
   ],
   [
-    "placeholder_getters.classrooms",
+    "ns:placeholder_getters.classrooms",
     {
       "q": {
         "cardinal": "classrooms"
@@ -220,13 +220,13 @@
     }
   ],
   [
-    "placeholder_getters.classrooms.one",
+    "ns:placeholder_getters.classrooms.one",
     {
       "t": "There is one classroom"
     }
   ],
   [
-    "placeholder_getters.classrooms.other",
+    "ns:placeholder_getters.classrooms.other",
     {
       "t": "There are  classrooms",
       "p": [
@@ -240,7 +240,7 @@
     }
   ],
   [
-    "placeholder_getters.boys",
+    "ns:placeholder_getters.boys",
     {
       "q": {
         "cardinal": "count"
@@ -248,13 +248,13 @@
     }
   ],
   [
-    "placeholder_getters.boys.one",
+    "ns:placeholder_getters.boys.one",
     {
       "t": "is one boy"
     }
   ],
   [
-    "placeholder_getters.boys.other",
+    "ns:placeholder_getters.boys.other",
     {
       "t": "are  boys",
       "p": [
@@ -268,7 +268,7 @@
     }
   ],
   [
-    "placeholder_getters.girls",
+    "ns:placeholder_getters.girls",
     {
       "q": {
         "cardinal": "count"
@@ -276,13 +276,13 @@
     }
   ],
   [
-    "placeholder_getters.girls.one",
+    "ns:placeholder_getters.girls.one",
     {
       "t": "one girl"
     }
   ],
   [
-    "placeholder_getters.girls.other",
+    "ns:placeholder_getters.girls.other",
     {
       "t": " girls",
       "p": [
@@ -296,7 +296,7 @@
     }
   ],
   [
-    "placeholder_getters.together",
+    "ns:placeholder_getters.together",
     {
       "t": "There  and ",
       "p": [
@@ -328,7 +328,7 @@
     }
   ],
   [
-    "placeholder_getters.passthrough",
+    "ns:placeholder_getters.passthrough",
     {
       "t": "",
       "p": [
@@ -345,9 +345,43 @@
     }
   ],
   [
-    "newline",
+    "ns:newline",
     {
       "t": "Line 1\nLine 2\nLine 3"
+    }
+  ],
+  [
+    "ns:circular_1",
+    {
+      "t": "This is one, ",
+      "p": [
+        [
+          13,
+          {
+            "g": "$t",
+            "d": {
+              "k": "circular_2"
+            }
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:circular_2",
+    {
+      "t": "This is two, ",
+      "p": [
+        [
+          13,
+          {
+            "g": "$t",
+            "d": {
+              "k": "circular_1"
+            }
+          }
+        ]
+      ]
     }
   ]
 ]

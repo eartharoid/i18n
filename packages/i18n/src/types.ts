@@ -6,26 +6,25 @@ export type Getter = {
 		original: [
 			locale_id: string,
 			key: string,
-			args?: NamedArgs
+			args: NamedArgs,
+			cycle: number
 		],
 		data: unknown
 	): string,
 	parse(args: string): unknown,
 }
 
-export type Getters = {
-	[name: string]: Getter
-}
+export type Getters = Record<string, Getter>
 
 export interface I18nLiteOptions {
 	default_locale_id: string,
 	getters: Getters,
-	placeholder_regex: RegExp,
-	positional_placeholder_regex: RegExp,
+	nested_limit: number,
 }
 
 export interface I18nOptions extends I18nLiteOptions {
 	defer_extraction: boolean,
+	placeholder_regex: RegExp,
 }
 
 export interface RawMessages {

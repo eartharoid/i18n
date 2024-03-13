@@ -9,11 +9,16 @@ type Parsed = {
 
 export default <Getter>{
 	get(locale, original, data: Parsed) {
-		const [, , args] = original;
-		return locale.t(data.k, {
-			...args,
-			...Object.fromEntries(Object.entries(data.o || {}).map(([k, v]) => [k, locale.i18n.resolve(args, v)])),
-		});
+		const [, , args, cycle] = original;
+		return locale.i18n.t(
+			locale.locale_id,
+			data.k,
+			{
+				...args,
+				...Object.fromEntries(Object.entries(data.o || {}).map(([k, v]) => [k, locale.i18n.resolve(args, v)])),
+			},
+			cycle + 1
+		);
 	},
 	parse(args) {
 		const [key, options] = args.replace(/\s/g, '').split(',');

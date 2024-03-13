@@ -203,3 +203,10 @@ test('nesting passthrough', t => {
 	const actual = i18n.t('en', 'placeholder_getters.passthrough', { classrooms: 2 });
 	t.is(actual, expected);
 });
+
+test('circular protection', t => {
+	t.throws(
+		() => i18n.t('en', 'circular_1'),
+		{ message: /exceeded nesting limit/ }
+	);
+});

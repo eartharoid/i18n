@@ -13,19 +13,16 @@ declare module '@eartharoid/i18n' {
 		parse(args: string): unknown,
 	}
 
-	type Getters = {
-		[name: string]: Getter
-	}
+	type Getters = Record<string, Getter>
 
 	interface I18nLiteOptions {
 		default_locale_id: string,
 		getters: Getters,
-		placeholder_regex: RegExp,
-		positional_placeholder_regex: RegExp,
 	}
 
 	interface I18nOptions extends I18nLiteOptions {
 		defer_extraction: boolean,
+		placeholder_regex: RegExp,
 	}
 
 	interface RawMessages {
@@ -78,11 +75,11 @@ declare module '@eartharoid/i18n' {
 
 		constructor(i18n: I18nLite, locale_id: string, messages: ParsedMessages)
 
-		public createTranslator(): (key: string, ...args: NamedArgs[]) => string
+		public createTranslator(): (key: string, args?: NamedArgs) => string
 
 		public t(
 			key: string,
-			...args: NamedArgs[]
+			args?: NamedArgs
 		): string
 	}
 
@@ -93,7 +90,7 @@ declare module '@eartharoid/i18n' {
 
 		constructor(options: Partial<I18nLiteOptions>);
 
-		public createTranslator(locale_id: string): (key: string, ...args: NamedArgs[]) => string
+		public createTranslator(locale_id: string): (key: string, args?: NamedArgs) => string
 
 		public loadParsed(locale_id: string, messages: ParsedMessages): Locale
 
@@ -105,13 +102,14 @@ declare module '@eartharoid/i18n' {
 		public t(
 			locale_id: string,
 			key: string,
-			...args: NamedArgs[]
+			args?: NamedArgs,
+			cycle?: number
 		): string
 	}
 
 	export class I18n extends I18nLite {
-		public readonly placeholder_regex: RegExp;
-		public readonly positional_placeholder_regex: RegExp;
+		public defer_extraction: boolean
+		public placeholder_regex: RegExp;
 
 		constructor(options?: Partial<I18nOptions>)
 
@@ -119,8 +117,8 @@ declare module '@eartharoid/i18n' {
 
 		private flatten(messages: RawMessages): Array<[string, string]>
 
-		public load(locale_id: string, messages: RawMessages): Locale
+		public load(locale_id: string, messages: RawMessages, namespace?: string): Locale
 
-		public parse(messages: RawMessages): ParsedMessages
+		public parse(messages: RawMessages, namespace?: string): ParsedMessages
 	}
 }

@@ -48,5 +48,7 @@
 		"together": "There {$t(placeholder_getters.boys, count=boys)} and {$t(placeholder_getters.girls, count=girls)}",
 		"passthrough": "{$t(placeholder_getters.classrooms)}"
 	},
-	"newline": "Line 1\nLine 2\nLine 3"
+	"newline": "Line 1\nLine 2\nLine 3",
+	"circular_1": "This is one, {$t(circular_2)}",
+	"circular_2": "This is two, {$t(circular_1)}"
 }

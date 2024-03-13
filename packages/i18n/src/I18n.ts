@@ -11,13 +11,12 @@ import I18nLite from './I18nLite.js';
 
 export default class I18n extends I18nLite {
 	public defer_extraction: boolean;
-	public readonly placeholder_regex: RegExp;
-	public readonly positional_placeholder_regex: RegExp;
+	public placeholder_regex: RegExp;
 
 	constructor(options?: Partial<I18nOptions>) {
 		super(options);
 		this.defer_extraction = options?.defer_extraction ?? true; // ?? not ||
-		this.placeholder_regex = options?.placeholder_regex || /\\?{\s?(?:(?<variable>[-a-z0-9._@:#$]+)|(?:(?<getter>[$a-z0-9_]+)(?:\((?<args>[-a-z0-9()!@:%_+.~#?&/= ,]*)\))?))\s?}/gi;
+		this.placeholder_regex = options?.placeholder_regex || /\\?{\s?(?:(?<variable>[-a-z0-9._]+)|(?:(?<getter>[$a-z0-9_]+)(?:\((?<args>[-a-z0-9()!@:%_+.~#?&/= ,]*)\))?))\s?}/gi;
 	}
 
 	public extract(message: string): ExtractedMessageObject {
@@ -94,22 +93,23 @@ export default class I18n extends I18nLite {
 	 * @param {string} locale_id 
 	 * @param {RawMessages} messages 
 	 */
-	public load(locale_id: string, messages: RawMessages): Locale {
-		return this.loadParsed(locale_id, this.parse(messages));
+	public load(locale_id: string, messages: RawMessages, namespace?: string): Locale {
+		return this.loadParsed(locale_id, this.parse(messages, namespace));
 	}
 
-	public parse(messages: RawMessages): ParsedMessages {
+	public parse(messages: RawMessages, namespace?: string): ParsedMessages {
 		const flattened = this.flatten(messages);
 		const parsed: ParsedMessages = [];
 		for (const [k, v] of flattened) {
+			const key = namespace ? namespace + ':' + k : k;
 			if (typeof v === 'string') {
 				parsed.push([
-					k,
+					key,
 					this.defer_extraction ? { o: v } : this.extract(v)
 				]);
 			} else {
 				parsed.push([
-					k,
+					key,
 					{ q: v }
 				]);
 			}
