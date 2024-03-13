@@ -12,16 +12,20 @@ import { setupCounter } from './counter.ts';
 
 // it won't let me import the plugin's I18n?
 import { I18nLite } from '@eartharoid/i18n';
+//@ts-ignore
 import { ctom } from '@eartharoid/cif';
 class I18n extends I18nLite {
+  //@ts-ignore
   constructor(options) {
     super(options);
   }
+  //@ts-ignore
   load(module) {
-    const { cif, locale_id } = module;
-    return this.loadParsed(locale_id, ctom(cif));
+    const { cif, json, locale_id } = module;
+    return this.loadParsed(locale_id, cif ? ctom(cif) : json);
   }
 }
+//@ts-ignore
 const i18n = new I18n();
 
 

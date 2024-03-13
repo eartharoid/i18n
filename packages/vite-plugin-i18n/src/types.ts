@@ -1,9 +1,12 @@
+import { ParsedMessages } from '@eartharoid/i18n';
 export interface CIFModule {
-	cif: string,
+	cif?: string,
+	json?: ParsedMessages,
 	locale_id: string,
 }
 
 export interface I18nPluginOptions {
+	compact?: boolean,
 	exclude?: string | RegExp | Array<string | RegExp>,
 	id_regex?: RegExp,
 	include: string | RegExp | Array<string | RegExp>,

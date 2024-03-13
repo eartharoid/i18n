@@ -10,7 +10,7 @@ export default class I18n extends I18nLite {
 	}
 
 	public load(module: CIFModule): Locale {
-		const { cif, locale_id } = module;
-		return this.loadParsed(locale_id, ctom(cif));
+		const { cif, json, locale_id } = module;
+		return this.loadParsed(locale_id, cif ? ctom(cif) : json);
 	}
 }
