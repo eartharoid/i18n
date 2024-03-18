@@ -20,13 +20,7 @@ export default class Locale extends Map<string, ParsedMessage> {
 	 * Create a shortcut function for translating to this locale
 	 */
 	public createTranslator(): Translator {
-		// eslint-disable-next-line @typescript-eslint/no-this-alias
-		const locale = this;
-		function t(key: string, args?: NamedArgs): string {
-			return locale.i18n.t(locale.locale_id, key, args);
-		}
-		t.locale = locale;
-		return t;
+		return this.i18n.createTranslator(this.locale_id);
 	}
 
 	/**

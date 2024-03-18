@@ -4,10 +4,10 @@
 	"description": "A Vite plugin for I18n and CIF",
 	"main": "dist/index.js",
 	"type": "module",
-	"types": "types.d.ts",
+	"types": "index.d.ts",
 	"files": [
 		"dist/",
-		"types.d.ts"
+		"index.d.ts"
 	],
 	"scripts": {
 		"build": "tsc",

@@ -1,5 +1,7 @@
 import type {
 	ExtractedMessageObject,
+	Fallen,
+	FlattenedMessages,
 	I18nOptions,
 	MetaMessageObject,
 	ParsedMessage,
@@ -19,6 +21,11 @@ export default class I18n extends I18nLite {
 		this.placeholder_regex = options?.placeholder_regex || /\\?{\s?(?:(?<variable>[-a-z0-9._]+)|(?:(?<getter>[$a-z0-9_]+)(?:\((?<args>[-a-z0-9()!@:%_+.~#?&/= ,]*)\))?))\s?}/gi;
 	}
 
+	/**
+	 * Extract placeholder data from a message
+	 * @param {string} message
+	 * @returns {ExtractedMessageObject}
+	 */
 	public extract(message: string): ExtractedMessageObject {
 		// {data | formatter1(arg1,a=1&b=2&c=3)}
 		const extracted: ParsedMessage = { t: message };
@@ -57,8 +64,78 @@ export default class I18n extends I18nLite {
 		return extracted;
 	}
 
+	private 
+
+	/**
+	 * Resolve missing translations
+	 * @param {string} default_locale_id
+	 * @param {Record<string, string[]>} [fallback_map]
+	 * @returns {Fallen}
+	 */
+	public fallback(default_locale_id: string, fallback_map?: Record<string, string[]>): Fallen {
+		let ordered_ids: string[];
+		const default_locale = this.locales.get(default_locale_id);
+		const locale_ids = [...this.locales.keys()];
+		const fallen: Fallen = locale_ids.reduce((obj, id) => obj[id] = [], {});
+
+		if (fallback_map) {
+			/*
+			This also works, but makes unlisted appear before rather than after listed:
+			const priorities = Object.keys(fallback_map);
+			const sorted = locale_ids.sort((a, b) => priorities.indexOf(a) - priorities.indexOf(b));
+			*/
+			const set = new Set(Object.keys(fallback_map));
+			for (const locale_id of locale_ids) set.add(locale_id);
+			ordered_ids = [...set.values()];
+		} else {
+			ordered_ids = locale_ids;
+		}
+		
+		
+		for (const locale_id of ordered_ids) {
+			fallen[locale_id] = [];
+			let fallback_order: string[]; 
+
+			if (fallback_map) {
+				fallback_order = [
+					...(fallback_map[locale_id] || []),
+					default_locale_id
+				];
+			} else {
+				// indexOf would be faster but this function is already inefficient
+				const base_language = new Intl.Locale(locale_id).language; // locale_id.split('-')[0]
+				if (base_language === locale_id) fallback_order = [default_locale_id];
+				else if (this.locales.has(base_language)) fallback_order = [base_language, default_locale_id];
+				else fallback_order = [default_locale_id];
+			}
+			
+			const locale = this.locales.get(locale_id);
+			for (const key of default_locale.keys()) {
+				if (locale.has(key)) continue;
+				for (const fallback_id of fallback_order) {
+					const fallback_locale = this.locales.get(fallback_id);
+					if (fallback_locale.has(key)) {
+						locale.set(key, fallback_locale.get(key));
+						fallen[locale_id].push([key, fallback_id]);
+						break;
+					}
+				}
+			}
+
+		}
+
+		
+		return fallen;
+	}
+
+
+	/**
+	 * Flatten raw messages and extract metadata
+	 * @param {RawMessages} messages 
+	 * @returns {FlattenedMessages}
+	 */
 	private flatten(messages: RawMessages) {
-		const flattened: Array<[string, string | MetaMessageObject['q']]> = [];
+		const flattened: FlattenedMessages = [];
 		for (const [k, v] of Object.entries(messages)) {
 			let key = k;
 			let query: MetaMessageObject['q'];
@@ -89,14 +166,21 @@ export default class I18n extends I18nLite {
 	}
 
 	/**
-	 * Parse then load messages
+	 * Parse then load raw messages
 	 * @param {string} locale_id 
-	 * @param {RawMessages} messages 
+	 * @param {RawMessages} messages
+	 * @returns {Locale}
 	 */
 	public load(locale_id: string, messages: RawMessages, namespace?: string): Locale {
 		return this.loadParsed(locale_id, this.parse(messages, namespace));
 	}
 
+	/**
+	 * Parse raw messages
+	 * @param {RawMessages} messages 
+	 * @param {string} [namespace] 
+	 * @returns {ParsedMessages}
+	 */
 	public parse(messages: RawMessages, namespace?: string): ParsedMessages {
 		const flattened = this.flatten(messages);
 		const parsed: ParsedMessages = [];

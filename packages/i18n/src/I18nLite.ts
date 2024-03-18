@@ -3,7 +3,6 @@ import type {
 	Getters,
 	I18nLiteOptions,
 	Locales,
-	MessageObject,
 	NamedArgs,
 	ParsedMessages,
 	Translator
@@ -13,13 +12,11 @@ import Locale from './Locale.js';
 import $t from './getters/$t.js';
 
 export default class I18nLite {
-	public default_locale_id: string;
 	public getters: Getters;
 	public locales: Locales;
 	public nested_limit: number;
 
 	constructor(options?: Partial<I18nLiteOptions>) {
-		this.default_locale_id = options?.default_locale_id;
 		this.getters = {
 			$t,
 			...options?.getters,
@@ -30,9 +27,9 @@ export default class I18nLite {
 
 	/**
 	 * Create a shortcut function for translating to a specific locale
-	 * @param {string} [locale_id] - The locale to create a shortcut for
+	 * @param {string} locale_id - The locale to create a shortcut for
 	 */
-	public createTranslator(locale_id: string = this.default_locale_id): Translator {
+	public createTranslator(locale_id: string): Translator {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const i18n = this;
 		function t(key: string, args?: NamedArgs): string {
@@ -65,20 +62,18 @@ export default class I18nLite {
 
 	/**
 	 * Get a message from a locale
-	 * @param {string} [locale_id] - The locale to get the message from
+	 * @param {string} locale_id - The locale to get the message from
 	 * @param {string} key - The message to get
 	 * @param {NamedArgs} [args] - Placeholder values
+	 * @param {number} [nested] - The cycle number
 	 * @returns {string}
 	 */
 	public t(
-		locale_id: string = this.default_locale_id,
+		locale_id: string,
 		key: string,
 		args: NamedArgs = {},
 		nested = 0
 	): string {
-		// fallback to default locale if provided one is an empty string
-		locale_id ||= this.default_locale_id;
-
 		if (nested > this.nested_limit) {
 			throw new Error(`Potential circular translation, "${key}" exceeded nesting limit (${this.nested_limit})`);
 		}
@@ -88,24 +83,10 @@ export default class I18nLite {
 			throw new Error(`A locale with the name of "${locale_id}" does not exist`);
 		}
 
-		// locale exists but key does not, no default locale
-		if (!this.locales.get(locale_id).has(key) && this.default_locale_id === undefined) {
-			throw new Error(`The "${locale_id}" locale does not contain a message with the key "${key}" and no default locale was provided`);
+		// locale exists but key does not
+		if (!this.locales.get(locale_id).has(key)) {
+			throw new Error(`The "${locale_id}" locale does not contain a message with the key "${key}"`);
 		}
-
-		// locale exists but key does not, default locale does not exist
-		if (!this.locales.get(locale_id).has(key) && !this.locales.has(this.default_locale_id)) {
-			throw new Error(`The "${locale_id}" locale does not contain a message with the key "${key}" and the default locale does not exist`);
-		}
-
-		// locale and default locale exist but key exists in neither
-		if (!this.locales.get(locale_id).has(key) && !this.locales.get(this.default_locale_id).has(key)) {
-			throw new Error(`A message with the key "${key}" does not exist in the "${locale_id}" locale or the default locale ("${this.default_locale_id}")`);
-		}
-
-		// the key exists in either the current or default locale, 
-		// fallback to the default locale if the key doesn't exist in the current locale
-		if (!this.locales.get(locale_id).has(key)) locale_id = this.default_locale_id;
 
 		let message = this.locales.get(locale_id).get(key);
 
@@ -114,20 +95,19 @@ export default class I18nLite {
 			const plural_type = (message.q.cardinal && 'cardinal') || (message.q.ordinal && 'ordinal') || null;
 			if (plural_type) {
 				const input = this.resolve(args, message.q[plural_type]);
-				if (isNaN(Number(input)) && !Array.isArray(input)) throw new Error(`"${message.q[plural_type]}" number/array is required`);
-				const idm = this.locales.get(locale_id).get('$meta.locale_id');
-				const cldr_id = (<ExtractedMessageObject>idm)?.t || (<MessageObject>idm)?.o || locale_id;
-				const pr = new Intl.PluralRules(cldr_id, { type: plural_type });
-				// @ts-ignore yes it does
-				const rule: Intl.LDMLPluralRule = Array.isArray(input) ? pr.selectRange(...input) : pr.select(input);
-				key = key + '.' + rule;
-				if (!this.locales.get(locale_id).has(key)) { // key does not exist in the selected locale
-					if (!this.default_locale_id || locale_id === this.default_locale_id) {
-						throw new Error(`Pluralisation failed: the "${locale_id}" locale is missing the "${key}" key`);
-					} else if (!this.locales.get(this.default_locale_id).has(key)) { // also doesn't exist in the default locale
-						throw new Error(`Pluralisation failed: "${key}" does not exist in the "${locale_id}" locale or the default locale ("${this.default_locale_id}")`);
-					} else { // exists in the default locale
-						locale_id = this.default_locale_id;
+				if (isNaN(Number(input)) && !Array.isArray(input)) {
+					throw new Error(`A number/array value for the "${message.q[plural_type]}" variable is required`);
+				}
+				const literal = `${key}.=${input}`;
+				if (this.locales.get(locale_id).has(literal)) {
+					key = literal;
+				} else {
+					const pr = new Intl.PluralRules(locale_id, { type: plural_type });
+					// @ts-ignore yes it does
+					const rule: Intl.LDMLPluralRule = Array.isArray(input) ? pr.selectRange(...input) : pr.select(input);
+					key = key + '.' + rule;
+					if (!this.locales.get(locale_id).has(key)) {
+						throw new Error(`Pluralisation failed: the "${locale_id}" locale does not contain a message with the key "${key}"`);
 					}
 				}
 				message = this.locales.get(locale_id).get(key);

@@ -1,4 +1,3 @@
-import type Locale from './Locale.js';
 
 export type Getter = {
 	get(
@@ -65,7 +64,7 @@ export interface MetaMessageObject {
 
 export interface ExtractedMessageObject extends Partial<MessageObject> {
 	t: string,
-	p?: Array<[number, Placeholder]>	
+	p?: Array<[number, Placeholder]>
 }
 
 export type ParsedMessage = ExtractedMessageObject | MessageObject | MetaMessageObject;
@@ -75,4 +74,62 @@ export type ParsedMessages = Array<[string, ParsedMessage]>;
 export interface Translator {
 	(key: string, args?: NamedArgs): string,
 	locale: Locale,
+}
+
+
+// !
+
+
+
+export class Locale extends Map<string, ParsedMessage> {
+	public readonly i18n: I18nLite;
+	public readonly locale_id: string;
+
+	constructor(i18n: I18nLite, locale_id: string, messages: ParsedMessages)
+
+	public createTranslator(): (key: string, args?: NamedArgs) => string
+
+	public t(
+		key: string,
+		args?: NamedArgs
+	): string
+}
+
+export class I18n extends I18nLite {
+	public defer_extraction: boolean
+	public placeholder_regex: RegExp;
+
+	constructor(options?: Partial<I18nOptions>)
+
+	public extract(message: string): ParsedMessage
+
+	private flatten(messages: RawMessages): Array<[string, string]>
+
+	public load(locale_id: string, messages: RawMessages, namespace?: string): Locale
+
+	public parse(messages: RawMessages, namespace?: string): ParsedMessages
+}
+
+export class I18nLite {
+	public defer_extraction: boolean;
+	public default_locale_id: string;
+	public locales: Locales;
+
+	constructor(options: Partial<I18nLiteOptions>);
+
+	public createTranslator(locale_id: string): (key: string, args?: NamedArgs) => string
+
+	public loadParsed(locale_id: string, messages: ParsedMessages): Locale
+
+	public resolve(
+		obj: NamedArgs,
+		key: string
+	): string | number | undefined
+
+	public t(
+		locale_id: string,
+		key: string,
+		args?: NamedArgs,
+		cycle?: number
+	): string
 }

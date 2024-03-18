@@ -9,7 +9,7 @@
 	},
 	"plural": {
 		"age#age": {
-			"zero": "You were born recently (you'll never see this message)",
+			"=0": "You were born recently",
 			"one": "You were born a year ago",
 			"other": "You were born {age} years ago"
 		},

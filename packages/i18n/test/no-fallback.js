@@ -22,6 +22,6 @@ for (const [k, v] of Object.entries(locales)) i18n.load(k, v);
 test('missing translation', t => {
 	t.throws(
 		() => i18n.t('no', 'english_only.nested.deeply'),
-		{ message: /no default locale was provided/ }
+		{ message: /does not contain a message with the key/ }
 	);
 });

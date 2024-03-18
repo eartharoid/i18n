@@ -4,10 +4,10 @@
 	"description": "Simple and lightweight message localisation",
 	"main": "dist/index.js",
 	"type": "module",
-	"types": "types.d.ts",
+	"types": "index.d.ts",
 	"files": [
 		"dist/",
-		"types.d.ts"
+		"index.d.ts"
 	],
 	"scripts": {
 		"build": "tsc",
