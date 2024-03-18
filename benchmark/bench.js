@@ -15,6 +15,7 @@
 		cif: readFileSync('./samples/test.cif', 'utf8'),
 		i18n_json: readFileSync('./samples/test.i18n.json', 'utf8'),
 		json: readFileSync('./samples/test.json', 'utf8'),
+		missing_json: readFileSync('./samples/missing.json', 'utf8'),
 	};
 
 	const parsed = {
@@ -39,30 +40,43 @@
 			i18n_deferred = new I18n({ defer_extraction: true });
 			// i18next = await import('i18next');
 			i18next = require('i18next');
+			delete require.cache[require.resolve('./samples/missing.js')];
 			delete require.cache[require.resolve('./samples/test.js')];
 			delete require.cache[require.resolve('./samples/test.i18n.js')];
 		})
 
 		.ref('Raw JSON', () => {
 			const json = JSON.parse(txt.json);
-			i18n.load('test', json);
+			i18n.load('en', json);
 		})
 
 		.add('Raw JSON, deferred', () => {
 			const json = JSON.parse(txt.json);
-			i18n_deferred.load('test', json);
+			i18n_deferred.load('en', json);
+		})
+
+		.add('Raw JSON, deferred, w/ fallback', () => {
+			i18n_deferred.load('en', JSON.parse(txt.json));
+			i18n_deferred.load('en-GB', JSON.parse(txt.missing_json));
+			i18n_deferred.fallback('en');
 		})
 
 		.add('Raw JS', () => {
 			// const { json } = await import(`./samples/test.js`);
 			const json = require(`./samples/test.js`);
-			i18n.load('test', json);
+			i18n.load('en', json);
 		})
 
 		.add('Raw JS, deferred', async () => {
 			// const { json } = await import(`./samples/test.js`);
 			const json = require(`./samples/test.js`);
-			i18n_deferred.load('test', json);
+			i18n_deferred.load('en', json);
+		})
+
+		.add('Raw JS, deferred, w/ fallback', () => {
+			i18n_deferred.load('en', require(`./samples/test.js`));
+			i18n_deferred.load('en-GB', require(`./samples/missing.js`));
+			i18n_deferred.fallback('en');
 		})
 
 		// it's too fast
@@ -97,11 +111,11 @@
 	benchmark.createSuite('Translating', { time: 5e3, description: 'Getting a message and filling its placeholders' })
 		.setup(async () => {
 			i18n = new I18n({ defer_extraction: false });
-			i18n.load('test', parsed.json);
+			i18n.load('en', parsed.json);
 			i18n_deferred = new I18n({ defer_extraction: true });
-			i18n_deferred.load('test', parsed.json);
-			i18n1 = new I18n1('test', {
-				test: parsed.json
+			i18n_deferred.load('en', parsed.json);
+			i18n1 = new I18n1('en', {
+				en: parsed.json
 			});
 			// i18next = await import('i18next');
 			i18next = require('i18next');
@@ -115,15 +129,15 @@
 			});
 		})
 		.ref('i18n', () => {
-			i18n.t('test', 'commands.user.create.sent.description', { user: 'Bob', category: 'Earth' });
+			i18n.t('en', 'commands.user.create.sent.description', { user: 'Bob', category: 'Earth' });
 		})
 
 		.add('i18n, deferred', () => {
-			i18n_deferred.t('test', 'commands.user.create.sent.description', { user: 'Bob', category: 'Earth' });
+			i18n_deferred.t('en', 'commands.user.create.sent.description', { user: 'Bob', category: 'Earth' });
 		})
 
 		.add('i18n v1', () => {
-			i18n1.getMessage('test', 'commands.user.create.sent.description', { user: 'Bob', category: 'Earth' });
+			i18n1.getMessage('en', 'commands.user.create.sent.description', { user: 'Bob', category: 'Earth' });
 		})
 
 		.add('i18next', () => {
