@@ -30,8 +30,6 @@ export type Fallen = {
 	[locale_id: string]: Array<[string, string]>
 }
 
-export type FlattenedMessages = Array<[string, string | MetaMessageObject['q']]>
-
 export interface RawMessages {
 	[key: string]: RawMessages | string
 }

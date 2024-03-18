@@ -47,14 +47,14 @@ but the percentage difference is still useful.
 > CIF files are ideal for client-side when CDN compression is not an option
 > as [they are much smaller](https://github.com/eartharoid/i18n/tree/main/packages/cif#readme) than JSON.
 
-```
+```diff
    Raw JSON (#)                               0%      (3,923 ops/sec)   (avg: 254μs)
    Raw JSON, deferred                    +14.27%      (4,483 ops/sec)   (avg: 223μs)
    Raw JSON, deferred, w/ fallback       -49.08%      (1,998 ops/sec)   (avg: 500μs)
    Raw JS                                +37.89%      (5,410 ops/sec)   (avg: 184μs)
    Raw JS, deferred                      +66.68%      (6,539 ops/sec)   (avg: 152μs)
    Raw JS, deferred, w/ fallback         -30.22%      (2,738 ops/sec)   (avg: 365μs)
-   I18n JS                            +1,891.75%     (77,569 ops/sec)    (avg: 12μs)
++  I18n JS                            +1,891.75%     (77,569 ops/sec)    (avg: 12μs)
    I18n JSON                             +70.97%      (6,708 ops/sec)   (avg: 149μs)
    I18n CIF                              +94.55%      (7,633 ops/sec)   (avg: 131μs)
    i18next JSON                           -7.75%      (3,619 ops/sec)   (avg: 276μs)
@@ -87,8 +87,8 @@ but the percentage difference is still useful.
 ```
    i18n (#)                  0%   (3,819,363 ops/sec)   (avg: 261ns)
    i18n, deferred        -3.37%   (3,690,679 ops/sec)   (avg: 270ns)
-   i18n v1              -78.27%    (830,053 ops/sec)   (avg: 1μs)
-   i18next              -95.06%    (188,834 ops/sec)   (avg: 5μs)
+   i18n v1              -78.27%     (830,053 ops/sec)     (avg: 1μs)
+   i18next              -95.06%     (188,834 ops/sec)     (avg: 5μs)
 
 ┌────────────────┬────────────────────────────────────────────────────┐
 │ i18n           │ ██████████████████████████████████████████████████ │

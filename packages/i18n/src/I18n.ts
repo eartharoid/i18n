@@ -1,7 +1,6 @@
 import type {
 	ExtractedMessageObject,
 	Fallen,
-	FlattenedMessages,
 	I18nOptions,
 	MetaMessageObject,
 	ParsedMessage,
@@ -64,8 +63,6 @@ export default class I18n extends I18nLite {
 		return extracted;
 	}
 
-	private 
-
 	/**
 	 * Resolve missing translations
 	 * @param {string} default_locale_id
@@ -75,42 +72,35 @@ export default class I18n extends I18nLite {
 	public fallback(default_locale_id: string, fallback_map?: Record<string, string[]>): Fallen {
 		let ordered_ids: string[];
 		const default_locale = this.locales.get(default_locale_id);
-		const locale_ids = [...this.locales.keys()];
-		const fallen: Fallen = locale_ids.reduce((obj, id) => obj[id] = [], {});
+		const locale_ids = Array.from(this.locales.keys());
+		// const fallen: Fallen = locale_ids.reduce((obj, id) => (obj[id] = [], obj), {});
+		const fallen: Fallen = {};
 
 		if (fallback_map) {
-			/*
-			This also works, but makes unlisted appear before rather than after listed:
-			const priorities = Object.keys(fallback_map);
-			const sorted = locale_ids.sort((a, b) => priorities.indexOf(a) - priorities.indexOf(b));
-			*/
 			const set = new Set(Object.keys(fallback_map));
 			for (const locale_id of locale_ids) set.add(locale_id);
 			ordered_ids = [...set.values()];
 		} else {
 			ordered_ids = locale_ids;
 		}
-		
-		
+
 		for (const locale_id of ordered_ids) {
 			fallen[locale_id] = [];
-			let fallback_order: string[]; 
-
+			let fallback_order: string[];
 			if (fallback_map) {
 				fallback_order = [
 					...(fallback_map[locale_id] || []),
 					default_locale_id
 				];
 			} else {
-				// indexOf would be faster but this function is already inefficient
-				const base_language = new Intl.Locale(locale_id).language; // locale_id.split('-')[0]
-				if (base_language === locale_id) fallback_order = [default_locale_id];
-				else if (this.locales.has(base_language)) fallback_order = [base_language, default_locale_id];
+				// const idx = locale_id.indexOf('-');
+				// const base_language = idx === -1 ? locale_id : locale_id.substring(0, idx); // locale_id.split('-')[0]
+				const base_language = new Intl.Locale(locale_id).language;
+				if (base_language !== locale_id && this.locales.has(base_language)) fallback_order = [base_language, default_locale_id];
 				else fallback_order = [default_locale_id];
 			}
-			
 			const locale = this.locales.get(locale_id);
-			for (const key of default_locale.keys()) {
+			for (const [key] of default_locale) {
 				if (locale.has(key)) continue;
 				for (const fallback_id of fallback_order) {
 					const fallback_locale = this.locales.get(fallback_id);
@@ -124,45 +114,7 @@ export default class I18n extends I18nLite {
 
 		}
 
-		
 		return fallen;
-	}
-
-
-	/**
-	 * Flatten raw messages and extract metadata
-	 * @param {RawMessages} messages 
-	 * @returns {FlattenedMessages}
-	 */
-	private flatten(messages: RawMessages) {
-		const flattened: FlattenedMessages = [];
-		for (const [k, v] of Object.entries(messages)) {
-			let key = k;
-			let query: MetaMessageObject['q'];
-			const fi = key.indexOf('#');
-			if (fi !== -1) {
-				query = { cardinal: k.substring(fi + 1) };
-				key = k.substring(0, fi);
-			} else {
-				const qi = key.indexOf('?');
-				if (qi !== -1) {
-					query = Object.fromEntries(new URLSearchParams(k.substring(qi + 1)).entries());
-					key = k.substring(0, qi);
-				}
-			}
-			if (typeof v === 'string') {
-				flattened.push([key, v]);
-			} else if (typeof v === 'object') {
-				if (query) {
-					flattened.push([key, query]);
-				}
-				const nested = this.flatten(v);
-				for (const [nested_k, ...nested_v] of nested) {
-					flattened.push([key + '.' + nested_k, ...nested_v]);
-				}
-			}
-		}
-		return flattened;
 	}
 
 	/**
@@ -182,22 +134,41 @@ export default class I18n extends I18nLite {
 	 * @returns {ParsedMessages}
 	 */
 	public parse(messages: RawMessages, namespace?: string): ParsedMessages {
-		const flattened = this.flatten(messages);
 		const parsed: ParsedMessages = [];
-		for (const [k, v] of flattened) {
-			const key = namespace ? namespace + ':' + k : k;
+		for (const [k, v] of Object.entries(messages)) {
+			let key = namespace ? namespace + ':' + k : k;
+			let query: MetaMessageObject['q'];
+			const fi = key.indexOf('#');
+			if (fi !== -1) {
+				query = { cardinal: k.substring(fi + 1) };
+				key = k.substring(0, fi);
+			} else {
+				const qi = key.indexOf('?');
+				if (qi !== -1) {
+					query = Object.fromEntries(new URLSearchParams(k.substring(qi + 1)).entries());
+					key = k.substring(0, qi);
+				}
+			}
 			if (typeof v === 'string') {
 				parsed.push([
 					key,
 					this.defer_extraction ? { o: v } : this.extract(v)
 				]);
-			} else {
-				parsed.push([
-					key,
-					{ q: v }
-				]);
+			} else if (typeof v === 'object') {
+				if (query) {
+					parsed.push([
+						key,
+						{ q: query }
+					]);
+				}
+				const nested = this.parse(v);
+				for (const [nested_k, ...nested_v] of nested) {
+					parsed.push([
+						key + '.' + nested_k,
+						...nested_v
+					]);
+				}
 			}
-
 		}
 		return parsed;
 	}

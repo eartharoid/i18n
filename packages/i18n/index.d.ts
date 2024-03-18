@@ -29,8 +29,6 @@ export type Fallen = {
 	[locale_id: string]: Array<[string, string]>
 }
 
-export type FlattenedMessages = Array<[string, string | MetaMessageObject['q']]>
-
 export interface RawMessages {
 	[key: string]: RawMessages | string
 }
@@ -102,8 +100,6 @@ export class I18n extends I18nLite {
 	constructor(options?: Partial<I18nOptions>)
 
 	public extract(message: string): ParsedMessage
-
-	private flatten(messages: RawMessages): Array<[string, string]>
 
 	public load(locale_id: string, messages: RawMessages, namespace?: string): Locale
 
