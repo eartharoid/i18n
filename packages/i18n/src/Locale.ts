@@ -12,9 +12,20 @@ export default class Locale extends Map<string, ParsedMessage> {
 	public readonly i18n: I18nLite;
 	public readonly locale_id: string;
 
-	constructor(i18n: I18nLite, locale_id: string,  messages: ParsedMessages) {
+	constructor(
+		i18n: I18nLite,
+		locale_id: string,
+		messages: ParsedMessages,
+	) {
 		super(messages);
-		this.formatters = null;
+		this.formatters = Object
+			.entries(i18n.formatters)
+			.reduce((acc, [name, builder]) => {
+				const locales = [new Intl.Locale(locale_id)];
+				if (i18n.default_locale_id) locales.push(new Intl.Locale(i18n.default_locale_id));
+				acc[name] = builder(locales);
+				return acc;
+			}, {});
 		this.i18n = i18n;
 		this.locale_id = locale_id;
 	}

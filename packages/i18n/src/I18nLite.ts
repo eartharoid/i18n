@@ -99,7 +99,7 @@ export default class I18nLite {
 		let message = locale.get(key);
 
 		// pluralisation
-		if ('q' in message) {		
+		if ('q' in message) {
 			const plural_type = (message.q.cardinal && 'cardinal') || (message.q.ordinal && 'ordinal') || null;
 			if (plural_type) {
 				const input = this.resolve(args, message.q[plural_type]);
@@ -146,16 +146,6 @@ export default class I18nLite {
 				name = placeholder.v;
 				const resolved = this.resolve(args, String(placeholder.v));
 				if (typeof resolved === 'function') {
-					if (!locale.formatters) {
-						locale.formatters = Object
-							.entries(this.formatters)
-							.reduce((acc, [name, builder]) => {
-								const locales = [new Intl.Locale(locale_id)];
-								if (this.default_locale_id) locales.push(new Intl.Locale(this.default_locale_id));
-								acc[name] = builder(locales);
-								return acc;
-							}, {});
-					}
 					value = resolved(locale.formatters).result;
 				} else {
 					value = resolved?.toString();
