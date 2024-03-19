@@ -1,4 +1,5 @@
 import type {
+	FormatterFactory,
 	NamedArgs,
 	ParsedMessage,
 	ParsedMessages,
@@ -7,11 +8,13 @@ import type {
 import type I18nLite from './I18nLite.js';
 
 export default class Locale extends Map<string, ParsedMessage> {
+	public formatters: Record<string, FormatterFactory>;
 	public readonly i18n: I18nLite;
 	public readonly locale_id: string;
 
 	constructor(i18n: I18nLite, locale_id: string,  messages: ParsedMessages) {
 		super(messages);
+		this.formatters = null;
 		this.i18n = i18n;
 		this.locale_id = locale_id;
 	}

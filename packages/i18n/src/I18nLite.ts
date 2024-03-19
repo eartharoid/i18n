@@ -1,8 +1,10 @@
 import type {
 	ExtractedMessageObject,
+	FormatterFactoryBuilder,
 	Getters,
 	I18nLiteOptions,
 	Locales,
+	NamedArg,
 	NamedArgs,
 	ParsedMessages,
 	Translator
@@ -12,11 +14,15 @@ import Locale from './Locale.js';
 import $t from './getters/$t.js';
 
 export default class I18nLite {
+	public default_locale_id: string;
+	public formatters: Record<string, FormatterFactoryBuilder>;
 	public getters: Getters;
 	public locales: Locales;
 	public nested_limit: number;
 
 	constructor(options?: Partial<I18nLiteOptions>) {
+		this.default_locale_id = options?.default_locale_id;
+		this.formatters = options?.formatters ?? {};
 		this.getters = {
 			$t,
 			...options?.getters,
@@ -53,7 +59,7 @@ export default class I18nLite {
 	public resolve(
 		obj: NamedArgs,
 		key: string
-	): string | number | number[] | undefined {
+	): NamedArg | undefined {
 		// @ts-ignore I hate TypeScript
 		return key
 			.split(/\./g)
@@ -83,12 +89,14 @@ export default class I18nLite {
 			throw new Error(`A locale with the name of "${locale_id}" does not exist`);
 		}
 
+		const locale = this.locales.get(locale_id);
+
 		// locale exists but key does not
-		if (!this.locales.get(locale_id).has(key)) {
+		if (!locale.has(key)) {
 			throw new Error(`The "${locale_id}" locale does not contain a message with the key "${key}"`);
 		}
 
-		let message = this.locales.get(locale_id).get(key);
+		let message = locale.get(key);
 
 		// pluralisation
 		if ('q' in message) {		
@@ -99,18 +107,18 @@ export default class I18nLite {
 					throw new Error(`A number/array value for the "${message.q[plural_type]}" variable is required`);
 				}
 				const literal = `${key}.=${input}`;
-				if (this.locales.get(locale_id).has(literal)) {
+				if (locale.has(literal)) {
 					key = literal;
 				} else {
 					const pr = new Intl.PluralRules(locale_id, { type: plural_type });
 					// @ts-ignore yes it does
 					const rule: Intl.LDMLPluralRule = Array.isArray(input) ? pr.selectRange(...input) : pr.select(input);
 					key = key + '.' + rule;
-					if (!this.locales.get(locale_id).has(key)) {
+					if (!locale.has(key)) {
 						throw new Error(`Pluralisation failed: the "${locale_id}" locale does not contain a message with the key "${key}"`);
 					}
 				}
-				message = this.locales.get(locale_id).get(key);
+				message = locale.get(key);
 			}
 		}
 
@@ -121,7 +129,7 @@ export default class I18nLite {
 				throw new Error(`Message "${key}" in the "${locale_id}" locale has not been extracted`);
 			}
 			const parsed = this.extract(message.o);
-			this.locales.get(locale_id).set(key, parsed);
+			locale.set(key, parsed);
 			extracted = parsed;
 		} else {
 			extracted = message;
@@ -136,11 +144,27 @@ export default class I18nLite {
 			let name: string;
 			if ('v' in placeholder) {
 				name = placeholder.v;
-				value = this.resolve(args, String(placeholder.v))?.toString();
+				const resolved = this.resolve(args, String(placeholder.v));
+				if (typeof resolved === 'function') {
+					if (!locale.formatters) {
+						locale.formatters = Object
+							.entries(this.formatters)
+							.reduce((acc, [name, builder]) => {
+								const locales = [new Intl.Locale(locale_id)];
+								if (this.default_locale_id) locales.push(new Intl.Locale(this.default_locale_id));
+								acc[name] = builder(locales);
+								return acc;
+							}, {});
+					}
+					value = resolved(locale.formatters).result;
+				} else {
+					value = resolved?.toString();
+				}
+
 			} else {
 				name = placeholder.g;
 				value = this.getters[placeholder.g].get(
-					this.locales.get(locale_id),
+					locale,
 					[locale_id, key, args, nested],
 					placeholder.d
 				);

@@ -1,4 +1,11 @@
 import type Locale from './Locale.js';
+export interface FormatterFactory {
+	get result(): string;
+}
+
+export interface FormatterFactoryBuilder {
+	(locales: Intl.Locale[]): (value: unknown) => FormatterFactory;
+}
 
 export type Getter = {
 	get(
@@ -17,6 +24,8 @@ export type Getter = {
 export type Getters = Record<string, Getter>
 
 export interface I18nLiteOptions {
+	default_locale_id: string,
+	formatters: Record<string, FormatterFactoryBuilder>,
 	getters: Getters,
 	nested_limit: number,
 }
@@ -36,8 +45,14 @@ export interface RawMessages {
 
 export type Locales = Map<string, Locale>;
 
+export type NamedArg =
+	string
+	| number
+	| number[]
+	| ((formatters: Record<string, FormatterFactory>) => FormatterFactory)
+
 export interface NamedArgs {
-	[name: string]: string | number | number[] | NamedArgs
+	[name: string]: NamedArg | NamedArgs
 }
 
 export interface GetterPlaceholder {
