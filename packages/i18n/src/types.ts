@@ -3,8 +3,8 @@ export interface FormatterFactory {
 	get result(): string;
 }
 
-export interface FormatterFactoryBuilder {
-	(locales: Intl.Locale[]): (value: unknown) => FormatterFactory;
+export interface FactoryLocaleInserter<FactoryBuilder> {
+	(locales: Intl.Locale[]): FactoryBuilder;
 }
 
 export type Getter = {
@@ -25,7 +25,7 @@ export type Getters = Record<string, Getter>
 
 export interface I18nLiteOptions {
 	default_locale_id: string,
-	formatters: Record<string, FormatterFactoryBuilder>,
+	formatters: Record<string, FactoryLocaleInserter<unknown>>,
 	getters: Getters,
 	nested_limit: number,
 }

@@ -31,6 +31,7 @@
 			"deeply": "Hello"
 		}
 	},
+	"time": "The time is {time}",
 	"list": "Did you travel by {list}?",
 	"repeated": "{word} {word} {word} is repeated",
 	"placeholder_getters": {

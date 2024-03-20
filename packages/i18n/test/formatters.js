@@ -20,10 +20,20 @@ const i18n = new I18n({
 });
 for (const [k, v] of Object.entries(locales)) i18n.load(k, v);
 
-test('list', t => {
+test('DateTime', t => {
+	const d = new Date('2024-03-19T15:02:58');
+	const expected = 'The time is 3:02 PM'; // why does en use en-US 😠
+	const actual = i18n.t('en', 'time', {
+		time: ({ DateTime }) => DateTime(d).time().short()
+	});
+	t.is(actual, expected);
+});
+
+
+test('List', t => {
 	const expected = 'Did you travel by bike, car, or bus?';
 	const actual = i18n.t('en', 'list', {
-		list: ({ ListFormat }) => ListFormat(['bike', 'car', 'bus']).disjunction()
+		list: ({ List }) => List(['bike', 'car', 'bus']).disjunction()
 	});
 	t.is(actual, expected);
 });

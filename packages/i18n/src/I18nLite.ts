@@ -1,6 +1,6 @@
 import type {
 	ExtractedMessageObject,
-	FormatterFactoryBuilder,
+	FactoryLocaleInserter,
 	Getters,
 	I18nLiteOptions,
 	Locales,
@@ -15,7 +15,7 @@ import $t from './getters/$t.js';
 
 export default class I18nLite {
 	public default_locale_id: string;
-	public formatters: Record<string, FormatterFactoryBuilder>;
+	public formatters: Record<string, FactoryLocaleInserter<unknown>>;
 	public getters: Getters;
 	public locales: Locales;
 	public nested_limit: number;
