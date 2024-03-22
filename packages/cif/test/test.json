@@ -31,7 +31,10 @@
 			"deeply": "Hello"
 		}
 	},
+	"time": "The time is {time}",
+	"list": "Did you travel by {list}?",
 	"repeated": "{word} {word} {word} is repeated",
+	"relative_past": "I ate chocolate {relative}",
 	"placeholder_getters": {
 		"classrooms#classrooms": {
 			"one": "There is one classroom",

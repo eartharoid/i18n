@@ -32,8 +32,10 @@
 		}
 	},
 	"time": "The time is {time}",
+	"date_range": "The promotion is available between {range}",
 	"list": "Did you travel by {list}?",
 	"repeated": "{word} {word} {word} is repeated",
+	"relative_past": "I ate chocolate {relative}",
 	"placeholder_getters": {
 		"classrooms#classrooms": {
 			"one": "There is one classroom",
