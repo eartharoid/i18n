@@ -5,6 +5,8 @@
 		"module": "es2020",
 		"outDir": "dist",
 		"moduleResolution": "node",
+		"declaration": true,
+		"declarationDir": "./types"
 	},
 	"include": ["src/**/*"]
 }
