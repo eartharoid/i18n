@@ -33,7 +33,7 @@ const i18n = new I18n();
 const locale_id ='test';
 const test =  import(`./locales/${locale_id}.json`);
 console.log(test);
-const t = i18n.load(await import(`./locales/${locale_id}.json`)).createTranslator();
+const t = i18n.load(await import(`./locales/${locale_id}.json?namespace=common`)).createTranslator();
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>

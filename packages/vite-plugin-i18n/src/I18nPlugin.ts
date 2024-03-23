@@ -24,6 +24,9 @@ export default function I18nPlugin(options: I18nPluginOptions): I18nPlugin {
 		transform(src, id) {
 			const filter = createFilter(options.include, options.exclude);
 			if (filter(id)) {
+				// TODO: preprocess for i18next/weblate
+				// TODO: ./[locale].json | ./[locale]/[namespace].json (ignore namespace, use ?namespace on import)
+				
 				const id_regex = options.id_regex || /(?<id>[a-z0-9-_]+)\.[a-z]+/i;
 				const locale_id = id_regex.exec(normalizePath(id))?.groups?.id;
 				const messages = options.parser ? options.parser(src) : JSON.parse(src);
