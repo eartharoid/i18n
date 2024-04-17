@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"removeComments": true,
+		"target": "es2020",
+		"module": "es2020",
+		"outDir": "dist",
+		"moduleResolution": "node",
+		"declaration": true,
+		"declarationDir": "./types"
+	},
+	"include": ["src/**/*"]
+}

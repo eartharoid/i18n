@@ -1,0 +1,57 @@
+{
+	"$meta": {
+		"locale_id": "en-GB-gregory-u-hc-h23"
+	},
+	"simple": "This is as simple as it gets",
+	"placeholder_variables": {
+		"example": "This is an {word} using \\{named} placeholders",
+		"hello": "Hello, {name}!"
+	},
+	"plural": {
+		"age#age": {
+			"=0": "You were born recently",
+			"one": "You were born a year ago",
+			"other": "You were born {age} years ago"
+		},
+		"vehicles?cardinal=vehicles.count": {
+			"one": "You own a single {vehicles.type}",
+			"other": "You own {vehicles.count} {vehicles.type}s"
+		}
+	},
+	"ordinal": {
+		"position?ordinal=number": {
+			"one": "You are {number}st in the queue",
+			"two": "You are {number}nd in the queue",
+			"few": "You are {number}rd in the queue",
+			"other": "You are {number}th in the queue"
+		}
+	},
+	"english_only": {
+		"nested": {
+			"deeply": "Hello"
+		}
+	},
+	"time": "The time is {time}",
+	"list": "Did you travel by {list}?",
+	"repeated": "{word} {word} {word} is repeated",
+	"relative_past": "I ate chocolate {relative}",
+	"placeholder_getters": {
+		"classrooms#classrooms": {
+			"one": "There is one classroom",
+			"other": "There are {classrooms} classrooms"
+		},
+		"boys#count": {
+			"one": "is one boy",
+			"other": "are {count} boys"
+		},
+		"girls#count": {
+			"one": "one girl",
+			"other": "{count} girls"
+		},
+		"together": "There {$t(placeholder_getters.boys, count=boys)} and {$t(placeholder_getters.girls, count=girls)}",
+		"passthrough": "{$t(placeholder_getters.classrooms)}"
+	},
+	"newline": "Line 1\nLine 2\nLine 3",
+	"circular_1": "This is one, {$t(circular_2)}",
+	"circular_2": "This is two, {$t(circular_1)}"
+}

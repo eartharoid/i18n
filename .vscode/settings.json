@@ -1,3 +1,7 @@
 {
-	"eslint.validate": ["javascript", "typescript"]
+	"eslint.validate": [
+		"javascript",
+		"typescript"
+	],
+	"i18n-ally.localesPaths": []
 }

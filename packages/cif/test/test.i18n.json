@@ -1,0 +1,429 @@
+[
+  [
+    "ns:$meta.locale_id",
+    {
+      "t": "en-GB-gregory-u-hc-h23"
+    }
+  ],
+  [
+    "ns:simple",
+    {
+      "t": "This is as simple as it gets"
+    }
+  ],
+  [
+    "ns:placeholder_variables.example",
+    {
+      "t": "This is an  using {named} placeholders",
+      "p": [
+        [
+          11,
+          {
+            "v": "word"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:placeholder_variables.hello",
+    {
+      "t": "Hello, !",
+      "p": [
+        [
+          7,
+          {
+            "v": "name"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:plural.age",
+    {
+      "q": {
+        "cardinal": "age"
+      }
+    }
+  ],
+  [
+    "ns:plural.age.=0",
+    {
+      "t": "You were born recently"
+    }
+  ],
+  [
+    "ns:plural.age.one",
+    {
+      "t": "You were born a year ago"
+    }
+  ],
+  [
+    "ns:plural.age.other",
+    {
+      "t": "You were born  years ago",
+      "p": [
+        [
+          14,
+          {
+            "v": "age"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:plural.vehicles",
+    {
+      "q": {
+        "cardinal": "vehicles.count"
+      }
+    }
+  ],
+  [
+    "ns:plural.vehicles.one",
+    {
+      "t": "You own a single ",
+      "p": [
+        [
+          17,
+          {
+            "v": "vehicles.type"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:plural.vehicles.other",
+    {
+      "t": "You own  s",
+      "p": [
+        [
+          8,
+          {
+            "v": "vehicles.count"
+          }
+        ],
+        [
+          9,
+          {
+            "v": "vehicles.type"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:ordinal.position",
+    {
+      "q": {
+        "ordinal": "number"
+      }
+    }
+  ],
+  [
+    "ns:ordinal.position.one",
+    {
+      "t": "You are st in the queue",
+      "p": [
+        [
+          8,
+          {
+            "v": "number"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:ordinal.position.two",
+    {
+      "t": "You are nd in the queue",
+      "p": [
+        [
+          8,
+          {
+            "v": "number"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:ordinal.position.few",
+    {
+      "t": "You are rd in the queue",
+      "p": [
+        [
+          8,
+          {
+            "v": "number"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:ordinal.position.other",
+    {
+      "t": "You are th in the queue",
+      "p": [
+        [
+          8,
+          {
+            "v": "number"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:english_only.nested.deeply",
+    {
+      "t": "Hello"
+    }
+  ],
+  [
+    "ns:time",
+    {
+      "t": "The time is ",
+      "p": [
+        [
+          12,
+          {
+            "v": "time"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:list",
+    {
+      "t": "Did you travel by ?",
+      "p": [
+        [
+          18,
+          {
+            "v": "list"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:repeated",
+    {
+      "t": "   is repeated",
+      "p": [
+        [
+          0,
+          {
+            "v": "word"
+          }
+        ],
+        [
+          1,
+          {
+            "v": "word"
+          }
+        ],
+        [
+          2,
+          {
+            "v": "word"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:relative_past",
+    {
+      "t": "I ate chocolate ",
+      "p": [
+        [
+          16,
+          {
+            "v": "relative"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:placeholder_getters.classrooms",
+    {
+      "q": {
+        "cardinal": "classrooms"
+      }
+    }
+  ],
+  [
+    "ns:placeholder_getters.classrooms.one",
+    {
+      "t": "There is one classroom"
+    }
+  ],
+  [
+    "ns:placeholder_getters.classrooms.other",
+    {
+      "t": "There are  classrooms",
+      "p": [
+        [
+          10,
+          {
+            "v": "classrooms"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:placeholder_getters.boys",
+    {
+      "q": {
+        "cardinal": "count"
+      }
+    }
+  ],
+  [
+    "ns:placeholder_getters.boys.one",
+    {
+      "t": "is one boy"
+    }
+  ],
+  [
+    "ns:placeholder_getters.boys.other",
+    {
+      "t": "are  boys",
+      "p": [
+        [
+          4,
+          {
+            "v": "count"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:placeholder_getters.girls",
+    {
+      "q": {
+        "cardinal": "count"
+      }
+    }
+  ],
+  [
+    "ns:placeholder_getters.girls.one",
+    {
+      "t": "one girl"
+    }
+  ],
+  [
+    "ns:placeholder_getters.girls.other",
+    {
+      "t": " girls",
+      "p": [
+        [
+          0,
+          {
+            "v": "count"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:placeholder_getters.together",
+    {
+      "t": "There  and ",
+      "p": [
+        [
+          6,
+          {
+            "g": "$t",
+            "d": {
+              "k": "placeholder_getters.boys",
+              "o": {
+                "count": "boys"
+              }
+            }
+          }
+        ],
+        [
+          11,
+          {
+            "g": "$t",
+            "d": {
+              "k": "placeholder_getters.girls",
+              "o": {
+                "count": "girls"
+              }
+            }
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:placeholder_getters.passthrough",
+    {
+      "t": "",
+      "p": [
+        [
+          0,
+          {
+            "g": "$t",
+            "d": {
+              "k": "placeholder_getters.classrooms"
+            }
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:newline",
+    {
+      "t": "Line 1\nLine 2\nLine 3"
+    }
+  ],
+  [
+    "ns:circular_1",
+    {
+      "t": "This is one, ",
+      "p": [
+        [
+          13,
+          {
+            "g": "$t",
+            "d": {
+              "k": "circular_2"
+            }
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:circular_2",
+    {
+      "t": "This is two, ",
+      "p": [
+        [
+          13,
+          {
+            "g": "$t",
+            "d": {
+              "k": "circular_1"
+            }
+          }
+        ]
+      ]
+    }
+  ]
+]

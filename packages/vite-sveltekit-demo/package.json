@@ -1,0 +1,39 @@
+{
+	"name": "vite-sveltekit-demo",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --check . && eslint .",
+		"format": "prettier --write ."
+	},
+	"devDependencies": {
+		"@fontsource/fira-mono": "^4.5.10",
+		"@neoconfetti/svelte": "^1.0.0",
+		"@sveltejs/adapter-auto": "^3.2.0",
+		"@sveltejs/kit": "^2.5.5",
+		"@sveltejs/vite-plugin-svelte": "^3.1.0",
+		"@types/eslint": "^8.56.9",
+		"@typescript-eslint/eslint-plugin": "^7.6.0",
+		"@typescript-eslint/parser": "^7.6.0",
+		"eslint": "^8.57.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-svelte": "^2.37.0",
+		"prettier": "^3.2.5",
+		"prettier-plugin-svelte": "^3.2.3",
+		"svelte": "^4.2.14",
+		"svelte-check": "^3.6.9",
+		"tslib": "^2.6.2",
+		"typescript": "^5.4.5",
+		"vite": "^5.2.8"
+	},
+	"type": "module",
+	"dependencies": {
+		"@eartharoid/i18n": "workspace:^",
+		"@eartharoid/vite-plugin-i18n": "workspace:^",
+		"vite-plugin-inspect": "^0.8.3"
+	}
+}
