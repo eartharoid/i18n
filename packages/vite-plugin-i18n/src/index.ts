@@ -7,10 +7,12 @@
 
 'use strict';
 
-import I18n from './I18n.js';
 import I18nPlugin from './I18nPlugin.js';
+import importCIF from './importCIF.js';
+import importJSON from './importJSON.js';
 
 export {
-	I18n,
-	I18nPlugin
+	I18nPlugin,
+	importCIF,
+	importJSON,
 };

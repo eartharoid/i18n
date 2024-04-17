@@ -89,7 +89,7 @@ export default {
 
 ## Usage
 
-```ts
+<!-- ```ts
 // import the extended class **from the plugin**
 import { I18n } from '@eartharoid/vite-plugin-i18n';
 
@@ -98,4 +98,4 @@ const i18n = new I18n();
 const t = i18n.load(await import(`./locales/${locale_id}.json`)).createTranslator();
 // ...
 t('message.key');
-```
+``` -->

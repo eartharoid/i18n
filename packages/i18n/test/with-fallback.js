@@ -14,10 +14,11 @@ fs.readdirSync('test/locales')
 	});
 
 const i18n = new I18n({
+	default_locale_id: 'en',
 	defer_extraction: false,
 });
 for (const [k, v] of Object.entries(locales)) i18n.load(k, v);
-i18n.fallback('en');
+i18n.fallback();
 
 test('not missing', t => {
 	const expected = 'Dette er så enkelt som det blir';

@@ -65,15 +65,14 @@ export default class I18n extends I18nLite {
 
 	/**
 	 * Resolve missing translations
-	 * @param {string} default_locale_id
 	 * @param {Record<string, string[]>} [fallback_map]
 	 * @returns {Fallen}
 	 */
-	public fallback(default_locale_id: string, fallback_map?: Record<string, string[]>): Fallen {
+	public fallback(fallback_map?: Record<string, string[]>): Fallen {
+		if (!this.default_locale_id) throw new Error('No default locale is set');
 		let ordered_ids: string[];
-		const default_locale = this.locales.get(default_locale_id);
+		const default_locale = this.locales.get(this.default_locale_id);
 		const locale_ids = Array.from(this.locales.keys());
-		// const fallen: Fallen = locale_ids.reduce((obj, id) => (obj[id] = [], obj), {});
 		const fallen: Fallen = {};
 
 		if (fallback_map) {
@@ -90,14 +89,12 @@ export default class I18n extends I18nLite {
 			if (fallback_map) {
 				fallback_order = [
 					...(fallback_map[locale_id] || []),
-					default_locale_id
+					this.default_locale_id
 				];
 			} else {
-				// const idx = locale_id.indexOf('-');
-				// const base_language = idx === -1 ? locale_id : locale_id.substring(0, idx); // locale_id.split('-')[0]
 				const base_language = new Intl.Locale(locale_id).language;
-				if (base_language !== locale_id && this.locales.has(base_language)) fallback_order = [base_language, default_locale_id];
-				else fallback_order = [default_locale_id];
+				if (base_language !== locale_id && this.locales.has(base_language)) fallback_order = [base_language, this.default_locale_id];
+				else fallback_order = [this.default_locale_id];
 			}
 			const locale = this.locales.get(locale_id);
 			for (const [key] of default_locale) {

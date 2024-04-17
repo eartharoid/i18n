@@ -1,4 +1,4 @@
-import type { ParsedMessages } from '@eartharoid/i18n';
+import type { ParsedMessages } from '@eartharoid/i18n/types/types';
 
 export function ctom(cif: string): ParsedMessages;
 

@@ -6,7 +6,7 @@ export default class I18n extends I18nLite {
     placeholder_regex: RegExp;
     constructor(options?: Partial<I18nOptions>);
     extract(message: string): ExtractedMessageObject;
-    fallback(default_locale_id: string, fallback_map?: Record<string, string[]>): Fallen;
+    fallback(fallback_map?: Record<string, string[]>): Fallen;
     load(locale_id: string, messages: RawMessages, namespace?: string): Locale;
     parse(messages: RawMessages, namespace?: string): ParsedMessages;
 }

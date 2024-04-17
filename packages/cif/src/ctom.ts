@@ -1,7 +1,7 @@
 import type {
 	ParsedMessage,
 	ParsedMessages
-} from '@eartharoid/i18n';
+} from '@eartharoid/i18n/types/types.js';
 import control from './control.js';
 
 export default function ctom(cif: string): ParsedMessages {

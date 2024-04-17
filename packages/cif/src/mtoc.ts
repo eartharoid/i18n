@@ -1,4 +1,4 @@
-import type { ExtractedMessageObject, ParsedMessages } from '@eartharoid/i18n';
+import type { ExtractedMessageObject, ParsedMessages } from '@eartharoid/i18n/types/types.js';
 import control from './control.js';
 
 export default function mtoc(messages: ParsedMessages): string {

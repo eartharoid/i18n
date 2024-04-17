@@ -1,8 +1,13 @@
-import type { Locale, I18nLiteOptions } from '@eartharoid/i18n/index.d.ts';
+import type { Plugin } from 'vite';
+import type { ParsedMessages } from '@eartharoid/i18n/types/types';
 
 export interface CIFModule {
-	cif?: string,
-	json?: ParsedMessages,
+	cif: string,
+	locale_id: string,
+}
+
+export interface JSONModule {
+	json: ParsedMessages,
 	locale_id: string,
 }
 
@@ -14,15 +19,15 @@ export interface I18nPluginOptions {
 	parser?(src: string): string,
 }
 
-export interface I18nPlugin {
+export interface I18nVitePlugin {
 	enforce: string,
 	name: string,
 	transform(code: string, id: string): unknown,
 }
 
-export class I18n {
-	constructor(options: Partial<I18nLiteOptions>);
-	public load(module: CIFModule): Locale
-}
 
-export function I18nPlugin(options: I18nPluginOptions): I18nPlugin;
+export function importCIF(...modules: CIFModule[]): [string, ParsedMessages]
+
+export function importJSON(...modules: JSONModule[]): [string, ParsedMessages]
+
+export function I18nPlugin(options: I18nPluginOptions): Plugin<I18nVitePlugin>;

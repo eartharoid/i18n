@@ -1,7 +1,16 @@
-<script>
+<script lang="ts">
+	export let data;
+
 	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import { I18nLite } from '@eartharoid/i18n';
+	// import I18n from 'virtual:i18n';
+	// import { I18n } from '@eartharoid/vite-plugin-i18n';
+	const { translations } = data;
+	console.log(translations)
+	const i18n = new I18nLite();
+	const t = i18n.loadParsed(...translations).createTranslator();
 </script>
 
 <svelte:head>
@@ -26,6 +35,9 @@
 	</h2>
 
 	<Counter />
+	<h2>{t('hello')}</h2>
+	<p>{t('common:buttons.search', { thing: 'database' })}</p>
+	<p>{t('footer:footer')}</p>
 </section>
 
 <style>

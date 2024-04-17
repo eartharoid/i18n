@@ -48,9 +48,9 @@
     }
   ],
   [
-    "ns:plural.age.zero",
+    "ns:plural.age.=0",
     {
-      "t": "You were born recently (you'll never see this message)"
+      "t": "You were born recently"
     }
   ],
   [
@@ -186,6 +186,34 @@
     }
   ],
   [
+    "ns:time",
+    {
+      "t": "The time is ",
+      "p": [
+        [
+          12,
+          {
+            "v": "time"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:list",
+    {
+      "t": "Did you travel by ?",
+      "p": [
+        [
+          18,
+          {
+            "v": "list"
+          }
+        ]
+      ]
+    }
+  ],
+  [
     "ns:repeated",
     {
       "t": "   is repeated",
@@ -206,6 +234,20 @@
           2,
           {
             "v": "word"
+          }
+        ]
+      ]
+    }
+  ],
+  [
+    "ns:relative_past",
+    {
+      "t": "I ate chocolate ",
+      "p": [
+        [
+          16,
+          {
+            "v": "relative"
           }
         ]
       ]
