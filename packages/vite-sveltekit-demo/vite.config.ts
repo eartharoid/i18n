@@ -9,6 +9,7 @@ export default defineConfig({
 		sveltekit(),
 		I18nPlugin({
 			compact: false,
+			fallback: 'en-GB',
 			id_regex: /((?<locale>[a-z0-9-_]+)\/)((_(?<namespace>[a-z0-9-_]+))|[a-z0-9-_]+)\.[a-z]+/i,
 			include: 'src/lib/locales/*/*.json'
 		}),

@@ -7,7 +7,7 @@ import type { JSONModule } from '@eartharoid/vite-plugin-i18n'
 export const prerender = true;
 
 export async function load() {
-	const locale = 'en-GB';
+	const locale = 'fr-FR';
 	
 	const importJSON = (...modules: JSONModule[]): [string, ParsedMessages] => ([modules[0].locale_id, [].concat(...<never[]>modules.map(mod => mod.json))]);
 	return {

@@ -13,6 +13,7 @@ export interface JSONModule {
 export interface I18nPluginOptions {
 	compact?: boolean,
 	exclude?: string | RegExp | Array<string | RegExp>,
+	fallback?: string,
 	id_regex?: RegExp,
 	include: string | RegExp | Array<string | RegExp>,
 	parser?(src: string): string,
@@ -23,5 +24,5 @@ export interface I18nVitePlugin {
 	name: string,
 	// resolveId(id: string): string | void,
 	// load(id: string): Promise<string | void>,
-	transform(code: string, id: string): unknown,
+	transform(code: string, id: string): Promise<unknown>,
 }
