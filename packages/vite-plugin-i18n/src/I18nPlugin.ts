@@ -9,13 +9,12 @@ import {
 	normalizePath,
 } from 'vite';
 import { readFile } from 'node:fs/promises';
+import { dataToEsm } from '@rollup/pluginutils';
 
 export default function I18nPlugin(options: I18nPluginOptions): Plugin<I18nVitePlugin> {
-
-	const parse = (src: string): RawMessages => options.parser ? options.parser(src) : JSON.parse(src);
-
+	const parse = (src: string): RawMessages => options.parser ? options.parser(src) || {} : JSON.parse(src);
 	return {
-		enforce: 'pre', // must run before vite:json
+		enforce: 'pre',
 		name: 'i18n',
 		async transform(src, id) {
 			const filter = createFilter(options.include, options.exclude);
@@ -38,13 +37,14 @@ export default function I18nPlugin(options: I18nPluginOptions): Plugin<I18nViteP
 					i18n.load(options.fallback, parse(fallback_messages), namespace);
 					i18n.fallback();
 				}
-				const messages = [...i18n.locales.get(locale).entries()];
-				const cif = mtoc(messages);
+				const json = [...i18n.locales.get(locale).entries()];
+				const cif = mtoc(json);
+				const data = {
+					...options.compact ? { cif } : { json },
+					locale_id: locale
+				};
 				return {
-					code: JSON.stringify({
-						...options.compact ? { cif } : { json: messages },
-						locale_id: locale
-					}),
+					code: options.parser ? dataToEsm(data) : JSON.stringify(data),
 					map: { mappings: '' }, // TODO: generate a sourcemap
 				};
 			}

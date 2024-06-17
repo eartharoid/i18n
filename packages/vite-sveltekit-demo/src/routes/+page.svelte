@@ -8,7 +8,7 @@
 	// import I18n from 'virtual:i18n';
 	// import { I18n } from '@eartharoid/vite-plugin-i18n';
 	const { translations } = data;
-	console.log(translations)
+	console.log('page', translations)
 	const i18n = new I18nLite();
 	const t = i18n.loadParsed(...translations).createTranslator();
 </script>

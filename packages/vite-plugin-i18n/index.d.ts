@@ -14,13 +14,14 @@ export interface JSONModule {
 export interface I18nPluginOptions {
 	compact?: boolean,
 	exclude?: string | RegExp | Array<string | RegExp>,
+	fallback?: string,
 	id_regex?: RegExp,
 	include: string | RegExp | Array<string | RegExp>,
-	parser?(src: string): string,
+	parser?(src: string): Promise<string>,
 }
 
 export interface I18nVitePlugin {
-	enforce: string,
+	// enforce: string,
 	name: string,
 	transform(code: string, id: string): unknown,
 }
@@ -30,4 +31,4 @@ export function importCIF(...modules: CIFModule[]): [string, ParsedMessages]
 
 export function importJSON(...modules: JSONModule[]): [string, ParsedMessages]
 
-export function I18nPlugin(options: I18nPluginOptions): Plugin<I18nVitePlugin>;
+export function I18nPlugin(options: I18nPluginOptions): Plugin;

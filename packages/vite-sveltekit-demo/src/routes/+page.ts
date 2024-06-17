@@ -12,9 +12,9 @@ export async function load() {
 	const importJSON = (...modules: JSONModule[]): [string, ParsedMessages] => ([modules[0].locale_id, [].concat(...<never[]>modules.map(mod => mod.json))]);
 	return {
 		translations: importJSON(
-			await import(`$lib/locales/${locale}/_footer.json`),
-			await import(`$lib/locales/${locale}/common.json?namespace=common`),
-			await import(`$lib/locales/${locale}/home.json`)
+			await import(`$lib/locales/${locale}/_footer.yml`),
+			await import(`$lib/locales/${locale}/common.yml?namespace=common`),
+			await import(`$lib/locales/${locale}/home.yml`)
 		)
 	};
 }

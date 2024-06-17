@@ -1,4 +1,7 @@
-import { ParsedMessages } from '@eartharoid/i18n/types/types';
+import {
+	ParsedMessages,
+	RawMessages
+} from '@eartharoid/i18n/types/types';
 
 export interface CIFModule {
 	cif: string,
@@ -16,11 +19,11 @@ export interface I18nPluginOptions {
 	fallback?: string,
 	id_regex?: RegExp,
 	include: string | RegExp | Array<string | RegExp>,
-	parser?(src: string): string,
+	parser?(src: string): Promise<RawMessages>,
 }
 
 export interface I18nVitePlugin {
-	enforce: string,
+	// enforce: string,
 	name: string,
 	// resolveId(id: string): string | void,
 	// load(id: string): Promise<string | void>,
