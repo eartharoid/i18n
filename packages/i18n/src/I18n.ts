@@ -72,15 +72,16 @@ export default class I18n extends I18nLite {
 		if (!this.default_locale_id) throw new Error('No default locale is set');
 		let ordered_ids: string[];
 		const default_locale = this.locales.get(this.default_locale_id);
-		const locale_ids = Array.from(this.locales.keys());
+		const locale_ids = new Set(this.locales.keys());
+		locale_ids.delete(this.default_locale_id);
 		const fallen: Fallen = {};
 
 		if (fallback_map) {
 			const set = new Set(Object.keys(fallback_map));
 			for (const locale_id of locale_ids) set.add(locale_id);
-			ordered_ids = [...set.values()];
+			ordered_ids = Array.from(set);
 		} else {
-			ordered_ids = locale_ids;
+			ordered_ids = Array.from(locale_ids);
 		}
 
 		for (const locale_id of ordered_ids) {
