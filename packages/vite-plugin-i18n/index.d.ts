@@ -14,7 +14,8 @@ export interface JSONModule {
 export interface I18nPluginOptions {
 	compact?: boolean,
 	exclude?: string | RegExp | Array<string | RegExp>,
-	fallback?: string,
+	default?: string,
+	fallback?: Record<string, string[]>,
 	id_regex?: RegExp,
 	include: string | RegExp | Array<string | RegExp>,
 	parser?(src: string): Promise<string>,

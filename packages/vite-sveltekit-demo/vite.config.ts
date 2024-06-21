@@ -11,7 +11,10 @@ export default defineConfig({
 		// ViteYaml(),
 		I18nPlugin({
 			compact: false,
-			fallback: 'en-GB',
+			default: 'en-GB',
+			fallback: {
+				'en-GB': 'en'
+			},
 			parser: YAML.parse,
 			id_regex: /((?<locale>[a-z0-9-_]+)\/)((_(?<namespace>[a-z0-9-_]+))|[a-z0-9-_]+)\.[a-z]+/i,
 			include: 'src/lib/locales/*/*.yml'

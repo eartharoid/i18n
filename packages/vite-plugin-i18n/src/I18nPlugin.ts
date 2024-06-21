@@ -27,15 +27,15 @@ export default function I18nPlugin(options: I18nPluginOptions): Plugin<I18nViteP
 				let { locale, namespace } = id_regex.exec(normalised)?.groups || {};
 				namespace = query.get('namespace') || namespace;
 				const i18n = new I18n({
-					default_locale_id: options.fallback,
+					default_locale_id: options.default,
 					defer_extraction: false
 				});
 				i18n.load(locale, parse(src), namespace);
-				if (options.fallback) {
-					const file_name = normalised.replaceAll(locale, options.fallback);
+				if (options.default) {
+					const file_name = normalised.replaceAll(locale, options.default);
 					const fallback_messages = await readFile(file_name, 'utf-8');
-					i18n.load(options.fallback, parse(fallback_messages), namespace);
-					i18n.fallback();
+					i18n.load(options.default, parse(fallback_messages), namespace);
+					i18n.fallback(options.fallback);
 				}
 				const json = [...i18n.locales.get(locale).entries()];
 				const cif = mtoc(json);
