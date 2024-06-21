@@ -18,6 +18,7 @@ export interface I18nPluginOptions {
 	exclude?: string | RegExp | Array<string | RegExp>,
 	default?: string,
 	fallback?: Record<string, string[]>,
+	generate_fallback_file?: boolean,
 	id_regex?: RegExp,
 	include: string | RegExp | Array<string | RegExp>,
 	parser?(src: string): Promise<RawMessages>,
@@ -29,4 +30,5 @@ export interface I18nVitePlugin {
 	// resolveId(id: string): string | void,
 	// load(id: string): Promise<string | void>,
 	transform(code: string, id: string): Promise<unknown>,
+	generateBundle(): void,
 }

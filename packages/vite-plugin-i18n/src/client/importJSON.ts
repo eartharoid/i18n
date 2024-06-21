@@ -1,5 +1,5 @@
 import { ParsedMessages } from '@eartharoid/i18n/types/types';
-import type { JSONModule } from './types';
+import type { JSONModule } from '../types';
 
 export default function importJSON(...modules: JSONModule[]): [string, ParsedMessages] {
 	if (modules.length === 1) {

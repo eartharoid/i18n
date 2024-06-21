@@ -1,5 +1,5 @@
 import type { ParsedMessages } from '@eartharoid/i18n/types/types';
-import type { CIFModule } from './types';
+import type { CIFModule } from '../types';
 import { ctom } from '@eartharoid/cif';
 
 export default function importCIF(...modules: CIFModule[]): [string, ParsedMessages] {

@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+		"declaration": true,
 		"removeComments": true,
 		"target": "ES2022",
 		"module": "ES2022",

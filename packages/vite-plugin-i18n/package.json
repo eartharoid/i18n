@@ -1,8 +1,11 @@
 {
 	"name": "@eartharoid/vite-plugin-i18n",
-	"version": "1.0.0-alpha.4",
+	"version": "1.0.0-alpha.5",
 	"description": "A Vite plugin for I18n and CIF",
-	"main": "dist/index.js",
+	"exports": {
+		".": "./dist/index.js",
+		"./client": "./dist/client/index.js"
+	},
 	"type": "module",
 	"types": "index.d.ts",
 	"files": [
