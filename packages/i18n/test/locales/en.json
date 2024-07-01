@@ -19,11 +19,11 @@
 		}
 	},
 	"ordinal": {
-		"position?ordinal=number": {
-			"one": "You are {number}st in the queue",
-			"two": "You are {number}nd in the queue",
-			"few": "You are {number}rd in the queue",
-			"other": "You are {number}th in the queue"
+		"position!": {
+			"one": "You are {position}st in the queue",
+			"two": "You are {position}nd in the queue",
+			"few": "You are {position}rd in the queue",
+			"other": "You are {position}th in the queue"
 		}
 	},
 	"english_only": {
@@ -37,7 +37,7 @@
 	"repeated": "{word} {word} {word} is repeated",
 	"relative_past": "I ate chocolate {relative}",
 	"placeholder_getters": {
-		"classrooms#classrooms": {
+		"classrooms#": {
 			"one": "There is one classroom",
 			"other": "There are {classrooms} classrooms"
 		},

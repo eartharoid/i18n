@@ -134,25 +134,25 @@ test('plural vehicles 3', t => {
 
 test('ordinal 1', t => {
 	const expected = 'You are 1st in the queue';
-	const actual = i18n.t('en', 'ordinal.position', { number: 1 });
+	const actual = i18n.t('en', 'ordinal.position', { position: 1 });
 	t.is(actual, expected);
 });
 
 test('ordinal 2', t => {
 	const expected = 'You are 2nd in the queue';
-	const actual = i18n.t('en', 'ordinal.position', { number: 2 });
+	const actual = i18n.t('en', 'ordinal.position', { position: 2 });
 	t.is(actual, expected);
 });
 
 test('ordinal 3', t => {
 	const expected = 'You are 3rd in the queue';
-	const actual = i18n.t('en', 'ordinal.position', { number: 3 });
+	const actual = i18n.t('en', 'ordinal.position', { position: 3 });
 	t.is(actual, expected);
 });
 
 test('ordinal 4', t => {
 	const expected = 'You are 4th in the queue';
-	const actual = i18n.t('en', 'ordinal.position', { number: 4 });
+	const actual = i18n.t('en', 'ordinal.position', { position: 4 });
 	t.is(actual, expected);
 });
 

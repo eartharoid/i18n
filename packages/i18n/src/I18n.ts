@@ -134,19 +134,28 @@ export default class I18n extends I18nLite {
 	public parse(messages: RawMessages, namespace?: string): ParsedMessages {
 		const parsed: ParsedMessages = [];
 		for (const [k, v] of Object.entries(messages)) {
-			let key = namespace ? namespace + ':' + k : k;
 			let query: MetaMessageObject['q'];
-			const fi = key.indexOf('#');
-			if (fi !== -1) {
-				query = { cardinal: k.substring(fi + 1) };
-				key = k.substring(0, fi);
-			} else {
-				const qi = key.indexOf('?');
-				if (qi !== -1) {
-					query = Object.fromEntries(new URLSearchParams(k.substring(qi + 1)).entries());
-					key = k.substring(0, qi);
-				}
+			let key = k;
+			const hash_index = key.indexOf('#');
+			const exclamation_index = key.indexOf('!');
+			const question_index = key.indexOf('?');
+			if (hash_index !== -1) {
+				query = { cardinal: key.substring(hash_index + 1) };
+				key = key.substring(0, hash_index);
+			} else if (exclamation_index !== -1) {
+				query = { ordinal: key.substring(exclamation_index + 1) };
+				key = key.substring(0, exclamation_index);
+			} else if (question_index !== -1) {
+				query = Object.fromEntries(new URLSearchParams(key.substring(question_index + 1)).entries());
+				key = key.substring(0, question_index);
 			}
+			const kp = key.split('.');
+			if (query?.cardinal === '') {
+				query.cardinal = kp[kp.length - 1];
+			} else if (query?.ordinal === '') {
+				query.ordinal = kp[kp.length - 1];
+			}
+			if (namespace) key = namespace + ':' + key;
 			if (typeof v === 'string') {
 				parsed.push([
 					key,
