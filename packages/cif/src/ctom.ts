@@ -31,7 +31,7 @@ export default function ctom(cif: string): ParsedMessages {
 			} else {
 				m = { t: fields[1] };
 				if (parts.length > 1) {
-					m.p =[];
+					m.p = [];
 					for (let i = 1; i < parts.length; i += 2) {
 						const pos = Number(parts[i]);
 						const name = parts[i + 1];

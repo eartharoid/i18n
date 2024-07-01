@@ -2,33 +2,71 @@ import type { ExtractedMessageObject, ParsedMessages } from '@eartharoid/i18n/ty
 import control from './control.js';
 
 export default function mtoc(messages: ParsedMessages): string {
-	const sorted = messages.sort(([a], [b]) => a.split('.').length - b.split('.').length);
-	let cif = 'version=1' + control.RS;
-	let prefix = '';
-	for (const [key, value] of sorted) {
-		const parts = key.split('.');
-		if (parts.length > 1) {
-			const c_prefix = parts.slice(0, -1).join('.');
-			if (c_prefix !== prefix) {
-				prefix = c_prefix;
-				cif += control.GS + c_prefix + control.RS;
+	let cif = '';
+	let prefix_parts = [];
+	for (let i = 0; i < messages.length; i++) {
+		const [key, value] = messages[i];
+		const key_parts = key.split('.');
+		if (key_parts.length > 1) {
+			let depth = null;
+			for (let p = 0; p < key_parts.length - 1; p++) {
+				if (key_parts[p] !== prefix_parts[p]) {
+					depth = p;
+					cif += control.GS + depth + control.US;
+					continue;
+				}
 			}
+
+			if (depth !== null)  {
+				const new_parts = key_parts.slice(depth, key_parts.length - ('q' in value ? 0 : 1));
+				prefix_parts = [
+					...prefix_parts.slice(0, depth),
+					...new_parts,
+				];
+				cif += new_parts.join('.');
+				if ('q' in value) {
+					// TODO: cardinal -> #
+					cif += control.US + Object.entries(value.q).map(([k, v]) => k + control.HT + v).join(control.HT);
+				}
+				cif += control.RS;
+				console.log({depth, new_parts});
+			}
+		} else if (prefix_parts.length > 0) {
+			prefix_parts = [];
+			cif += control.GS + '-1' + control.RS;
 		}
-		cif += prefix.length > 0 ? key.slice(prefix.length + 1) : key;
+		/** FIXME: change -1 behaviour?
+{
+  key: 'placeholder_getters.together',
+  key_parts: [ 'placeholder_getters', 'together' ],
+  prefix_parts: [ 'placeholder_getters', 'girls' ],
+  revised_key: 'er',
+  q: false
+}
+		 */
+		console.log({
+			key,
+			key_parts,
+			prefix_parts,
+			revised_key: prefix_parts.length > 0 ? key.slice(prefix_parts.join('.').length + 1) : key,
+			q: 'q' in value && value.q,
+		}, '\n');
+		if ('q' in value) continue;
+		const trimmed_key = prefix_parts.length > 0 ? key.slice(prefix_parts.join('.').length + 1) : key;
+		cif += trimmed_key + control.US + (<ExtractedMessageObject>value).t;
 		if ('p' in value) {
-			value.p.forEach(([pos, data]) => {
-				let name: string;
-				if ('v' in data) name = data.v;
-				else name = JSON.stringify(data);	
-				cif += '\t' + pos + '\t' + name;
-			});
+			const placeholders = value.p
+				.map(([pos, data]) => {
+					let name: string;
+					if ('v' in data) name = data.v;
+					else name = JSON.stringify(data);
+					return pos + control.HT + name;
+				})
+				.join(control.HT);
+			cif += control.US + placeholders;
 		}
-		if ('q' in value) {
-			cif += control.US + control.NUL + new URLSearchParams(value.q).toString() + control.RS;
-		} else { // if ('t' in value)
-			cif += control.US + (<ExtractedMessageObject>value).t + control.RS;
-		}
+		if (i !== messages.length - 1) cif += control.RS;
 		
 	}
-	return cif.slice(0, -1); // remove trailing new line
+	return cif;
 }

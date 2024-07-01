@@ -1,0 +1,55 @@
+set control = {
+	NUL	= "\x00" // Null
+	HT	= "\x09" // Horizontal Tabulation (\t)
+	VT	= "\x0B" // Vertical Tabulation (\v)
+	GS	= "\x1d" // Group Sepeaator
+	RS	= "\x1e" // Record Separator
+	US	= "\x1f" // Unit Separator
+}
+
+set modes = {
+	UNKNOWN	= 0
+	META	= 1
+}
+
+set stages = {
+	BUF	= 0
+	EOS	= 1 
+}
+
+function parse(chunks) {
+	set mode = modes.META
+	set stage = stages.BUF
+	// string, not a literal buffer
+	set buffer = ""
+
+	foreach (chunk in chunks) {
+		for (set i = 1, set length = chunk.length; i < length; i++) {
+			set char = chunk[i]
+			switch (mode) {
+				case modes.UNKNOWN
+				case modes.META: {
+					switch (stage) {
+						case stages.BUF: {
+							if (char === control.RS) {
+								set meta = parseQueryString(buffer)
+								if (meta.version !== "2") {
+									throw "Unsupported CIF version"
+								}
+								buffer = ""
+								mode = modes.UNKNOWN
+							} else {
+								buffer += char
+							}
+							break
+						}
+						case stages.EOS: {
+							break
+						} 
+					}
+					break
+				}
+			}
+		}
+	}
+}
