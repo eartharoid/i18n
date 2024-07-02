@@ -98,7 +98,7 @@ This is most similar to CIF 2.0.
 - If first byte<=31 (`NUL`-`US`, 32 being the first printable character), it is an internal getter with special format.
   - 0 = $t:
     ```md
-    <TYPE><GETTER_KEY>
+    <TYPE><GETTER_KEY><KV_DESCRIPTOR>[GROUP_OPTS]
     ```
     e.g.
     ```js
