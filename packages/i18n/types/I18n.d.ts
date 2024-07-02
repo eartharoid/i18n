@@ -9,5 +9,5 @@ export default class I18n extends I18nCore {
     extract(message: string): ExtractedMessageObject;
     fallback(fallback_map?: Record<string, string[]>): Fallen;
     load(locale_id: string, messages: RawMessages, namespace?: string): Locale;
-    parse(messages: RawMessages, namespace?: string): Generator<[string, ParsedMessage]>;
+    parse(messages: RawMessages, namespace?: string): Iterable<[string, ParsedMessage]>;
 }
