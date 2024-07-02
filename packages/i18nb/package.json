@@ -1,7 +1,7 @@
 {
-	"name": "@eartharoid/i18n",
-	"version": "2.0.0-alpha.4",
-	"description": "Simple and lightweight message localisation",
+	"name": "@eartharoid/i18nb",
+	"version": "1.0.0-alpha.1",
+	"description": "Convert to and from an efficient i18n message file format",
 	"main": "dist/index.js",
 	"type": "module",
 	"types": "types/index.d.ts",
@@ -11,7 +11,7 @@
 	],
 	"scripts": {
 		"build": "tsc",
-		"build-and-test": "npm run build && npm run test",
+		"build-and-test": "pnpm run build && pnpm run test",
 		"lint": "eslint src --ext .ts",
 		"lint-and-fix": "eslint src --ext .ts --fix",
 		"test": "ava",
@@ -33,12 +33,13 @@
 	},
 	"homepage": "https://github.com/eartharoid/i18n#readme",
 	"devDependencies": {
-		"@types/node": "^20.8.6",
-		"@typescript-eslint/eslint-plugin": "^4.22.0",
-		"@typescript-eslint/parser": "^4.22.0",
+		"@eartharoid/i18n": "workspace:^",
+		"@types/node": "^20.11.19",
+		"@typescript-eslint/eslint-plugin": "^4.33.0",
+		"@typescript-eslint/parser": "^4.33.0",
 		"ava": "^5.3.1",
-		"eslint": "^7.25.0",
+		"eslint": "^7.32.0",
 		"rimraf": "^5.0.7",
-		"typescript": "^4.7.4"
+		"typescript": "^4.9.5"
 	}
 }

@@ -111,6 +111,9 @@ importers:
       eslint:
         specifier: ^7.32.0
         version: 7.32.0
+      rimraf:
+        specifier: ^5.0.7
+        version: 5.0.7
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
