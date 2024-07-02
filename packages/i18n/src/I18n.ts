@@ -137,7 +137,7 @@ export default class I18n extends I18nCore {
 	 * @param {string} [namespace] 
 	 * @returns {ParsedMessages}
 	 */
-	public *parse(messages: RawMessages, namespace?: string): Generator<[string, ParsedMessage]> {
+	public *parse(messages: RawMessages, namespace?: string): Iterable<[string, ParsedMessage]> {
 		for (const [k, v] of Object.entries(messages)) {
 			let query: MetaMessageObject['q'];
 			let key = k;
