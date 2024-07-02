@@ -1,5 +1,5 @@
-import type { FormatterFactory, NamedArgs, ParsedMessage, ParsedMessages, Translator } from './types.js';
-import type I18nCore from './core/I18nCore.js';
+import type { FormatterFactory, NamedArgs, ParsedMessage, ParsedMessages, Translator } from '../types.js';
+import type I18nCore from './I18nCore.js';
 export default class Locale extends Map<string, ParsedMessage> {
     formatters: Record<string, FormatterFactory>;
     readonly i18n: I18nCore;

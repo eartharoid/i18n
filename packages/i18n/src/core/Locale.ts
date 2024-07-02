@@ -4,16 +4,16 @@ import type {
 	ParsedMessage,
 	ParsedMessages,
 	Translator
-} from './types.js';
-import type I18nLite from './I18nLite.js';
+} from '../types.js';
+import type I18nCore from './I18nCore.js';
 
 export default class Locale extends Map<string, ParsedMessage> {
 	public formatters: Record<string, FormatterFactory>;
-	public readonly i18n: I18nLite;
+	public readonly i18n: I18nCore;
 	public readonly locale_id: string;
 
 	constructor(
-		i18n: I18nLite,
+		i18n: I18nCore,
 		locale_id: string,
 		messages: ParsedMessages,
 	) {

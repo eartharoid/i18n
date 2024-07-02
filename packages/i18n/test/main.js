@@ -55,7 +55,7 @@ test('getLocale no', t => {
 // 	t.is(actual, expected);
 // });
 
-test('I18nLite#createTranslator', t => {
+test('I18nCore#createTranslator', t => {
 	const translate = i18n.createTranslator('en');
 	const expected = 'This is as simple as it gets';
 	const actual = translate('simple');

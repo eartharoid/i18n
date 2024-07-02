@@ -1,9 +1,9 @@
-import type { FactoryLocaleInserter, Getters, I18nCoreOptions, Locales, NamedArg, NamedArgs, ParsedMessages, Translator } from './types.js';
+import type { FactoryLocaleInserter, Getter, I18nCoreOptions, Locales, NamedArg, NamedArgs, ParsedMessages, Translator } from '../types.js';
 import Locale from './Locale.js';
 export default class I18nCore {
     default_locale_id: string;
     formatters: Record<string, FactoryLocaleInserter<unknown>>;
-    getters: Getters;
+    getters: Record<string, Omit<Getter, 'parse'>>;
     locales: Locales;
     nested_limit: number;
     constructor(options?: Partial<I18nCoreOptions>);

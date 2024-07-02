@@ -1,13 +1,13 @@
-import { Getter } from '../types';
+import type { Getter } from '../../types.js';
 
-type Parsed = {
+export type Parsed = {
 	k: string,
 	o?: {
 		[key: string]: string
 	}
 };
 
-export default <Getter>{
+export default <Omit<Getter, 'parse'>>{
 	get(locale, original, data: Parsed) {
 		const [, , args, cycle] = original;
 		return locale.i18n.t(
@@ -20,14 +20,4 @@ export default <Getter>{
 			cycle + 1
 		);
 	},
-	parse(args) {
-		const [key, options] = args.replace(/\s/g, '').split(',');
-		const d: Parsed = {
-			k: key
-		};
-		if (options) {
-			d.o = Object.fromEntries(new URLSearchParams(options).entries());
-		}
-		return d;
-	}
 };

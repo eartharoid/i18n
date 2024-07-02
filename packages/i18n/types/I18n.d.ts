@@ -1,9 +1,10 @@
-import type { ExtractedMessageObject, Fallen, I18nOptions, ParsedMessages, RawMessages } from './types.js';
-import type Locale from './Locale.js';
-import I18nLite from './I18nLite.js';
-export default class I18n extends I18nLite {
+import type { ExtractedMessageObject, Fallen, Getter, I18nOptions, ParsedMessages, RawMessages } from './types.js';
+import type Locale from './core/Locale.js';
+import I18nCore from './core/I18nCore.js';
+export default class I18n extends I18nCore {
     defer_extraction: boolean;
     placeholder_regex: RegExp;
+    getters: Record<string, Getter>;
     constructor(options?: Partial<I18nOptions>);
     extract(message: string): ExtractedMessageObject;
     fallback(fallback_map?: Record<string, string[]>): Fallen;

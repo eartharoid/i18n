@@ -7,10 +7,8 @@
 
 'use strict';
 
-import I18n from './I18n.js';
-import I18nLite from './I18nLite.js';
+export * from './types.js';
 
-export {
-	I18n,
-	I18nLite,
-};
+export { default as I18n } from './I18n.js';
+export { default as I18nCore } from './core/I18nCore.js';
+export * as formatters from './formatters/index.js';
