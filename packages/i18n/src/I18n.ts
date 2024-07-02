@@ -1,20 +1,26 @@
 import type {
 	ExtractedMessageObject,
 	Fallen,
+	Getter,
 	I18nOptions,
 	MetaMessageObject,
 	ParsedMessage,
-	ParsedMessages,
 	RawMessages,
 } from './types.js';
-import type Locale from './Locale.js';
-import I18nLite from './I18nLite.js';
+import type Locale from './core/Locale.js';
+import I18nCore from './core/I18nCore.js';
+import $t from './parsers/$t.js';
 
-export default class I18n extends I18nLite {
+export default class I18n extends I18nCore {
 	public defer_extraction: boolean;
 	public placeholder_regex: RegExp;
+	public getters: Record<string, Getter>;
 
-	constructor(options?: Partial<I18nOptions>) {
+	constructor(options: Partial<I18nOptions> = {}) {
+		options.getters = {
+			$t,
+			...options?.getters,
+		};
 		super(options);
 		this.defer_extraction = options?.defer_extraction ?? true; // ?? not ||
 		this.placeholder_regex = options?.placeholder_regex || /\\?{\s?(?:(?<variable>[-a-z0-9._]+)|(?:(?<getter>[$a-z0-9_]+)(?:\((?<args>[-a-z0-9()!@:%_+.~#?&/= ,]*)\))?))\s?}/gi;
@@ -131,8 +137,7 @@ export default class I18n extends I18nLite {
 	 * @param {string} [namespace] 
 	 * @returns {ParsedMessages}
 	 */
-	public parse(messages: RawMessages, namespace?: string): ParsedMessages {
-		const parsed: ParsedMessages = [];
+	public *parse(messages: RawMessages, namespace?: string): Generator<[string, ParsedMessage]> {
 		for (const [k, v] of Object.entries(messages)) {
 			let query: MetaMessageObject['q'];
 			let key = k;
@@ -157,26 +162,25 @@ export default class I18n extends I18nLite {
 			}
 			if (namespace) key = namespace + ':' + key;
 			if (typeof v === 'string') {
-				parsed.push([
+				yield [
 					key,
 					this.defer_extraction ? { o: v } : this.extract(v)
-				]);
+				];
 			} else if (typeof v === 'object') {
 				if (query) {
-					parsed.push([
+					yield [
 						key,
 						{ q: query }
-					]);
+					];
 				}
 				const nested = this.parse(v);
 				for (const [nested_k, ...nested_v] of nested) {
-					parsed.push([
+					yield [
 						key + '.' + nested_k,
 						...nested_v
-					]);
+					];
 				}
 			}
 		}
-		return parsed;
 	}
 }

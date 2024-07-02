@@ -1,3 +1,4 @@
-import I18n from './I18n.js';
-import I18nLite from './I18nLite.js';
-export { I18n, I18nLite, };
+export * from './types.js';
+export { default as I18n } from './I18n.js';
+export { default as I18nCore } from './core/I18nCore.js';
+export * as formatters from './formatters/index.js';

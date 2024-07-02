@@ -1,5 +1,5 @@
 import { I18n } from '../dist/index.js';
-import * as formatters from '../dist/formatters/index.js';
+import { formatters } from '../dist/index.js';
 import fs from 'fs';
 import test from 'ava';
 

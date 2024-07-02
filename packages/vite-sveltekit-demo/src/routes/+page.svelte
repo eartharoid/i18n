@@ -4,12 +4,12 @@
 	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
-	import { I18nLite } from '@eartharoid/i18n';
+	import { I18nCore } from '@eartharoid/i18n';
 	// import I18n from 'virtual:i18n';
 	// import { I18n } from '@eartharoid/vite-plugin-i18n';
 	const { translations } = data;
 	console.log('page', translations)
-	const i18n = new I18nLite();
+	const i18n = new I18nCore();
 	const t = i18n.loadParsed(...translations).createTranslator();
 </script>
 

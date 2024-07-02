@@ -1,26 +1,26 @@
 import type {
 	ExtractedMessageObject,
 	FactoryLocaleInserter,
-	Getters,
-	I18nLiteOptions,
+	Getter,
+	I18nCoreOptions,
 	Locales,
 	NamedArg,
 	NamedArgs,
-	ParsedMessages,
+	ParsedMessage,
 	Translator
-} from './types.js';
-import I18n from './I18n.js';
+} from '../types.js';
+import I18n from '../I18n.js';
 import Locale from './Locale.js';
-import $t from './getters/$t.js';
+import $t from './functions/$t.js';
 
-export default class I18nLite {
+export default class I18nCore {
 	public default_locale_id: string;
 	public formatters: Record<string, FactoryLocaleInserter<unknown>>;
-	public getters: Getters;
+	public getters: Record<string, Omit<Getter, 'parse'>>;
 	public locales: Locales;
 	public nested_limit: number;
 
-	constructor(options?: Partial<I18nLiteOptions>) {
+	constructor(options?: Partial<I18nCoreOptions>) {
 		this.default_locale_id = options?.default_locale_id;
 		this.formatters = options?.formatters ?? {};
 		this.getters = {
@@ -50,7 +50,7 @@ export default class I18nLite {
 	 * @param {string} locale_id 
 	 * @param {ParsedMessages} messages 
 	 */
-	public loadParsed(locale_id: string, messages: ParsedMessages): Locale {
+	public loadParsed(locale_id: string, messages: Iterable<[string, ParsedMessage]>): Locale {
 		const locale = new Locale(this, locale_id, messages);
 		this.locales.set(locale_id, locale);
 		return locale;

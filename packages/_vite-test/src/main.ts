@@ -11,10 +11,10 @@ import { setupCounter } from './counter.ts';
 
 
 // it won't let me import the plugin's I18n?
-import { I18nLite } from '@eartharoid/i18n';
+import { I18nCore } from '@eartharoid/i18n';
 //@ts-ignore
 import { ctom } from '@eartharoid/cif';
-class I18n extends I18nLite {
+class I18n extends I18nCore {
   //@ts-ignore
   constructor(options) {
     super(options);

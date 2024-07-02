@@ -59,10 +59,10 @@ function encode(messages) {
 ### Decoding
 
 ```js
-import { I18nLite } from '@eartharoid/i18n';
+import { I18nCore } from '@eartharoid/i18n';
 import { ctom } from '@eartharoid/cif';
 
-const i18n = new I18nLite();
+const i18n = new I18nCore();
 i18n.loadParsed('en', ctom(cif));
 
 ```

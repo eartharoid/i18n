@@ -1,4 +1,3 @@
-import DateTime from './DateTime.js';
-import List from './List.js';
-import RelativeTime from './RelativeTime.js';
-export { DateTime, List, RelativeTime, };
+export { default as DateTime } from './DateTime.js';
+export { default as List } from './List.js';
+export { default as RelativeTime } from './RelativeTime.js';

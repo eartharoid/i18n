@@ -1,4 +1,4 @@
-import type Locale from './Locale.js';
+import type Locale from './core/Locale.js';
 export interface FormatterFactory {
 	get result(): string;
 }
@@ -21,16 +21,14 @@ export type Getter = {
 	parse(args: string): unknown,
 }
 
-export type Getters = Record<string, Getter>
-
-export interface I18nLiteOptions {
+export interface I18nCoreOptions {
 	default_locale_id: string,
 	formatters: Record<string, FactoryLocaleInserter<unknown>>,
-	getters: Getters,
+	getters: Record<string, Omit<Getter, 'parse'>>,
 	nested_limit: number,
 }
 
-export interface I18nOptions extends I18nLiteOptions {
+export interface I18nOptions extends I18nCoreOptions {
 	defer_extraction: boolean,
 	placeholder_regex: RegExp,
 }
@@ -82,8 +80,6 @@ export interface ExtractedMessageObject extends Partial<MessageObject> {
 }
 
 export type ParsedMessage = ExtractedMessageObject | MessageObject | MetaMessageObject;
-
-export type ParsedMessages = Array<[string, ParsedMessage]>;
 
 export interface Translator {
 	(key: string, args?: NamedArgs): string,
