@@ -5,7 +5,6 @@ import type {
 	I18nOptions,
 	MetaMessageObject,
 	ParsedMessage,
-	ParsedMessages,
 	RawMessages,
 } from './types.js';
 import type Locale from './core/Locale.js';
@@ -138,8 +137,7 @@ export default class I18n extends I18nCore {
 	 * @param {string} [namespace] 
 	 * @returns {ParsedMessages}
 	 */
-	public parse(messages: RawMessages, namespace?: string): ParsedMessages {
-		const parsed: ParsedMessages = [];
+	public *parse(messages: RawMessages, namespace?: string): Generator<[string, ParsedMessage]> {
 		for (const [k, v] of Object.entries(messages)) {
 			let query: MetaMessageObject['q'];
 			let key = k;
@@ -164,26 +162,25 @@ export default class I18n extends I18nCore {
 			}
 			if (namespace) key = namespace + ':' + key;
 			if (typeof v === 'string') {
-				parsed.push([
+				yield [
 					key,
 					this.defer_extraction ? { o: v } : this.extract(v)
-				]);
+				];
 			} else if (typeof v === 'object') {
 				if (query) {
-					parsed.push([
+					yield [
 						key,
 						{ q: query }
-					]);
+					];
 				}
 				const nested = this.parse(v);
 				for (const [nested_k, ...nested_v] of nested) {
-					parsed.push([
+					yield [
 						key + '.' + nested_k,
 						...nested_v
-					]);
+					];
 				}
 			}
 		}
-		return parsed;
 	}
 }

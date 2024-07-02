@@ -6,7 +6,7 @@ import type {
 	Locales,
 	NamedArg,
 	NamedArgs,
-	ParsedMessages,
+	ParsedMessage,
 	Translator
 } from '../types.js';
 import I18n from '../I18n.js';
@@ -50,7 +50,7 @@ export default class I18nCore {
 	 * @param {string} locale_id 
 	 * @param {ParsedMessages} messages 
 	 */
-	public loadParsed(locale_id: string, messages: ParsedMessages): Locale {
+	public loadParsed(locale_id: string, messages: Iterable<[string, ParsedMessage]>): Locale {
 		const locale = new Locale(this, locale_id, messages);
 		this.locales.set(locale_id, locale);
 		return locale;

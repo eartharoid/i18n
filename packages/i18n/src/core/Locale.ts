@@ -2,7 +2,6 @@ import type {
 	FormatterFactory,
 	NamedArgs,
 	ParsedMessage,
-	ParsedMessages,
 	Translator
 } from '../types.js';
 import type I18nCore from './I18nCore.js';
@@ -15,7 +14,7 @@ export default class Locale extends Map<string, ParsedMessage> {
 	constructor(
 		i18n: I18nCore,
 		locale_id: string,
-		messages: ParsedMessages,
+		messages: Iterable<[string, ParsedMessage]>,
 	) {
 		super(messages);
 		this.formatters = Object

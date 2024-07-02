@@ -37,7 +37,10 @@
 
 		.setup(async () => {
 			i18n = new I18n({ defer_extraction: false });
-			i18n_deferred = new I18n({ defer_extraction: true });
+			i18n_deferred = new I18n({
+				default_locale_id: 'en',
+				defer_extraction: true,
+			});
 			// i18next = await import('i18next');
 			i18next = require('i18next');
 			delete require.cache[require.resolve('./samples/missing.js')];
@@ -58,7 +61,7 @@
 		.add('Raw JSON, deferred, w/ fallback', () => {
 			i18n_deferred.load('en', JSON.parse(txt.json));
 			i18n_deferred.load('en-GB', JSON.parse(txt.missing_json));
-			i18n_deferred.fallback('en');
+			i18n_deferred.fallback();
 		})
 
 		.add('Raw JS', () => {
@@ -76,7 +79,7 @@
 		.add('Raw JS, deferred, w/ fallback', () => {
 			i18n_deferred.load('en', require(`./samples/test.js`));
 			i18n_deferred.load('en-GB', require(`./samples/missing.js`));
-			i18n_deferred.fallback('en');
+			i18n_deferred.fallback();
 		})
 
 		// it's too fast
