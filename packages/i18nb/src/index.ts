@@ -8,5 +8,4 @@
 'use strict';
 
 export { default as fromStream } from './fromStream.js';
-export { default as toBinary } from './toBinary.js';
-export { default as toBuffer } from './toBuffer.js';
+export { default as Compiler } from './Compiler.js';
