@@ -1,10 +1,9 @@
 import type {
 	ParsedMessage,
-	ParsedMessages
 } from '@eartharoid/i18n/types/types.js';
 import control from './control.js';
 
-export function parseRecord(record: string): [string, ParsedMessage] {
+export function parseRecord(record: string): [string, ParsedMessage] | null {
 	let prefix = '';
 	// start on the second record
 	if (record[0] === control.GS && record.length > 1) {
@@ -35,12 +34,12 @@ export function parseRecord(record: string): [string, ParsedMessage] {
 	return [key, m];
 }
 
-export async function parseStream(body: ReadableStream): Promise<ParsedMessages> {
+export async function parseStream(body: ReadableStream): Promise<Array<[string, ParsedMessage]>> {
 	const decoder = new TextDecoderStream('utf-8');
 	const reader = body.pipeThrough(decoder).getReader(); // { mode: 'byob' }
-	const unmap = [];
+	const unmap: Array<[string, ParsedMessage]> = [];
 	let buffer = '';
-	let version = null;
+	let version: number | null = null;
 	try {
 		// eslint-disable-next-line no-constant-condition
 		while (true) {
@@ -53,6 +52,7 @@ export async function parseStream(body: ReadableStream): Promise<ParsedMessages>
 					if (version === null) {
 						const meta = new URLSearchParams(buffer);
 						if (meta.has('version')) {
+							// @ts-ignore
 							version = +meta.get('version');
 							if (version !== 1) throw new Error('Unsupported CIF version');
 						}
@@ -79,14 +79,14 @@ const RT = {
 };
 
 // TODO: namespace
-export async function parseStreamV2(body: ReadableStream): Promise<ParsedMessages> {
+export async function parseStreamV2(body: ReadableStream): Promise<Array<[string, ParsedMessage]>> {
 	const decoder = new TextDecoderStream('utf-8');
 	const reader = body.pipeThrough(decoder).getReader(); // { mode: 'byob' }
-	const unmap = [];
-	let prefix_parts = [];
+	const unmap: Array<[string, ParsedMessage]> = [];
+	let prefix_parts: string[] = [];
 	let prefix_depth = 0;
 	let prefix = '';
-	let rt = null;
+	let rt: number | null = null;
 	let buffer = '';
 	
 	function reset() {
@@ -153,9 +153,9 @@ export async function parseStreamV2(body: ReadableStream): Promise<ParsedMessage
 	}
 }
 
-export async function parse(body: string | ReadableStream): Promise<ParsedMessages> {
+export async function parse(body: string | ReadableStream): Promise<Array<[string, ParsedMessage]>> {
 	if (typeof body === 'string') {
-		const unmap = [];
+		const unmap: Array<[string, ParsedMessage]> = [];
 		const records = body.split(control.RS);
 		let version = 1;
 		const meta = new URLSearchParams(records[0]);

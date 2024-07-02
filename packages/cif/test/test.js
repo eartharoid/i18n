@@ -17,7 +17,8 @@ let json = JSON.parse(
 const i18n = new I18n({
 	defer_extraction: false,
 });
-const parsed = i18n.parse(json);
+const parsed = [...i18n.parse(json)];
+
 fs.writeFileSync(`${dir}/test.i18n.json`, JSON.stringify(parsed, null, 2));
 let cif;
 

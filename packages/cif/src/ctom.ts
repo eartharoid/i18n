@@ -1,10 +1,9 @@
 import type {
 	ParsedMessage,
-	ParsedMessages
-} from '@eartharoid/i18n/types/types.js';
+} from '@eartharoid/i18n';
 import control from './control.js';
 
-export default function ctom(cif: string): ParsedMessages {
+export default function ctom(cif: string): Array<[string, ParsedMessage]> {
 	const unmap = [];
 	const records = cif.split(control.RS);
 	let version = 1;
