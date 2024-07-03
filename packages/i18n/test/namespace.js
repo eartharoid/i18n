@@ -26,6 +26,6 @@ test('prefixed', t => {
 test('non-prefixed', t => {
 	t.throws(
 		() => i18n.t('en', 'simple'),
-		{ message: /does not contain a message with the key/ }
+		{ message: /does not exist/ }
 	);
 });

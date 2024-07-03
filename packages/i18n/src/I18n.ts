@@ -5,6 +5,7 @@ import type {
 	I18nOptions,
 	MetaMessageObject,
 	ParsedMessage,
+	ParsedMessages,
 	RawMessages,
 } from './types.js';
 import type Locale from './core/Locale.js';
@@ -122,12 +123,24 @@ export default class I18n extends I18nCore {
 	}
 
 	/**
+	 * Load parsed messages
+	 * @param {string} locale_id 
+	 * @param {ParsedMessages | RawMessages} messages 
+	 */
+	public load(locale_id: string, messages: RawMessages | ParsedMessages, namespace?: string): Locale {
+		let parsed_messages: ParsedMessages;
+		if (Symbol.iterator in messages) parsed_messages = messages as ParsedMessages;
+		else parsed_messages = this.parse(messages as RawMessages, namespace);
+		return super.load(locale_id, parsed_messages);
+	}
+
+	/**
 	 * Parse raw messages
 	 * @param {RawMessages} messages 
 	 * @param {string} [namespace] 
 	 * @returns {ParsedMessages}
 	 */
-	public *parse(messages: RawMessages, namespace?: string): Iterable<[string, ParsedMessage]> {
+	public *parse(messages: RawMessages, namespace?: string): ParsedMessages {
 		for (const [k, v] of Object.entries(messages)) {
 			let query: MetaMessageObject['q'];
 			let key = k;

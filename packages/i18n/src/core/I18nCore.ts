@@ -49,14 +49,10 @@ export default class I18nCore {
 	/**
 	 * Load parsed messages
 	 * @param {string} locale_id 
-	 * @param {ParsedMessages | RawMessages} messages 
+	 * @param {ParsedMessages} messages 
 	 */
-	public load(locale_id: string, messages: RawMessages | ParsedMessages, namespace?: string): Locale {
-		let parsed_messages: ParsedMessages;
-		if (Symbol.iterator in messages) parsed_messages = messages as ParsedMessages; 
-		else if (this instanceof I18n) parsed_messages = this.parse(messages as RawMessages, namespace);
-		else throw new Error('I18nCore can only load parsed messages');
-		const locale = new Locale(this, locale_id, parsed_messages);
+	public load(locale_id: string, messages: ParsedMessages): Locale {
+		const locale = new Locale(this, locale_id, messages);
 		this.locales.set(locale_id, locale);
 		return locale;
 	}

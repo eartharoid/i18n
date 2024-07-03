@@ -63,6 +63,6 @@ import { I18nCore } from '@eartharoid/i18n';
 import { ctom } from '@eartharoid/cif';
 
 const i18n = new I18nCore();
-i18n.loadParsed('en', ctom(cif));
+i18n.load('en', ctom(cif));
 
 ```

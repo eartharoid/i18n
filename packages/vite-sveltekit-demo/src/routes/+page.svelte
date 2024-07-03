@@ -10,7 +10,7 @@
 	const { translations } = data;
 	console.log('page', translations)
 	const i18n = new I18nCore();
-	const t = i18n.loadParsed(...translations).createTranslator();
+	const t = i18n.load(...translations).createTranslator();
 </script>
 
 <svelte:head>

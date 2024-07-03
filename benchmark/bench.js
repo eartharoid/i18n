@@ -86,17 +86,17 @@
 		// .add('I18n JS', async () => {
 		// 	// const { json } = await import(`./samples/test.i18n.js`);
 		// 	const json = require(`./samples/test.i18n.js`);
-		// 	i18n.loadParsed('test', json);
+		// 	i18n.load('test', json);
 		// })
 
 		.add('I18n JSON', () => {
 			const json = JSON.parse(txt.i18n_json);
-			i18n.loadParsed('test', json);
+			i18n.load('test', json);
 		})
 
 		.add('I18n CIF', () => {
 			const json = ctom(txt.cif);
-			i18n.loadParsed('test', json);
+			i18n.load('test', json);
 		})
 
 		.add('i18next JSON', () => {

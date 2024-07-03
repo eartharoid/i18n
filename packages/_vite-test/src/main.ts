@@ -22,7 +22,7 @@ class I18n extends I18nCore {
   //@ts-ignore
   load(module) {
     const { cif, json, locale_id } = module;
-    return this.loadParsed(locale_id, cif ? ctom(cif) : json);
+    return this.load(locale_id, cif ? ctom(cif) : json);
   }
 }
 //@ts-ignore

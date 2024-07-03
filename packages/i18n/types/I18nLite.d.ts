@@ -8,7 +8,7 @@ export default class I18nCore {
     nested_limit: number;
     constructor(options?: Partial<I18nCoreOptions>);
     createTranslator(locale_id: string): Translator;
-    loadParsed(locale_id: string, messages: ParsedMessages): Locale;
+    load(locale_id: string, messages: ParsedMessages): Locale;
     resolve(obj: NamedArgs, key: string): NamedArg | undefined;
     t(locale_id: string, key: string, args?: NamedArgs, nested?: number): string;
 }
