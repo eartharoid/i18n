@@ -81,6 +81,8 @@ export interface ExtractedMessageObject extends Partial<MessageObject> {
 
 export type ParsedMessage = ExtractedMessageObject | MessageObject | MetaMessageObject;
 
+export type ParsedMessages = Iterable<[string, ParsedMessage]>;
+
 export interface Translator {
 	(key: string, args?: NamedArgs): string,
 	locale: Locale,

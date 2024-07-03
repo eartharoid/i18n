@@ -1,4 +1,4 @@
-import type { FactoryLocaleInserter, Getter, I18nCoreOptions, Locales, NamedArg, NamedArgs, ParsedMessage, Translator } from '../types.js';
+import type { FactoryLocaleInserter, Getter, I18nCoreOptions, Locales, NamedArg, NamedArgs, ParsedMessages, RawMessages, Translator } from '../types.js';
 import Locale from './Locale.js';
 export default class I18nCore {
     default_locale_id: string;
@@ -8,7 +8,7 @@ export default class I18nCore {
     nested_limit: number;
     constructor(options?: Partial<I18nCoreOptions>);
     createTranslator(locale_id: string): Translator;
-    loadParsed(locale_id: string, messages: Iterable<[string, ParsedMessage]>): Locale;
+    load(locale_id: string, messages: RawMessages | ParsedMessages, namespace?: string): Locale;
     resolve(obj: NamedArgs, key: string): NamedArg | undefined;
     t(locale_id: string, key: string, args?: NamedArgs, nested?: number): string;
 }

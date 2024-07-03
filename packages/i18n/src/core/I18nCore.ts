@@ -6,7 +6,8 @@ import type {
 	Locales,
 	NamedArg,
 	NamedArgs,
-	ParsedMessage,
+	ParsedMessages,
+	RawMessages,
 	Translator
 } from '../types.js';
 import I18n from '../I18n.js';
@@ -48,10 +49,14 @@ export default class I18nCore {
 	/**
 	 * Load parsed messages
 	 * @param {string} locale_id 
-	 * @param {ParsedMessages} messages 
+	 * @param {ParsedMessages | RawMessages} messages 
 	 */
-	public loadParsed(locale_id: string, messages: Iterable<[string, ParsedMessage]>): Locale {
-		const locale = new Locale(this, locale_id, messages);
+	public load(locale_id: string, messages: RawMessages | ParsedMessages, namespace?: string): Locale {
+		let parsed_messages: ParsedMessages;
+		if (Symbol.iterator in messages) parsed_messages = messages as ParsedMessages; 
+		else if (this instanceof I18n) parsed_messages = this.parse(messages as RawMessages, namespace);
+		else throw new Error('I18nCore can only load parsed messages');
+		const locale = new Locale(this, locale_id, parsed_messages);
 		this.locales.set(locale_id, locale);
 		return locale;
 	}
@@ -80,20 +85,21 @@ export default class I18nCore {
 		args: NamedArgs = {},
 		nested = 0
 	): string {
+		const human_id = `${locale_id}@${key}`; 
 		if (nested > this.nested_limit) {
-			throw new Error(`Potential circular translation, "${key}" exceeded nesting limit (${this.nested_limit})`);
+			throw new Error(`Potential circular translation, "${human_id}" exceeded nesting limit (${this.nested_limit})`);
 		}
 
 		// locale does not exist
 		if (!this.locales.has(locale_id)) {
-			throw new Error(`A locale with the name of "${locale_id}" does not exist`);
+			throw new Error(`Locale "${locale_id}" does not exist`);
 		}
 
 		const locale = this.locales.get(locale_id);
 
 		// locale exists but key does not
 		if (!locale.has(key)) {
-			throw new Error(`The "${locale_id}" locale does not contain a message with the key "${key}"`);
+			throw new Error(`Message "${human_id}" does not exist`);
 		}
 
 		let message = locale.get(key);
@@ -115,7 +121,7 @@ export default class I18nCore {
 					const rule: Intl.LDMLPluralRule = Array.isArray(input) ? pr.selectRange(...input) : pr.select(input);
 					key = key + '.' + rule;
 					if (!locale.has(key)) {
-						throw new Error(`Pluralisation failed: the "${locale_id}" locale does not contain a message with the key "${key}"`);
+						throw new Error(`"${locale_id}" locale does not contain a message with the key "${key}" required for pluralisation`);
 					}
 				}
 				message = locale.get(key);

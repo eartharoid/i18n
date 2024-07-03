@@ -56,6 +56,7 @@ export interface ExtractedMessageObject extends Partial<MessageObject> {
     p?: Array<[number, Placeholder]>;
 }
 export declare type ParsedMessage = ExtractedMessageObject | MessageObject | MetaMessageObject;
+export declare type ParsedMessages = Iterable<[string, ParsedMessage]>;
 export interface Translator {
     (key: string, args?: NamedArgs): string;
     locale: Locale;

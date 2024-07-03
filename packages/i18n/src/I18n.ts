@@ -122,16 +122,6 @@ export default class I18n extends I18nCore {
 	}
 
 	/**
-	 * Parse then load raw messages
-	 * @param {string} locale_id 
-	 * @param {RawMessages} messages
-	 * @returns {Locale}
-	 */
-	public load(locale_id: string, messages: RawMessages, namespace?: string): Locale {
-		return this.loadParsed(locale_id, this.parse(messages, namespace));
-	}
-
-	/**
 	 * Parse raw messages
 	 * @param {RawMessages} messages 
 	 * @param {string} [namespace] 
