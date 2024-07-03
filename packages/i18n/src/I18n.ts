@@ -123,9 +123,9 @@ export default class I18n extends I18nCore {
 	}
 
 	/**
-	 * Load parsed messages
+	 * Load parsed or raw messages
 	 * @param {string} locale_id 
-	 * @param {ParsedMessages | RawMessages} messages 
+	 * @param {RawMessages|ParsedMessages} messages 
 	 */
 	public load(locale_id: string, messages: RawMessages | ParsedMessages, namespace?: string): Locale {
 		let parsed_messages: ParsedMessages;
