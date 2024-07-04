@@ -1,4 +1,4 @@
-import type { ParsedMessage } from '@eartharoid/i18n/types';
+import type { ParsedMessage } from '../types';
 // import { decode as decodeVarInt } from 'varint';
 
 export default class Parser {

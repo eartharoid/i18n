@@ -1,8 +1,11 @@
 {
-	"name": "@eartharoid/i18nb",
-	"version": "1.0.0-alpha.1",
-	"description": "Convert to and from an efficient i18n message file format",
-	"main": "dist/index.js",
+	"name": "@eartharoid/i18n",
+	"version": "2.0.0-alpha.6",
+	"description": "Simple and lightweight message localisation",
+	"exports": {
+		".": "./dist/index.js",
+		"./i18nb": "./dist/i18nb/index.js"
+	},
 	"type": "module",
 	"types": "types/index.d.ts",
 	"files": [
@@ -11,11 +14,11 @@
 	],
 	"scripts": {
 		"build": "tsc",
-		"build-and-test": "pnpm run build && pnpm run test",
+		"build-and-test": "npm run build && npm run test",
 		"lint": "eslint src --ext .ts",
 		"lint-and-fix": "eslint src --ext .ts --fix",
-		"test": "ava",
-		"watch:test": "ava --watch",
+		"test": "ava ./test/*",
+		"watch:test": "ava ./test/* --watch",
 		"prepack": "rimraf dist && rimraf types && pnpm run build"
 	},
 	"repository": {
@@ -33,17 +36,12 @@
 	},
 	"homepage": "https://github.com/eartharoid/i18n#readme",
 	"devDependencies": {
-		"@eartharoid/i18n": "workspace:^",
-		"@types/node": "^20.11.19",
-		"@types/varint": "^6.0.3",
+		"@types/node": "^20.14.9",
 		"@typescript-eslint/eslint-plugin": "^4.33.0",
 		"@typescript-eslint/parser": "^4.33.0",
 		"ava": "^5.3.1",
 		"eslint": "^7.32.0",
 		"rimraf": "^5.0.7",
 		"typescript": "^4.9.5"
-	},
-	"dependencies": {
-		"varint": "^6.0.0"
 	}
 }

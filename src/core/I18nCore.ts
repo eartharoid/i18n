@@ -7,7 +7,6 @@ import type {
 	NamedArg,
 	NamedArgs,
 	ParsedMessages,
-	RawMessages,
 	Translator
 } from '../types.js';
 import I18n from '../I18n.js';

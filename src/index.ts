@@ -5,8 +5,6 @@
  * @license MIT
  */
 
-'use strict';
-
 export * from './types.js';
 
 export { default as I18n } from './I18n.js';

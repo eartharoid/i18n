@@ -2,7 +2,6 @@
   "main": "bench.js",
   "type": "commonjs",
   "devDependencies": {
-    "@eartharoid/cif": "workspace:^",
     "@eartharoid/i18n": "workspace:^",
     "benchmarkify": "^4.0.0",
     "i18n1": "npm:@eartharoid/i18n@^1.2.1",

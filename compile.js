@@ -3,7 +3,7 @@
 import {
 	Compiler,
 	Parser
-} from '../dist/index.js';
+} from './dist/i18nb/index.js';
 
 
 // const bytes = compile([[1, 2], [2, 3]]);

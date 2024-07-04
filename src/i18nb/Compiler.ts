@@ -1,5 +1,5 @@
-import type { ParsedMessages } from '@eartharoid/i18n/types';
-import { encode as encodeVarInt } from 'varint';
+import type { ParsedMessages } from '../types';
+// import { encode as encodeVarInt } from 'varint';
 
 export default class Compiler {
 	#messages: ParsedMessages;
@@ -26,7 +26,7 @@ export default class Compiler {
 
 		for (const [k] of this.#messages) {
 			const key_bytes = this.#encodeText(k);
-			yield* encodeVarInt(key_bytes.byteLength);
+			// yield* encodeVarInt(key_bytes.byteLength);
 			yield* key_bytes;
 		}
 	}

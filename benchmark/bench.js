@@ -9,7 +9,7 @@
 	const Benchmarkify = require('benchmarkify');
 	const { I18n } = await import('@eartharoid/i18n');
 	const I18n1 = require('i18n1');
-	const { ctom } = await import('@eartharoid/cif');
+	// const { ctom } = await import('@eartharoid/cif');
 
 	const txt = {
 		cif: readFileSync('./samples/test.cif', 'utf8'),
@@ -19,7 +19,7 @@
 	};
 
 	const parsed = {
-		cif: ctom(txt.cif),
+		// cif: ctom(txt.cif),
 		json: JSON.parse(txt.json),
 		i18n_json: JSON.parse(txt.i18n_json),
 	};
@@ -66,38 +66,38 @@
 
 		.add('Raw JS', () => {
 			// const { json } = await import(`./samples/test.js`);
-			const json = require(`./samples/test.js`);
+			const json = require('./samples/test.js');
 			i18n.load('en', json);
 		})
 
 		.add('Raw JS, deferred', async () => {
 			// const { json } = await import(`./samples/test.js`);
-			const json = require(`./samples/test.js`);
+			const json = require('./samples/test.js');
 			i18n_deferred.load('en', json);
 		})
 
 		.add('Raw JS, deferred, w/ fallback', () => {
-			i18n_deferred.load('en', require(`./samples/test.js`));
-			i18n_deferred.load('en-GB', require(`./samples/missing.js`));
+			i18n_deferred.load('en', require('./samples/test.js'));
+			i18n_deferred.load('en-GB', require('./samples/missing.js'));
 			i18n_deferred.fallback();
 		})
 
-		// it's too fast
-		// .add('I18n JS', async () => {
-		// 	// const { json } = await import(`./samples/test.i18n.js`);
-		// 	const json = require(`./samples/test.i18n.js`);
-		// 	i18n.load('test', json);
-		// })
+	// it's too fast
+	// .add('I18n JS', async () => {
+	// 	// const { json } = await import(`./samples/test.i18n.js`);
+	// 	const json = require(`./samples/test.i18n.js`);
+	// 	i18n.load('test', json);
+	// })
 
 		.add('I18n JSON', () => {
 			const json = JSON.parse(txt.i18n_json);
 			i18n.load('test', json);
 		})
 
-		.add('I18n CIF', () => {
-			const json = ctom(txt.cif);
-			i18n.load('test', json);
-		})
+	// .add('I18n CIF', () => {
+	// 	const json = ctom(txt.cif);
+	// 	i18n.load('test', json);
+	// })
 
 		.add('i18next JSON', () => {
 			const json = JSON.parse(txt.json);

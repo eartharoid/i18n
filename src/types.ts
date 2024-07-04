@@ -31,6 +31,7 @@ export interface I18nCoreOptions {
 export interface I18nOptions extends I18nCoreOptions {
 	defer_extraction: boolean,
 	placeholder_regex: RegExp,
+	getters: Record<string, Getter>,
 }
 
 export type Fallen = {

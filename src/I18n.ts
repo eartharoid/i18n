@@ -15,7 +15,6 @@ import $t from './parsers/$t.js';
 export default class I18n extends I18nCore {
 	public defer_extraction: boolean;
 	public placeholder_regex: RegExp;
-	public getters: Record<string, Getter>;
 
 	constructor(options: Partial<I18nOptions> = {}) {
 		options.getters = {
@@ -60,7 +59,7 @@ export default class I18n extends I18nCore {
 					match.index,
 					{
 						g,
-						d: getter.parse(match.groups.args),
+						d: (<Getter>getter).parse(match.groups.args),
 					}
 				]);
 			}
