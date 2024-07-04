@@ -1,2 +1,2 @@
-import type { ParsedMessage } from '@eartharoid/i18n/types';
-export default function fromBuffer(): Iterable<[string, ParsedMessage]>;
+import type { ParsedMessages } from '@eartharoid/i18n/types';
+export default function fromBuffer(buffer: Uint8Array, namespace?: string): ParsedMessages;

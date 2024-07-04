@@ -9,7 +9,6 @@ export default class Compiler {
 
 	constructor(messages: ParsedMessages) {
 		this.#messages = messages;
-		return this;
 	}
 
 	#encodeText(text: string): Uint8Array {
@@ -17,10 +16,10 @@ export default class Compiler {
 	}
 
 	public toBuffer(): Uint8Array {
-		return new Uint8Array(this as unknown as Iterable<number>);
+		return new Uint8Array(this);
 	}
 
-	public *[Symbol.iterator](): Iterable<number> {
+	public *[Symbol.iterator](): Iterator<number> {
 		// let prefix_parts = [];
 
 		yield this.version;

@@ -52,6 +52,7 @@ export default class I18nCore {
 	 * @param {ParsedMessages} messages 
 	 */
 	public load(locale_id: string, messages: ParsedMessages): Locale {
+		// TODO: allow adding to existing locale
 		const locale = new Locale(this, locale_id, messages);
 		this.locales.set(locale_id, locale);
 		return locale;

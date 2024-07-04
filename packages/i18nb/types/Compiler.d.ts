@@ -1,10 +1,8 @@
-import type { ParsedMessage } from '@eartharoid/i18n/types';
-type ParsedMessages = Iterable<[string, ParsedMessage]>;
+import type { ParsedMessages } from '@eartharoid/i18n/types';
 export default class Compiler {
     #private;
     version: number;
     constructor(messages: ParsedMessages);
     toBuffer(): Uint8Array;
-    [Symbol.iterator](): Iterable<number>;
+    [Symbol.iterator](): Iterator<number>;
 }
-export {};

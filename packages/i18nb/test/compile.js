@@ -1,6 +1,9 @@
 /* eslint-disable no-console */
 
-import { Compiler } from '../dist/index.js';
+import {
+	Compiler,
+	Parser
+} from '../dist/index.js';
 
 
 // const bytes = compile([[1, 2], [2, 3]]);
@@ -33,3 +36,9 @@ for (const byte of bytes) {
 
 const buffer = bytes.toBuffer();
 console.log(buffer);
+
+const parser = new Parser(await fetch('https://static.eartharoid.me/test.cif'));
+
+for await (const item of parser) {
+	console.log(item);
+}

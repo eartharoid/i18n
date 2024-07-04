@@ -16,7 +16,7 @@
 		"lint-and-fix": "eslint src --ext .ts --fix",
 		"test": "ava",
 		"watch:test": "ava --watch",
-		"prepack": "rimraf dist && pnpm run build"
+		"prepack": "rimraf dist && rimraf types && pnpm run build"
 	},
 	"repository": {
 		"type": "git",
