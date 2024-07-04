@@ -3,18 +3,12 @@ import {
 	RawMessages
 } from '@eartharoid/i18n/types/types';
 
-export interface CIFModule {
-	cif: string,
-	locale_id: string,
-}
-
 export interface JSONModule {
 	json: ParsedMessages,
 	locale_id: string,
 }
 
 export interface I18nPluginOptions {
-	compact?: boolean,
 	exclude?: string | RegExp | Array<string | RegExp>,
 	default?: string,
 	fallback?: Record<string, string[]>,

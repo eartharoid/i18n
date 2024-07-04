@@ -127,9 +127,6 @@ importers:
 
   packages/vite-plugin-i18n:
     dependencies:
-      '@eartharoid/cif':
-        specifier: workspace:^
-        version: link:../cif
       '@eartharoid/i18n':
         specifier: workspace:^
         version: link:../i18n

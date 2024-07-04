@@ -11,8 +11,6 @@ import type { Plugin } from 'vite';
 import type { I18nPluginOptions, I18nVitePlugin } from './types';
 import type { RawMessages } from '@eartharoid/i18n/types/types';
 import { I18n } from '@eartharoid/i18n';
-// @ts-ignore !?
-import { mtoc } from '@eartharoid/cif';
 import {
 	createFilter,
 	normalizePath,
@@ -50,9 +48,8 @@ export default function I18nPlugin(options: I18nPluginOptions): Plugin<I18nViteP
 					fallback_map[clean_path] = fallen;
 				}
 				const json = [...i18n.locales.get(locale).entries()];
-				const cif = mtoc(json);
 				const data = {
-					...options.compact ? { cif } : { json },
+					json,
 					locale_id: locale
 				};
 				return {

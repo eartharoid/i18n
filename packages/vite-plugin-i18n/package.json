@@ -35,7 +35,6 @@
 	},
 	"homepage": "https://github.com/eartharoid/i18n#readme",
 	"dependencies": {
-		"@eartharoid/cif": "workspace:^",
 		"@eartharoid/i18n": "workspace:^",
 		"@rollup/pluginutils": "^5.1.0",
 		"vite": "^5.1.3"
