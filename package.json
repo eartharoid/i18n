@@ -1,9 +1,12 @@
 {
 	"name": "@eartharoid/i18n",
 	"version": "2.0.0-alpha.6",
-	"description": "Simple and lightweight message localisation",
+	"description": "⚡ A super fast, small, and simple message localisation library",
 	"exports": {
 		".": "./dist/index.js",
+		"./client": "./dist/client/index.js",
+		"./core": "./dist/client/index.js",
+		"./formatters": "./dist/formatters/index.js",
 		"./i18nb": "./dist/i18nb/index.js"
 	},
 	"type": "module",
@@ -26,7 +29,9 @@
 		"url": "git+https://github.com/eartharoid/i18n.git"
 	},
 	"keywords": [
+		"fast",
 		"internationalisation",
+		"internationalization",
 		"i18n"
 	],
 	"author": "eartharoid",

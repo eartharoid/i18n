@@ -1,9 +1,10 @@
 import type { ParsedMessages } from '../types';
-// import { encode as encodeVarInt } from 'varint';
+import { VarIntEncoder } from '../lib/varint';
 
 export default class Compiler {
 	#messages: ParsedMessages;
 	#textEncoder = new TextEncoder();
+	#varIntEncoder = new VarIntEncoder();
 
 	public version = 1;
 

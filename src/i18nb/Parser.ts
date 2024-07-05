@@ -1,8 +1,9 @@
 import type { ParsedMessage } from '../types';
-// import { decode as decodeVarInt } from 'varint';
+import { VarIntDecoder } from '../lib/varint';
 
 export default class Parser {
 	#textDecoder = new TextDecoder();
+	#varIntDecoder = new VarIntDecoder();
 	#stream: ReadableStream<Uint8Array>;
 	#length: number;
 	#namespace?: string;
