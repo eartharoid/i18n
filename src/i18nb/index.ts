@@ -6,5 +6,5 @@
  */
 
 
-export { default as Compiler } from './Compiler.js';
-export { default as Parser } from './Parser.js';
+export { default as Encoder } from './Encoder.js';
+export { default as Decoder } from './Decoder.js';

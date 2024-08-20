@@ -2,6 +2,8 @@
 	"name": "@eartharoid/i18n",
 	"version": "2.0.0-alpha.6",
 	"description": "⚡ A super fast, small, and simple message localisation library",
+	"type": "module",
+	"types": "types/index.d.ts",
 	"exports": {
 		".": "./dist/index.js",
 		"./client": "./dist/client/index.js",
@@ -9,12 +11,11 @@
 		"./formatters": "./dist/formatters/index.js",
 		"./i18nb": "./dist/i18nb/index.js"
 	},
-	"type": "module",
-	"types": "types/index.d.ts",
 	"files": [
 		"dist/",
 		"types/"
 	],
+	"bin": "./dist/bin/cli",
 	"scripts": {
 		"build": "tsc",
 		"build-and-test": "npm run build && npm run test",

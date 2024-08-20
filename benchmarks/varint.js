@@ -1,6 +1,7 @@
 import Benchmarkify from 'benchmarkify';
 import varint from 'varint';
 import { uint32 } from 'protobuf-varint';
+import VarIntDecoder from '../dist/lib/varint/decode.js';
 
 const benchmark = new Benchmarkify(
 	'varint benchmarks',
@@ -34,6 +35,11 @@ benchmark.createSuite('decode', { time: 5e3 })
 	.add('protobuf-varint', () => {
 		uint32.decode(buffer);
 		uint32.decode.bytes;
+	})
+	.add('custom', () => {
+		const decoder = new VarIntDecoder();
+		decoder.decode(buffer);
+		decoder.bytes;
 	});
 
 

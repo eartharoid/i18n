@@ -33,3 +33,11 @@ test('decoder.bytes', t => {
 	const actual = decoder.bytes; 
 	t.is(actual, expected);
 });
+
+test('decoder error', t => {
+	const decoder = new VarIntDecoder();
+	t.throws(
+		() => decoder.decode(new Uint8Array([192])),
+		{ message: /Unexpected end of bytes/ }
+	);
+});
