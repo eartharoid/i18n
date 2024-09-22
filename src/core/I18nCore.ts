@@ -51,9 +51,14 @@ export default class I18nCore {
 	 * @param {ParsedMessages} messages 
 	 */
 	public load(locale_id: string, messages: ParsedMessages): Locale {
-		// TODO: allow adding to existing locale
-		const locale = new Locale(this, locale_id, messages);
-		this.locales.set(locale_id, locale);
+		let locale: Locale;
+		if (this.locales.has(locale_id)) {
+			locale = this.locales.get(locale_id);
+			for (const [k, v] of messages) locale.set(k, v);
+		} else {
+			locale = new Locale(this, locale_id, messages);
+			this.locales.set(locale_id, locale);
+		}
 		return locale;
 	}
 
@@ -81,7 +86,7 @@ export default class I18nCore {
 		args: NamedArgs = {},
 		nested = 0
 	): string {
-		const human_id = `${locale_id}@${key}`; 
+		const human_id = `${locale_id}/${key}`; 
 		if (nested > this.nested_limit) {
 			throw new Error(`Potential circular translation, "${human_id}" exceeded nesting limit (${this.nested_limit})`);
 		}
