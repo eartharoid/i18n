@@ -2,11 +2,11 @@ import type {
 	ExtractedMessageObject,
 	ParsedMessages,
 } from '../types';
-import { GROUP_OPT_TYPES, PLACEHOLDER_TYPES } from './common.js';
+import { GROUP_OPT_TYPES, PLACEHOLDER_TYPES } from './common/enums.js';
 
-const MSB = 0b10000000;
-const REST = 0b01111111;
-const MSBALL = ~REST;
+const MSB = 0b10000000; // 128
+const REST = 0b01111111; // 127
+const INVERTED = ~REST; // -128
 const INT = 2 ** 31;
 
 export default class Encoder {
@@ -29,27 +29,16 @@ export default class Encoder {
 		offset = 0
 	): Uint8Array | Array<number> {
 		// Based on https://github.com/chrisdickinson/varint/blob/master/encode.js
-		if (!Number.isSafeInteger(number)) {
-			// this.bytes = 0;
-			throw new RangeError('Unsafe');
-		}
-
-		// const original_offset = offset;
-
+		if (!Number.isSafeInteger(number)) throw new RangeError('Unsafe');
 		while (number >= INT) {
 			target[offset++] = (number & 0xFF) | MSB;
 			number /= 128;
 		}
-
-		while (number & MSBALL) {
+		while (number & INVERTED) {
 			target[offset++] = (number & 0xFF) | MSB;
 			number >>>= 7;
 		}
-
 		target[offset] = number | 0;
-
-		// this.bytes = offset - original_offset + 1;
-
 		return target;
 	}
 
@@ -95,10 +84,10 @@ export default class Encoder {
 					});
 					yield segment_lengths.length;
 					yield* segment_lengths;
-					// yield* encoded_segments.flatMap(buffer => [...buffer]); // less efficient
 					for (const segment of encoded_segments) yield* segment;
+
 					if ('q' in v) {
-						const lengths = [];
+						const lengths: number[] = [];
 						const last_segment = key_segments[key_segments.length - 1];
 						const entries = Object.entries(v.q)
 							.map(([ok, ov]) => {
@@ -151,26 +140,30 @@ export default class Encoder {
 			yield* encoded_text;
 
 			if ('p' in v) {
+				const lengths: number[] = [];
 				const placeholders = v.p
 					.map(([pos, data]) => {
-						let name: string;
+						let content: Uint8Array;
 						if ('v' in data) {
-							// TODO: encode
-							name = data.v;
+							content = this.#encodeText(data.v);
 						} else if ('g' in data) {
 							switch (data.g) {
 							case '$t': {
-								name = PLACEHOLDER_TYPES.$t.toString();
+								content = new Uint8Array([PLACEHOLDER_TYPES.$t, /* ... */]);
+								// TODO: append data.k and data.o{}
+								// data.k LK
+								// data.o LKV
 								break;
 							}
 							default: {
-								name = JSON.stringify(data);
+								content = this.#encodeText(JSON.stringify(data));
 								break;
 							}
 							}
 						}
 
 					});
+				// NUM_PLACEHOLDERS VARINT_POSITION[] DATA_LENGTH[] DATA[]
 				yield placeholders.length;
 				// yield* lengths
 				// yield* entries

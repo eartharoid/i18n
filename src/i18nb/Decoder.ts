@@ -1,7 +1,7 @@
 import type { ParsedMessage } from '../types';
 
-const MSB = 0b10000000;
-const REST = 0b01111111;
+const MSB = 0b10000000; // 128
+const REST = 0b01111111; // 127
 
 export default class Decoder {
 	#textDecoder = new TextDecoder();

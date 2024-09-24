@@ -24,6 +24,7 @@ export default class I18n extends I18nCore {
 		super(options);
 		this.defer_extraction = options?.defer_extraction ?? true; // ?? not ||
 		this.placeholder_regex = options?.placeholder_regex || /\\?{\s?(?:(?<variable>[-a-z0-9._]+)|(?:(?<getter>[$a-z0-9_]+)(?:\((?<args>[-a-z0-9()!@:%_+.~#?&/= ,]*)\))?))\s?}/gi;
+		// TODO: {< slot >}
 	}
 
 	/**
