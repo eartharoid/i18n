@@ -1,7 +1,7 @@
 import {
 	ParsedMessages,
 	RawMessages
-} from '@eartharoid/i18n/types/types';
+} from '@eartharoid/i18n';
 
 export interface JSONModule {
 	json: ParsedMessages,

@@ -9,7 +9,7 @@
 
 import type { Plugin } from 'vite';
 import type { I18nPluginOptions, I18nVitePlugin } from './types';
-import type { RawMessages } from '@eartharoid/i18n/types/types';
+import type { RawMessages } from '@eartharoid/i18n';
 import { I18n } from '@eartharoid/i18n';
 import {
 	createFilter,
@@ -40,7 +40,7 @@ export default function I18nPlugin(options: I18nPluginOptions): Plugin<I18nViteP
 				});
 				i18n.load(locale, parse(src), namespace);
 				if (options.default && locale !== options.default) {
-					const file_name = normalised.replaceAll(locale, options.default);
+					const file_name = normalised.replace(new RegExp(`(\\/)(${locale})(\\/|\\.t)`, 'g'), `$1${options.default}$3`);
 					const fallback_messages = await readFile(file_name, 'utf-8');
 					i18n.load(options.default, parse(fallback_messages), namespace);
 					const fallen = i18n.fallback(options.fallback);

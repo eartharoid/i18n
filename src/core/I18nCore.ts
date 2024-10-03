@@ -80,12 +80,12 @@ export default class I18nCore {
 	 * @param {number} [nested] - The cycle number
 	 * @returns {string}
 	 */
-	public t(
+	public t = (
 		locale_id: string,
 		key: string,
 		args: NamedArgs = {},
 		nested = 0
-	): string {
+	): string => {
 		const human_id = `${locale_id}/${key}`; 
 		if (nested > this.nested_limit) {
 			throw new Error(`Potential circular translation, "${human_id}" exceeded nesting limit (${this.nested_limit})`);

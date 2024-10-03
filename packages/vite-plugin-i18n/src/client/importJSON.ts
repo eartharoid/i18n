@@ -1,4 +1,4 @@
-import { ParsedMessages } from '@eartharoid/i18n/types/types';
+import { ParsedMessages } from '@eartharoid/i18n';
 import type { JSONModule } from '../types';
 
 export default function importJSON(...modules: JSONModule[]): [string, ParsedMessages] {
