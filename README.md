@@ -16,6 +16,7 @@ A WIP super small and incredibly fast localisation library *with no documentatio
 - Simple string/interpolation format
 - Pluralisation
 - In-code formatters
+- Bun for dev and TS testing
 
 ## To-do
 
@@ -101,6 +102,8 @@ Placeholder positions aren't needed.
 // "Click {$slot(link, here)} to {action} this {item}." // not good, it's a valid getter
 // "Click <{link} here> to {action} this {item}." // difficult
 "Click {<link>here} to {action} this {item}." // conflicts with "don't translate inside placeholders"
+"Click <link% here %> to {action} this {item}."
+"Click {% link; here %} to {action} this {item}."
 ```
 
 
@@ -117,5 +120,5 @@ https://svelte.dev/docs/special-elements#slot
 ```yaml
 variable: Hello {name}
 getter: I said "{$t(slot)}" # flatMap
-slot: Please click {<slot1>here} or {<slot2>here}
+slot: Please click <slot1% here %>  or <slot2% here %>
 ```
