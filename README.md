@@ -110,11 +110,24 @@ Placeholder positions aren't needed.
 https://svelte.dev/docs/special-elements#slot
 
 ```svelte
+<!-- 4 -->
 <I18n key="example" variables={{ action: 'restart', item: 'server' }} let:link>
-	<a slot="link" class="font-bold" on:click={restart()}>{link}</a>
+	<a slot="link" class="font-bold" on:click={restart}>{link}</a>
 </I18n>
 ```
 
+```svelte
+<!-- 5 -->
+{#snippet link(text)}
+  <a class="font-bold" onclick={restart}>{text}</a>
+{/snippet}
+
+<I18n
+  key="example"
+  variables={{ action: 'restart', item: 'server' }} 
+  slots={{ link }}
+  />
+```
 
 
 ```yaml
