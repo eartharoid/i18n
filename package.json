@@ -1,6 +1,6 @@
 {
 	"name": "@eartharoid/i18n",
-	"version": "2.0.0-alpha.6",
+	"version": "3.0.0-alpha.1",
 	"description": "⚡ A super fast, small, and simple message localisation library",
 	"type": "module",
 	"types": "types/index.d.ts",
