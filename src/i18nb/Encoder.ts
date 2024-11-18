@@ -4,9 +4,6 @@ import type {
 } from '../types';
 import { GROUP_OPT_TYPES, PLACEHOLDER_TYPES } from './common/enums.js';
 
-const MSB = 0b10000000; // 128
-const REST = 0b01111111; // 127
-const INVERTED = ~REST; // -128
 const INT = 2 ** 31;
 
 export default class Encoder {
@@ -31,11 +28,11 @@ export default class Encoder {
 		// Based on https://github.com/chrisdickinson/varint/blob/master/encode.js
 		if (!Number.isSafeInteger(number)) throw new RangeError('Unsafe');
 		while (number >= INT) {
-			target[offset++] = (number & 0xFF) | MSB;
+			target[offset++] = (number & 0xFF) | 128;
 			number /= 128;
 		}
-		while (number & INVERTED) {
-			target[offset++] = (number & 0xFF) | MSB;
+		while (number & -128) {
+			target[offset++] = (number & 0xFF) | 128;
 			number >>>= 7;
 		}
 		target[offset] = number | 0;
@@ -47,22 +44,22 @@ export default class Encoder {
 	}
 
 	public *[Symbol.iterator](): Iterator<number> {
-		let prefix_segments = [];
+		let prefix_parts = [];
 
 		yield this.version;
 
 		for (const [k, v] of this.#messages) {
-			const key_segments = k.split('.');
-			if (key_segments.length > 1) {
-				if (key_segments.length > 255) {
-					throw new Error(`"${k}" is too deeply nested (${key_segments.length}>255)`);
+			const key_parts = k.split('.');
+			if (key_parts.length > 1) {
+				if (key_parts.length > 255) {
+					throw new Error(`"${k}" is too deeply nested (${key_parts.length}>255)`);
 				}
-				if (key_segments.length - 1 < prefix_segments.length) {
-					prefix_segments = prefix_segments.slice(0, key_segments.length - 1);
+				if (key_parts.length - 1 < prefix_parts.length) {
+					prefix_parts = prefix_parts.slice(0, key_parts.length - 1);
 				}
 				let depth = null;
-				for (let p = 0; p < key_segments.length - 1; p++) {
-					if (key_segments[p] !== prefix_segments[p]) {
+				for (let p = 0; p < key_parts.length - 1; p++) {
+					if (key_parts[p] !== prefix_parts[p]) {
 						depth = p;
 						yield 0; // record type
 						yield depth;
@@ -70,25 +67,25 @@ export default class Encoder {
 					}
 				}
 				if (depth !== null) {
-					const new_segments = key_segments.slice(depth, key_segments.length - ('q' in v ? 0 : 1));
-					prefix_segments = [
-						...prefix_segments.slice(0, depth),
-						...new_segments,
+					const new_parts = key_parts.slice(depth, key_parts.length - ('q' in v ? 0 : 1));
+					prefix_parts = [
+						...prefix_parts.slice(0, depth),
+						...new_parts,
 					];
-					const encoded_segments = new_segments.map(segment => this.#encodeText(segment));
-					const segment_lengths = encoded_segments.map((buffer, i) => {
+					const encoded_parts = new_parts.map(part => this.#encodeText(part));
+					const part_lengths = encoded_parts.map((buffer, i) => {
 						if (buffer.length > 255) {
-							throw new Error(`Segment "${encoded_segments[i]}" is too long (${buffer.length}>255)`);
+							throw new Error(`part "${encoded_parts[i]}" is too long (${buffer.length}>255)`);
 						}
 						return buffer.length;
 					});
-					yield segment_lengths.length;
-					yield* segment_lengths;
-					for (const segment of encoded_segments) yield* segment;
+					yield part_lengths.length;
+					yield* part_lengths;
+					for (const part of encoded_parts) yield* part;
 
 					if ('q' in v) {
 						const lengths: number[] = [];
-						const last_segment = key_segments[key_segments.length - 1];
+						const last_part = key_parts[key_parts.length - 1];
 						const entries = Object.entries(v.q)
 							.map(([ok, ov]) => {
 								let ek: number[] | Uint8Array = [],
@@ -96,12 +93,12 @@ export default class Encoder {
 								switch (ok) {
 								case 'cardinal': {
 									ek = [GROUP_OPT_TYPES.cardinal];
-									if (ov !== last_segment) ev = this.#encodeText(ov);
+									if (ov !== last_part) ev = this.#encodeText(ov);
 									break;
 								}
 								case 'ordinal': {
 									ek = [GROUP_OPT_TYPES.ordinal];
-									if (ov !== last_segment) ev = this.#encodeText(ov);
+									if (ov !== last_part) ev = this.#encodeText(ov);
 									break;
 								}
 								default: {
@@ -121,8 +118,8 @@ export default class Encoder {
 					}
 
 				}
-			} else if (prefix_segments.length > 0) {
-				prefix_segments = [];
+			} else if (prefix_parts.length > 0) {
+				prefix_parts = [];
 				yield 0; // record type
 				yield 0; // depth
 				yield 0; // prefix list length
@@ -130,7 +127,7 @@ export default class Encoder {
 
 			if ('q' in v) continue;
 
-			const trimmed_key = prefix_segments.length > 0 ? k.slice(prefix_segments.join('.').length + 1) : k;
+			const trimmed_key = prefix_parts.length > 0 ? k.slice(prefix_parts.join('.').length + 1) : k;
 			const encoded_trimmed_key = this.#encodeText(trimmed_key);
 			yield encoded_trimmed_key.length;
 			yield* encoded_trimmed_key;

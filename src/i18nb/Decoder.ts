@@ -1,8 +1,5 @@
 import type { ParsedMessage } from '../types';
 
-const MSB = 0b10000000; // 128
-const REST = 0b01111111; // 127
-
 export default class Decoder {
 	#textDecoder = new TextDecoder();
 	#stream: ReadableStream<Uint8Array>;
@@ -32,18 +29,18 @@ export default class Decoder {
 
 		let byte = buffer[offset++];
 
-		if (!(byte & MSB)) {
+		if (!(byte & 128)) {
 			// this.bytes = 1;
 			return byte;
 		}
 
-		let result = byte & REST;
+		let result = byte & 127;
 
 		const nextByte = (count: number, x: number, y: number) => {
 			byte = buffer[offset++];
 			if (byte === undefined) throw new Error('Unexpected end of bytes');
-			if (x) result |= (byte & REST) << x;
-			if (!(byte & MSB)) {
+			if (x) result |= (byte & 127) << x;
+			if (!(byte & 128)) {
 				// this.bytes = count;
 				return result | (byte << y);
 			}
