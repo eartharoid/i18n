@@ -28,12 +28,13 @@
 
 	const benchmark = new Benchmarkify(
 		'@eartharoid/i18n benchmarks',
-		{
-			chartImage: true,
-		}
+		{ chartImage: true },
 	).printHeader();
 
-	benchmark.createSuite('Parsing & loading', { time: 3e3, description: 'How long does it take to parse the file and load the messages?' })
+	benchmark.createSuite('Parsing & loading', {
+		time: 3e3,
+		description: 'How long does it take to parse the file and load the messages?',
+	})
 
 		.setup(async () => {
 			i18n = new I18n({ defer_extraction: false });
@@ -103,48 +104,53 @@
 			const json = JSON.parse(txt.json);
 			i18next.init({
 				lng: 'en',
-				resources: {
-					en: {
-						translation: json
-					},
-				},
+				resources: { en: { translation: json } },
 			});
 		});
 
-	benchmark.createSuite('Translating', { time: 5e3, description: 'Getting a message and filling its placeholders' })
+	benchmark.createSuite('Translating', {
+		time: 5e3,
+		description: 'Getting a message and filling its placeholders',
+	})
 		.setup(async () => {
 			i18n = new I18n({ defer_extraction: false });
 			i18n.load('en', parsed.json);
 			i18n_deferred = new I18n({ defer_extraction: true });
 			i18n_deferred.load('en', parsed.json);
-			i18n1 = new I18n1('en', {
-				en: parsed.json
-			});
+			i18n1 = new I18n1('en', { en: parsed.json });
 			// i18next = await import('i18next');
 			i18next = require('i18next');
 			i18next.init({
 				lng: 'en',
-				resources: {
-					en: {
-						translation: parsed.json
-					},
-				},
+				resources: { en: { translation: parsed.json } },
 			});
 		})
 		.ref('i18n', () => {
-			i18n.t('en', 'commands.user.create.sent.description', { user: 'Bob', category: 'Earth' });
+			i18n.t('en', 'commands.user.create.sent.description', {
+				user: 'Bob',
+				category: 'Earth',
+			});
 		})
 
 		.add('i18n, deferred', () => {
-			i18n_deferred.t('en', 'commands.user.create.sent.description', { user: 'Bob', category: 'Earth' });
+			i18n_deferred.t('en', 'commands.user.create.sent.description', {
+				user: 'Bob',
+				category: 'Earth',
+			});
 		})
 
 		.add('i18n v1', () => {
-			i18n1.getMessage('en', 'commands.user.create.sent.description', { user: 'Bob', category: 'Earth' });
+			i18n1.getMessage('en', 'commands.user.create.sent.description', {
+				user: 'Bob',
+				category: 'Earth',
+			});
 		})
 
 		.add('i18next', () => {
-			i18next.t('commands.user.create.sent.description', { user: 'Bob', category: 'Earth' });
+			i18next.t('commands.user.create.sent.description', {
+				user: 'Bob',
+				category: 'Earth',
+			});
 		});
 
 	benchmark.run();

@@ -1,6 +1,6 @@
 import {
 	ParsedMessages,
-	RawMessages
+	RawMessages,
 } from '@eartharoid/i18n';
 
 export interface JSONModule {

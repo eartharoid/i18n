@@ -5,9 +5,7 @@ import VarIntDecoder from '../dist/lib/varint/decode.js';
 
 const benchmark = new Benchmarkify(
 	'varint benchmarks',
-	{
-		chartImage: true,
-	}
+	{ chartImage: true },
 ).printHeader();
 
 const INPUT = 576;

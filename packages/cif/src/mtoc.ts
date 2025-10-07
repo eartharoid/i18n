@@ -1,4 +1,6 @@
-import type { ExtractedMessageObject, ParsedMessages } from '@eartharoid/i18n/types/types.js';
+import type {
+	ExtractedMessageObject, ParsedMessages,
+} from '@eartharoid/i18n/types/types.js';
 import control from './control.js';
 
 export default function mtoc(messages: ParsedMessages): string {
@@ -19,7 +21,7 @@ export default function mtoc(messages: ParsedMessages): string {
 			value.p.forEach(([pos, data]) => {
 				let name: string;
 				if ('v' in data) name = data.v;
-				else name = JSON.stringify(data);	
+				else name = JSON.stringify(data);
 				cif += '\t' + pos + '\t' + name;
 			});
 		}
@@ -28,7 +30,7 @@ export default function mtoc(messages: ParsedMessages): string {
 		} else { // if ('t' in value)
 			cif += control.US + (<ExtractedMessageObject>value).t + control.RS;
 		}
-		
+
 	}
 	return cif.slice(0, -1); // remove trailing new line
 }

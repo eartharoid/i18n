@@ -17,8 +17,8 @@ export default defineConfig({
 			// },
 			parser: YAML.parse,
 			id_regex: /((?<locale>[a-z0-9-_]+)\/)((_(?<namespace>[a-z0-9-_]+))|[a-z0-9-_]+)\.[a-z]+/i,
-			include: 'src/lib/locales/*/*.yml'
+			include: 'src/lib/locales/*/*.yml',
 		}),
 		sveltekit(),
-	]
+	],
 });

@@ -9,12 +9,12 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
-		"@eartharoid/vite-plugin-i18n": "workspace:^",
+		"@eartharoid/vite-plugin-i18n": "workspace:*",
 		"typescript": "^5.2.2",
 		"vite": "^5.1.1"
 	},
 	"dependencies": {
-		"@eartharoid/cif": "workspace:^",
-		"@eartharoid/i18n": "workspace:^"
+		"@eartharoid/cif": "workspace:*",
+		"@eartharoid/i18n": "workspace:*"
 	}
 }

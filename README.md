@@ -20,6 +20,7 @@ A WIP super small and incredibly fast localisation library *with no documentatio
 
 ## To-do
 
+- redo tests
 - i18nb encoder & decoder
 - I18nClient
 - `{< slot text >}` https://github.com/ivanhofer/typesafe-i18n/tree/main/packages/adapter-svelte#how-do-i-render-a-component-inside-a-translation
@@ -43,10 +44,10 @@ A WIP super small and incredibly fast localisation library *with no documentatio
 - https://store.crowdin.com/configurable-json-yaml
 - https://store.crowdin.com/yaml **supports comments for context**
 
-
 ## v3
 
 current:
+
 ```jsonc
 [
 	"ns:circular_2",
@@ -106,7 +107,6 @@ Placeholder positions aren't needed.
 "Click {% link; here %} to {action} this {item}."
 ```
 
-
 https://svelte.dev/docs/special-elements#slot
 
 ```svelte
@@ -128,6 +128,9 @@ https://svelte.dev/docs/special-elements#slot
   slots={{ link }}
   />
 ```
+
+https://lit.dev/ web components for other frameworks.
+
 
 
 ```yaml

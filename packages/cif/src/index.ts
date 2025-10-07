@@ -10,4 +10,6 @@
 import ctom from './ctom.js';
 import mtoc from './mtoc.js';
 
-export { ctom, mtoc };
+export {
+	ctom, mtoc,
+};

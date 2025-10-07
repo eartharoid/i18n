@@ -8,7 +8,9 @@
 'use strict';
 
 import type { Plugin } from 'vite';
-import type { I18nPluginOptions, I18nVitePlugin } from './types';
+import type {
+	I18nPluginOptions, I18nVitePlugin,
+} from './types';
 import type { RawMessages } from '@eartharoid/i18n';
 import { I18n } from '@eartharoid/i18n';
 import {
@@ -31,12 +33,14 @@ export default function I18nPlugin(options: I18nPluginOptions): Plugin<I18nViteP
 				// TODO: preprocess for i18next/weblate
 				const query = new URLSearchParams(qs ?? '');
 				const id_regex = options.id_regex || /(?<id>[a-z0-9-_]+)\.[a-z]+/i;
-				// eslint-disable-next-line prefer-const
-				let { locale, namespace } = id_regex.exec(normalised)?.groups || {};
+
+				let {
+					locale, namespace,
+				} = id_regex.exec(normalised)?.groups || {};
 				namespace = query.get('namespace') || namespace;
 				const i18n = new I18n({
 					default_locale_id: options.default,
-					defer_extraction: false
+					defer_extraction: false,
 				});
 				i18n.load(locale, parse(src), namespace);
 				if (options.default && locale !== options.default) {
@@ -50,7 +54,7 @@ export default function I18nPlugin(options: I18nPluginOptions): Plugin<I18nViteP
 				const json = [...i18n.locales.get(locale).entries()];
 				const data = {
 					json,
-					locale_id: locale
+					locale_id: locale,
 				};
 				return {
 					code: options.parser ? dataToEsm(data) : JSON.stringify(data),
@@ -66,6 +70,6 @@ export default function I18nPlugin(options: I18nPluginOptions): Plugin<I18nViteP
 					source: JSON.stringify(fallback_map),
 				});
 			}
-		}
+		},
 	};
 }

@@ -1,0 +1,42 @@
+{
+	"name": "@eartharoid/i18n",
+	"version": "3.0.0-alpha.1",
+	"description": "⚡ A super fast, small, and simple message localisation library",
+	"files": [
+		"dist/",
+		"types/"
+	],
+	"module": "src/index.ts",
+	"type": "module",
+	"types": "types/index.d.ts",
+	"exports": {
+		".": "./dist/index.js",
+		"./client": "./dist/client/index.js",
+		"./core": "./dist/client/index.js",
+		"./formatters": "./dist/formatters/index.js",
+		"./i18nb": "./dist/i18nb/index.js"
+	},
+	"bin": "./dist/bin/cli",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/eartharoid/i18n.git"
+	},
+	"author": "eartharoid",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/eartharoid/i18n/issues"
+	},
+	"homepage": "https://github.com/eartharoid/i18n#readme",
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"keywords": [
+		"fast",
+		"internationalisation",
+		"internationalization",
+		"i18n"
+	]
+}

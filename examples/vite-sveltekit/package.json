@@ -34,8 +34,8 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@eartharoid/i18n": "workspace:^",
-		"@eartharoid/vite-plugin-i18n": "workspace:^",
+		"@eartharoid/i18n": "workspace:*",
+		"@eartharoid/vite-plugin-i18n": "workspace:*",
 		"vite-plugin-inspect": "^0.8.3"
 	}
 }

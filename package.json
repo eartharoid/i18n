@@ -1,53 +1,22 @@
 {
-	"name": "@eartharoid/i18n",
-	"version": "3.0.0-alpha.1",
-	"description": "⚡ A super fast, small, and simple message localisation library",
-	"type": "module",
-	"types": "types/index.d.ts",
-	"exports": {
-		".": "./dist/index.js",
-		"./client": "./dist/client/index.js",
-		"./core": "./dist/client/index.js",
-		"./formatters": "./dist/formatters/index.js",
-		"./i18nb": "./dist/i18nb/index.js"
-	},
-	"files": [
-		"dist/",
-		"types/"
-	],
-	"bin": "./dist/bin/cli",
 	"scripts": {
-		"build": "tsc",
-		"build-and-test": "npm run build && npm run test",
 		"lint": "eslint src --ext .ts",
-		"lint-and-fix": "eslint src --ext .ts --fix",
-		"test": "ava ./test/*",
-		"watch:test": "ava ./test/* --watch",
+		"lint:fix": "eslint src --ext .ts --fix",
 		"prepack": "rimraf dist && rimraf types && pnpm run build"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/eartharoid/i18n.git"
-	},
-	"keywords": [
-		"fast",
-		"internationalisation",
-		"internationalization",
-		"i18n"
-	],
-	"author": "eartharoid",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/eartharoid/i18n/issues"
-	},
-	"homepage": "https://github.com/eartharoid/i18n#readme",
 	"devDependencies": {
-		"@types/node": "^20.14.9",
-		"@typescript-eslint/eslint-plugin": "^4.33.0",
-		"@typescript-eslint/parser": "^4.33.0",
-		"ava": "^5.3.1",
-		"eslint": "^7.32.0",
-		"rimraf": "^5.0.7",
-		"typescript": "^4.9.5"
-	}
+		"@eartharoid/eslint-rules-js": "^1.1.0",
+		"@eslint/js": "^9.28.0",
+		"@eslint/json": "^0.12.0",
+		"@eslint/markdown": "^6.5.0",
+		"@types/bun": "latest",
+		"eslint": "^9.28.0",
+		"globals": "^16.2.0",
+		"typescript-eslint": "^8.33.1"
+	},
+	"workspaces": [
+		"benchmark/*",
+		"examples/*",
+		"packages/*"
+	]
 }

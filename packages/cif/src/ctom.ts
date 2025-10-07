@@ -1,6 +1,6 @@
 import type {
 	ParsedMessage,
-	ParsedMessages
+	ParsedMessages,
 } from '@eartharoid/i18n/types/types.js';
 import control from './control.js';
 
@@ -38,7 +38,7 @@ export default function ctom(cif: string): ParsedMessages {
 						m.p.push([pos, name[0] === '{' ? JSON.parse(name) : { v: name }]);
 					}
 				}
-			} 
+			}
 			unmap[unmap.length] = [key, m]; // supposed to be faster than push?
 		}
 		return unmap;
